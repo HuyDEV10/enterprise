@@ -1,5 +1,10 @@
+package com.huy.enterprise.order;
+
+import java.util.List;
 import java.util.UUID;
 
+import jakarta.validation.Valid;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -21,11 +26,11 @@ public class PurchaseOrderController {
 
     @GetMapping("/{id}")
     public PurchaseOrder findById(@PathVariable UUID id) {
-        return purchaseOrderService.findById();
+        return purchaseOrderService.findById(id);
     }
 
     @PostMapping
-    public PurchaseOrder create(@Valid @RequestBody CreatePurchaseRequest request) {
+    public PurchaseOrder create(@Valid @RequestBody CreatePurchaseOrderRequest request) {
         return purchaseOrderService.create(request);
     }
 }

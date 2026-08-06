@@ -1,4 +1,4 @@
-package com.example.enterprise.user;
+package com.huy.enterprise.user;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.UUID;

@@ -1,8 +1,8 @@
-package com.example.enterprise.shipment;
+package com.huy.enterprise.shipment;
 
-import com.example.enterprise.common.BaseEntity;
-import com.example.enterprise.common.enums.ShipmentStatus;
-import com.example.enterprise.order.PurchaseOrder;
+import com.huy.enterprise.common.BaseEntity;
+import com.huy.enterprise.common.enums.ShipmentStatus;
+import com.huy.enterprise.order.PurchaseOrder;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;

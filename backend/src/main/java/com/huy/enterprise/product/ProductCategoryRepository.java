@@ -1,4 +1,4 @@
-package com.example.enterprise.product;
+package com.huy.enterprise.product;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.UUID;

@@ -1,6 +1,6 @@
-package com.example.enterprise.risk;
+package com.huy.enterprise.risk;
 
-import com.example.enterprise.common.enums.RiskEventStatus;
+import com.huy.enterprise.common.enums.RiskEventStatus;
 import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.UUID;
 

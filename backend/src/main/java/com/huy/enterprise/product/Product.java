@@ -1,7 +1,7 @@
-package com.example.enterprise.product;
+package com.huy.enterprise.product;
 
-import com.example.enterprise.common.BaseEntity;
-import com.example.enterprise.common.enums.RecordStatus;
+import com.huy.enterprise.common.BaseEntity;
+import com.huy.enterprise.common.enums.RecordStatus;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;

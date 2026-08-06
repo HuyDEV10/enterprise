@@ -1,10 +1,10 @@
-package com.huy.enterprise_risk_backend;
+package com.huy.enterprise;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class EnterpriseRiskBackendApplicationTests {
+class EnterpriseApplicationTests {
 
 	@Test
 	void contextLoads() {

@@ -1,4 +1,4 @@
-package com.example.enterprise.risk;
+package com.huy.enterprise.risk;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

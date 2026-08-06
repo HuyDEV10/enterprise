@@ -1,7 +1,7 @@
-package com.example.enterprise.user;
+package com.huy.enterprise.user;
 
-import com.example.enterprise.common.BaseEntity;
-import com.example.enterprise.common.enums.RecordStatus;
+import com.huy.enterprise.common.BaseEntity;
+import com.huy.enterprise.common.enums.RecordStatus;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;

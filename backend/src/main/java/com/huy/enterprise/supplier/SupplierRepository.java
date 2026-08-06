@@ -1,6 +1,6 @@
-package com.example.enterprise.supplier;
+package com.huy.enterprise.supplier;
 
-import com.example.enterprise.common.enums.RiskLevel;
+import com.huy.enterprise.common.enums.RiskLevel;
 import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.UUID;
 

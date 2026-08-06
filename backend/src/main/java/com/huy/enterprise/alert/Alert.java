@@ -1,5 +1,15 @@
 package com.huy.enterprise.alert;
 
+import java.time.OffsetDateTime;
+import com.huy.enterprise.common.BaseEntity;
+import com.huy.enterprise.common.enums.AlertPriority;
+import com.huy.enterprise.common.enums.AlertStatus;
+import com.huy.enterprise.risk.RiskEvent;
+import com.huy.enterprise.user.User;
+import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
+
 @Getter
 @Setter
 @Entity
