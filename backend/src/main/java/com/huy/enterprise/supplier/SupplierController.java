@@ -1,4 +1,4 @@
-package com.example.enterprise.supplier;
+package com.huy.enterprise.supplier;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

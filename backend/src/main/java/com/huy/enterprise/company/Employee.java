@@ -1,3 +1,17 @@
+package com.huy.enterprise.company;
+
+import com.huy.enterprise.common.BaseEntity;
+import com.huy.enterprise.common.enums.RecordStatus;
+import com.huy.enterprise.user.User;
+import jakarta.persistence.Column;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
+import lombok.Getter;
+import lombok.Setter;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;

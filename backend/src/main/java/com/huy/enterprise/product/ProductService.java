@@ -1,7 +1,7 @@
-package com.example.enterprise.product;
+package com.huy.enterprise.product;
 
-import com.example.enterprise.common.ResourceNotFoundException;
-import com.example.enterprise.common.enums.RecordStatus;
+import com.huy.enterprise.common.ResourceNotFoundException;
+import com.huy.enterprise.common.enums.RecordStatus;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import java.util.List;

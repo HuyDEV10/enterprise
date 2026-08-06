@@ -1,7 +1,21 @@
-import com.fasterxml.jackson.annotation.JsonIgnore;
+package com.huy.enterprise.order;
 
+import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.huy.enterprise.common.BaseEntity;
+import com.huy.enterprise.common.enums.PurchaseOrderStatus;
+import com.huy.enterprise.supplier.Supplier;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
@@ -22,7 +36,7 @@ public class PurchaseOrder extends BaseEntity {
     private Supplier supplier;
     @Column(name = "order_date", nullable = false)
     private LocalDate orderDate;
-    @Column(name = "expected_delivery_date", nullable = false)
+    @Column(name = "expected_delivery_date")
     private LocalDate expectedDeliveryDate;
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 30)

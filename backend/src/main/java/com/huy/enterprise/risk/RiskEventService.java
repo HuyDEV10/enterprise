@@ -1,11 +1,11 @@
-package com.example.enterprise.risk;
+package com.huy.enterprise.risk;
 
-import com.example.enterprise.common.ResourceNotFoundException;
-import com.example.enterprise.common.enums.RiskEventStatus;
-import com.example.enterprise.order.PurchaseOrderRepository;
-import com.example.enterprise.product.ProductRepository;
-import com.example.enterprise.shipment.ShipmentRepository;
-import com.example.enterprise.supplier.SupplierRepository;
+import com.huy.enterprise.common.ResourceNotFoundException;
+import com.huy.enterprise.common.enums.RiskEventStatus;
+import com.huy.enterprise.order.PurchaseOrderRepository;
+import com.huy.enterprise.product.ProductRepository;
+import com.huy.enterprise.shipment.ShipmentRepository;
+import com.huy.enterprise.supplier.SupplierRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import java.time.OffsetDateTime;

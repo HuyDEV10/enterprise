@@ -1,4 +1,6 @@
-public record DashboardSummaryReponse(
+package com.huy.enterprise.dashboard;
+
+public record DashboardSummaryResponse(
         long totalSuppliers,
         long highRiskSuppliers,
         long totalPurchaseOrders,
