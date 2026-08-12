@@ -29,7 +29,7 @@
 	</scm>
 	<properties>
 		<java.version>21</java.version>
-		<start-class>com.example.enterprise.EnterpriseApplication</start-class>
+		<start-class>com.huy.enterprise.EnterpriseApplication</start-class>
 	</properties>
 	<dependencies>
 		<dependency>

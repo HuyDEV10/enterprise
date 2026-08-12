@@ -1,7 +1,1 @@
-package com.example.enterprise.shipment;
-
-import org.springframework.data.jpa.repository.JpaRepository;
-import java.util.UUID;
-
-public interface ShipmentRepository extends JpaRepository<Shipment, UUID> {
-}
+package com.huy.enterprise.shipment; import org.springframework.data.jpa.repository.JpaRepository; import java.util.UUID; import java.util.*;  public interface ShipmentRepository extends JpaRepository<Shipment,UUID> { boolean existsByShipmentCode(String code);}

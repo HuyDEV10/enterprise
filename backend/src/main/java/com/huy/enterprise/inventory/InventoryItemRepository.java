@@ -1,5 +1,1 @@
-public interface InventoryItemRepository extends JpaRepository<InventoryItem, UUID> {
-    @Query("SELECT COUNT(i) FROM InventoryItem i WHERE i.quantity < i.lowStockThreshold")
-    long countLowStockItems();
-
-}
+package com.huy.enterprise.inventory; import org.springframework.data.jpa.repository.JpaRepository; import java.util.UUID; import com.huy.enterprise.product.Product; import java.util.*; import org.springframework.data.jpa.repository.Query;  public interface InventoryItemRepository extends JpaRepository<InventoryItem,UUID> { boolean existsByWarehouseAndProduct(Warehouse w,Product p); @Query("select i from InventoryItem i where i.quantity <= i.lowStockThreshold") List<InventoryItem> findLowStockItems(); @Query("select count(i) from InventoryItem i where i.quantity <= i.lowStockThreshold") long countLowStockItems();}

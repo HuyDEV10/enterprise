@@ -1,9 +1,1 @@
-package com.example.enterprise.supplier;
-
-import com.example.enterprise.common.enums.RiskLevel;
-import org.springframework.data.jpa.repository.JpaRepository;
-import java.util.UUID;
-
-public interface SupplierRepository extends JpaRepository<Supplier, UUID> {
-    long countByRiskLevel(RiskLevel riskLevel);
-}
+package com.huy.enterprise.supplier; import org.springframework.data.jpa.repository.JpaRepository; import java.util.UUID; import com.huy.enterprise.common.enums.RiskLevel; import java.util.*;  public interface SupplierRepository extends JpaRepository<Supplier,UUID> { long countByRiskLevel(RiskLevel riskLevel); Optional<Supplier> findBySupplierCode(String code); boolean existsBySupplierCode(String code); List<Supplier> findByRiskLevel(RiskLevel riskLevel);}

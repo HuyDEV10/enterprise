@@ -1,5 +1,1 @@
-import org.springframework.data.jpa.repository.JpaRepository;
-
-public interface CompanyRepository extends JpaRepository<Company, UUID> {
-
-}
+package com.huy.enterprise.company; import org.springframework.data.jpa.repository.JpaRepository; import java.util.UUID; import java.util.*;  public interface CompanyRepository extends JpaRepository<Company,UUID> { boolean existsByTaxCode(String taxCode);}

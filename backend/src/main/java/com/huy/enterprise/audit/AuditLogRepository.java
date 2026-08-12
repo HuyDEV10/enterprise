@@ -1,3 +1,1 @@
-public interface AuditLogRepository extends JpaRepository<AuditLog, UUID> {
-
-}
+package com.huy.enterprise.audit; import org.springframework.data.jpa.repository.JpaRepository; import java.util.UUID; import java.util.*;  public interface AuditLogRepository extends JpaRepository<AuditLog,UUID> {}

@@ -1,5 +1,1 @@
-package com.huy.enterprise.alert;
-
-public interface AlertRepository extends JpaRepository<Alert, UUID> {
-    long countByStatusIn(Collection<AlertStatus> statuses);
-}
+package com.huy.enterprise.alert; import org.springframework.data.jpa.repository.JpaRepository; import java.util.UUID; import com.huy.enterprise.common.enums.AlertStatus; import java.util.*;  public interface AlertRepository extends JpaRepository<Alert,UUID> { long countByStatusIn(Collection<AlertStatus> statuses);}
