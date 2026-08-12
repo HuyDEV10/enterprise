@@ -1,7 +1,7 @@
 package com.huy.enterprise.common.enums;
 
 public enum RiskType {
-    SUPPER,
+    SUPPLIER,
     INVENTORY,
     SHIPPING,
     FINANCIAL,

@@ -19,7 +19,7 @@ public class Alert extends BaseEntity {
     private String title;
     @Column(nullable = false)
     private String message;
-    @Column(name = "alert_type", nullable = false, length = 20)
+    @Column(name = "alert_type", nullable = false, length = 100)
     private String alertType;
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 30)
