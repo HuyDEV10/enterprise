@@ -1,7 +1,1 @@
-import java.util.UUID;
-
-import org.springframework.data.jpa.repository.JpaRepository;
-
-public interface PurchaseOrderRepository extends JpaRepository<PurchaseOrder, UUID> {
-    long countByStatus(PurchaseOrderStatus status);
-}
+package com.huy.enterprise.order; import org.springframework.data.jpa.repository.JpaRepository; import java.util.UUID; import com.huy.enterprise.common.enums.PurchaseOrderStatus; import java.util.*;  public interface PurchaseOrderRepository extends JpaRepository<PurchaseOrder,UUID> { long countByStatus(PurchaseOrderStatus status); boolean existsByOrderCode(String code);}

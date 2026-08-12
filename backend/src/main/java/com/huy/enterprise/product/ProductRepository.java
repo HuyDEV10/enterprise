@@ -1,7 +1,1 @@
-package com.example.enterprise.product;
-
-import org.springframework.data.jpa.repository.JpaRepository;
-import java.util.UUID;
-
-public interface ProductRepository extends JpaRepository<Product, UUID> {
-}
+package com.huy.enterprise.product; import org.springframework.data.jpa.repository.JpaRepository; import java.util.UUID; import java.util.*;  public interface ProductRepository extends JpaRepository<Product,UUID> { Optional<Product> findByProductCode(String code); boolean existsByProductCode(String code);}

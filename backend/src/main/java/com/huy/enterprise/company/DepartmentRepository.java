@@ -1,3 +1,1 @@
-public interface DepartmentRepository extends JpaRepository<Department, UUID> {
-
-}
+package com.huy.enterprise.company; import org.springframework.data.jpa.repository.JpaRepository; import java.util.UUID; import java.util.*;  public interface DepartmentRepository extends JpaRepository<Department,UUID> { boolean existsByCode(String code);}

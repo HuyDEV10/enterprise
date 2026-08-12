@@ -1,0 +1,1 @@
+package com.huy.enterprise.dashboard; public record DashboardSummaryResponse(long totalSuppliers,long highRiskSuppliers,long totalPurchaseOrders,long delayedPurchaseOrders,long openRiskEvents,long unresolvedAlerts,long lowStockItems){}

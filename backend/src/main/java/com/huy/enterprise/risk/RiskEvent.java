@@ -1,11 +1,11 @@
-package com.example.enterprise.risk;
+package com.huy.enterprise.risk;
 
-import com.example.enterprise.common.BaseEntity;
-import com.example.enterprise.common.enums.*;
-import com.example.enterprise.order.PurchaseOrder;
-import com.example.enterprise.product.Product;
-import com.example.enterprise.shipment.Shipment;
-import com.example.enterprise.supplier.Supplier;
+import com.huy.enterprise.common.BaseEntity;
+import com.huy.enterprise.common.enums.*;
+import com.huy.enterprise.order.PurchaseOrder;
+import com.huy.enterprise.product.Product;
+import com.huy.enterprise.shipment.Shipment;
+import com.huy.enterprise.supplier.Supplier;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;

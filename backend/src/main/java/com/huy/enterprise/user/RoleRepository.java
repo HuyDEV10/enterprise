@@ -1,7 +1,1 @@
-package com.example.enterprise.user;
-
-import org.springframework.data.jpa.repository.JpaRepository;
-import java.util.UUID;
-
-public interface RoleRepository extends JpaRepository<Role, UUID> {
-}
+package com.huy.enterprise.user; import org.springframework.data.jpa.repository.JpaRepository; import java.util.UUID; import java.util.*;  public interface RoleRepository extends JpaRepository<Role,UUID> {}

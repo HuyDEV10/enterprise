@@ -1,5 +1,1 @@
-import org.springframework.data.jpa.repository.JpaRepository;
-
-public interface PurchaseOrderItemRepository extends JpaRepository<PurchaseOrderItem, UUID> {
-
-}
+package com.huy.enterprise.order; import org.springframework.data.jpa.repository.JpaRepository; import java.util.UUID; import java.util.*;  public interface PurchaseOrderItemRepository extends JpaRepository<PurchaseOrderItem,UUID> {}
