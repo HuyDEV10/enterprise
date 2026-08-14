@@ -32,6 +32,7 @@ class Phase2ApiIntegrationTests {
     @Autowired PurchaseOrderItemRepository orderItems;
     @Autowired PurchaseOrderRepository orders;
     @Autowired InventoryItemRepository inventory;
+    @Autowired WarehouseRepository warehouses;
     @Autowired EmployeeRepository employees;
     @Autowired DepartmentRepository departments;
     @Autowired CompanyRepository companies;
@@ -47,6 +48,7 @@ class Phase2ApiIntegrationTests {
         orderItems.deleteAll();
         orders.deleteAll();
         inventory.deleteAll();
+        warehouses.deleteAll();
         employees.deleteAll();
         departments.deleteAll();
         companies.deleteAll();
