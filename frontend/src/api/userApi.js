@@ -1,0 +1,2 @@
+import apiClient from './apiClient'
+export const userApi={all:async()=>(await apiClient.get('/users')).data,roles:async()=>(await apiClient.get('/roles')).data,create:async(payload)=>(await apiClient.post('/users',payload)).data,setStatus:async(id,status)=>(await apiClient.patch(`/users/${id}/status`,{status})).data,setRoles:async(id,roles)=>(await apiClient.put(`/users/${id}/roles`,{roles})).data}

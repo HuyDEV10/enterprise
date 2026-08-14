@@ -1,11 +1,11 @@
-name: backend-ci
+name: phase-ci
 on:
   push:
-    branches: [ main, fix/stabilize-enterprise-runtime, phase2/complete-backend ]
+    branches: [ main, fix/stabilize-enterprise-runtime, phase2/complete-backend, phase3/react-frontend, phase4-auth-jwt-rbac ]
   pull_request:
     branches: [ main ]
 jobs:
-  test:
+  backend-test:
     runs-on: ubuntu-latest
     services:
       postgres:
@@ -14,33 +14,30 @@ jobs:
           POSTGRES_DB: enterprise_risk_db
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres
-        ports:
-          - 5432:5432
+        ports: ["5432:5432"]
         options: >-
-          --health-cmd="pg_isready -U postgres -d enterprise_risk_db"
-          --health-interval=5s
-          --health-timeout=5s
-          --health-retries=12
+          --health-cmd="pg_isready -U postgres -d enterprise_risk_db" --health-interval=5s --health-timeout=5s --health-retries=12
     env:
       DB_PORT: 5432
       DB_NAME: enterprise_risk_db
       DB_USER: postgres
       DB_PASSWORD: postgres
       SERVER_PORT: 8080
+      BOOTSTRAP_ADMIN_ENABLED: true
     steps:
       - uses: actions/checkout@v4
-      - name: Set up Java 21
-        uses: actions/setup-java@v4
-        with:
-          distribution: temurin
-          java-version: '21'
-          cache: maven
-      - name: Validate PowerShell startup script syntax
-        shell: pwsh
-        run: '[void][System.Management.Automation.Language.Parser]::ParseFile("$PWD/scripts/run-dev.ps1", [ref]$null, [ref]$null)'
-      - name: Make Maven wrapper executable
-        run: chmod +x mvnw
-      - name: Maven clean test
-        run: ./mvnw -f backend/pom.xml clean test
-      - name: Maven clean package
-        run: ./mvnw -f backend/pom.xml clean package
+      - uses: actions/setup-java@v4
+        with: {distribution: temurin, java-version: '21', cache: maven}
+      - run: chmod +x mvnw
+      - run: ./mvnw -f backend/pom.xml clean test
+      - run: ./mvnw -f backend/pom.xml clean package
+  frontend-build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: '22', cache: npm, cache-dependency-path: frontend/package-lock.json}
+      - working-directory: frontend
+        run: npm ci
+      - working-directory: frontend
+        run: npm run build

@@ -1,0 +1,4 @@
+import { useEffect,useState } from 'react'
+import { userApi } from '../api/userApi'
+import { getApiErrorMessage } from '../api/apiClient'
+export default function UsersPage(){const [users,setUsers]=useState([]);const [error,setError]=useState('');async function load(){try{setUsers(await userApi.all())}catch(e){setError(getApiErrorMessage(e))}}useEffect(()=>{load()},[]);return <section><div className="page-heading"><div><h1>Người dùng & phân quyền</h1><p>Quản lý tài khoản và vai trò hệ thống.</p></div></div>{error&&<div className="state error">{error}</div>}<div className="table-card"><table><thead><tr><th>Tài khoản</th><th>Họ tên</th><th>Email</th><th>Vai trò</th><th>Trạng thái</th></tr></thead><tbody>{users.map(u=><tr key={u.id}><td>{u.username}</td><td>{u.fullName}</td><td>{u.email}</td><td>{u.roles.join(', ')}</td><td>{u.status}</td></tr>)}</tbody></table></div></section>}
