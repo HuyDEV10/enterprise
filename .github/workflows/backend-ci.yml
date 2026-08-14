@@ -26,9 +26,11 @@ jobs:
           --health-retries=12
 
     env:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://localhost:5432/enterprise_risk_db
-      SPRING_DATASOURCE_USERNAME: postgres
-      SPRING_DATASOURCE_PASSWORD: postgres
+      DB_PORT: 5432
+      DB_NAME: enterprise_risk_db
+      DB_USER: postgres
+      DB_PASSWORD: postgres
+      SERVER_PORT: 8080
 
     steps:
       - uses: actions/checkout@v4
