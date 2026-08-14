@@ -5,7 +5,7 @@ spring:
   application:
     name: enterprise-risk-backend
   datasource:
-    url: jdbc:postgresql://localhost:${DB_PORT:5433}/${DB_NAME:enterprise_risk_db}
+    url: jdbc:postgresql://localhost:${DB_PORT:5432}/${DB_NAME:enterprise_risk_db}
     username: ${DB_USER:postgres}
     password: ${DB_PASSWORD:postgres}
   jpa:

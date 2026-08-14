@@ -1,0 +1,3 @@
+package com.huy.enterprise.company;
+import java.util.*; import jakarta.validation.Valid; import lombok.RequiredArgsConstructor; import org.springframework.http.HttpStatus; import org.springframework.web.bind.annotation.*;
+@RestController @RequestMapping("/api/departments") @RequiredArgsConstructor public class DepartmentController{private final DepartmentService service;@GetMapping public List<DepartmentResponse> all(){return service.all();}@PostMapping @ResponseStatus(HttpStatus.CREATED) public DepartmentResponse create(@Valid @RequestBody DepartmentRequest r){return service.create(r);}@PutMapping("/{id}") public DepartmentResponse update(@PathVariable UUID id,@Valid @RequestBody DepartmentRequest r){return service.update(id,r);}}
