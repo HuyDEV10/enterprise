@@ -1,0 +1,3 @@
+export function LoadingState({ text = 'Đang tải dữ liệu...' }) { return <div className="state-box"><span className="spinner" />{text}</div> }
+export function ErrorState({ message, onRetry }) { return <div className="state-box state-box--error"><strong>Không thể tải dữ liệu</strong><span>{message}</span>{onRetry && <button className="btn btn-secondary" onClick={onRetry}>Thử lại</button>}</div> }
+export function EmptyState({ title = 'Chưa có dữ liệu.', description, action }) { return <div className="state-box state-box--empty"><strong>{title}</strong>{description && <span>{description}</span>}{action}</div> }

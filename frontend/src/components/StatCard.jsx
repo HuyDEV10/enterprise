@@ -1,0 +1,1 @@
+export default function StatCard({ label, value, hint, tone = 'default' }) { return <article className={`stat-card stat-card--${tone}`}><span className="stat-label">{label}</span><strong>{value ?? 0}</strong>{hint && <small>{hint}</small>}</article> }

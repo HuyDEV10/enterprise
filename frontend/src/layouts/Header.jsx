@@ -1,0 +1,1 @@
+export default function Header(){return <header className="top-header"><div><strong>Enterprise Risk System</strong><span>Giám sát chuỗi cung ứng & rủi ro doanh nghiệp</span></div><div className="header-user"><span className="avatar">ER</span><div><strong>Demo User</strong><small>Giai đoạn 3 · Chưa bật xác thực</small></div></div></header>}

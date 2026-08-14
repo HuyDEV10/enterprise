@@ -1,0 +1,10 @@
+import { useEffect,useMemo,useState } from 'react'
+import { Link } from 'react-router-dom'
+import { riskEventApi } from '../api/riskEventApi'
+import { getApiErrorMessage } from '../api/apiClient'
+import PageHeader from '../components/PageHeader'
+import Badge from '../components/Badge'
+import { EmptyState,ErrorState,LoadingState } from '../components/States'
+import { formatDateTime } from '../utils/formatters'
+const weight={CRITICAL:4,HIGH:3,MEDIUM:2,LOW:1}
+export default function RiskListPage(){const[rows,setRows]=useState([]),[loading,setLoading]=useState(true),[error,setError]=useState('');const load=async()=>{setLoading(true);try{setRows(await riskEventApi.getAll());setError('')}catch(e){setError(getApiErrorMessage(e,'Không thể tải sự kiện rủi ro.'))}finally{setLoading(false)}};useEffect(()=>{load()},[]);const sorted=useMemo(()=>[...rows].sort((a,b)=>(weight[b.impactLevel]-weight[a.impactLevel])||(new Date(b.detectedAt)-new Date(a.detectedAt))),[rows]);return <><PageHeader title="Sự kiện rủi ro" description="Ưu tiên HIGH/CRITICAL và theo dõi trạng thái xử lý." actions={<Link className="btn btn-primary" to="/risks/new">+ Ghi nhận rủi ro</Link>}/>{loading?<LoadingState/>:error?<ErrorState message={error} onRetry={load}/>:sorted.length===0?<EmptyState title="Chưa có sự kiện rủi ro."/>:<div className="panel table-wrap"><table><thead><tr><th>Tiêu đề</th><th>Loại</th><th>Mức ảnh hưởng</th><th>Phát hiện</th><th>Trạng thái</th><th>Liên quan</th><th></th></tr></thead><tbody>{sorted.map(r=>{const related=r.supplierId?'Supplier':r.productId?'Product':r.purchaseOrderId?'Purchase Order':r.shipmentId?'Shipment':'—';return <tr key={r.id}><td><Link className="table-link" to={`/risks/${r.id}`}>{r.title}</Link></td><td>{r.riskType}</td><td><Badge value={r.impactLevel}/></td><td>{formatDateTime(r.detectedAt)}</td><td><Badge value={r.status}/></td><td>{related}</td><td className="row-actions"><Link to={`/risks/${r.id}`}>Xem</Link><Link to={`/risks/${r.id}/edit`}>Sửa</Link></td></tr>})}</tbody></table></div>}</>}

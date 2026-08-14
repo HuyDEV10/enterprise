@@ -9,6 +9,10 @@ target/
 .env.*
 !.env.example
 
+# Frontend dependencies/build output
+node_modules/
+dist/
+
 ### STS ###
 .apt_generated
 .classpath
