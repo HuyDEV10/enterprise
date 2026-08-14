@@ -5,6 +5,15 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.huy.enterprise.alert.AlertRepository;
+import com.huy.enterprise.company.*;
+import com.huy.enterprise.inventory.*;
+import com.huy.enterprise.order.*;
+import com.huy.enterprise.product.*;
+import com.huy.enterprise.risk.RiskEventRepository;
+import com.huy.enterprise.shipment.ShipmentRepository;
+import com.huy.enterprise.supplier.SupplierRepository;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -17,6 +26,34 @@ import org.springframework.test.web.servlet.*;
 class Phase2ApiIntegrationTests {
     @Autowired MockMvc mvc;
     @Autowired ObjectMapper json;
+    @Autowired AlertRepository alerts;
+    @Autowired RiskEventRepository risks;
+    @Autowired ShipmentRepository shipments;
+    @Autowired PurchaseOrderItemRepository orderItems;
+    @Autowired PurchaseOrderRepository orders;
+    @Autowired InventoryItemRepository inventory;
+    @Autowired EmployeeRepository employees;
+    @Autowired DepartmentRepository departments;
+    @Autowired CompanyRepository companies;
+    @Autowired ProductRepository products;
+    @Autowired ProductCategoryRepository categories;
+    @Autowired SupplierRepository suppliers;
+
+    @BeforeEach
+    void cleanBusinessData() {
+        alerts.deleteAll();
+        risks.deleteAll();
+        shipments.deleteAll();
+        orderItems.deleteAll();
+        orders.deleteAll();
+        inventory.deleteAll();
+        employees.deleteAll();
+        departments.deleteAll();
+        companies.deleteAll();
+        products.deleteAll();
+        categories.deleteAll();
+        suppliers.deleteAll();
+    }
 
     private JsonNode postJson(String path, String body) throws Exception {
         MvcResult result = mvc.perform(post(path).contentType(MediaType.APPLICATION_JSON).content(body))
@@ -66,10 +103,10 @@ class Phase2ApiIntegrationTests {
           """);
         String warehouseId = warehouse.get("id").asText();
 
-        JsonNode inventory = postJson("/api/inventory", """
+        JsonNode item = postJson("/api/inventory", """
           {"warehouseId":"%s","productId":"%s","quantity":10,"lowStockThreshold":10}
           """.formatted(warehouseId, productId));
-        String inventoryId = inventory.get("id").asText();
+        String inventoryId = item.get("id").asText();
         mvc.perform(get("/api/inventory/low-stock")).andExpect(status().isOk())
                 .andExpect(jsonPath("$[?(@.id=='" + inventoryId + "')]").exists());
 
