@@ -1,29 +1,3 @@
 package com.huy.enterprise.risk;
-
-import jakarta.validation.Valid;
-import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.*;
-import java.util.List;
-import java.util.UUID;
-
-@RestController
-@RequestMapping("/api/risk-events")
-@RequiredArgsConstructor
-public class RiskEventController {
-    private final RiskEventService riskEventService;
-
-    @GetMapping
-    public List<RiskEvent> findAll() {
-        return riskEventService.findAll();
-    }
-
-    @GetMapping("/{id}")
-    public RiskEvent findById(@PathVariable UUID id) {
-        return riskEventService.findById(id);
-    }
-
-    @PostMapping
-    public RiskEvent create(@Valid @RequestBody CreateRiskEventRequest request) {
-        return riskEventService.create(request);
-    }
-}
+import java.util.*; import jakarta.validation.Valid; import lombok.RequiredArgsConstructor; import org.springframework.http.HttpStatus; import org.springframework.web.bind.annotation.*;
+@RestController @RequestMapping("/api/risk-events") @RequiredArgsConstructor public class RiskEventController{private final RiskEventService service;@GetMapping public List<RiskEventResponse> all(){return service.all();}@GetMapping("/{id}") public RiskEventResponse one(@PathVariable UUID id){return service.one(id);}@PostMapping @ResponseStatus(HttpStatus.CREATED) public RiskEventResponse create(@Valid @RequestBody CreateRiskEventRequest r){return service.create(r);}@PutMapping("/{id}") public RiskEventResponse update(@PathVariable UUID id,@Valid @RequestBody UpdateRiskEventRequest r){return service.update(id,r);}@PatchMapping("/{id}/status") public RiskEventResponse status(@PathVariable UUID id,@Valid @RequestBody UpdateRiskEventStatusRequest r){return service.status(id,r.status());}}

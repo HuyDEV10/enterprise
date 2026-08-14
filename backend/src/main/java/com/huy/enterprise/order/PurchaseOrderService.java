@@ -1,64 +1,10 @@
 package com.huy.enterprise.order;
-
-import java.math.BigDecimal;
-import java.util.List;
-import java.util.UUID;
-
-import com.huy.enterprise.common.ResourceNotFoundException;
-import com.huy.enterprise.common.enums.PurchaseOrderStatus;
-import com.huy.enterprise.product.Product;
-import com.huy.enterprise.product.ProductRepository;
-import com.huy.enterprise.supplier.Supplier;
-import com.huy.enterprise.supplier.SupplierRepository;
-import org.springframework.stereotype.Service;
-
-import lombok.RequiredArgsConstructor;
-
-@Service
-@RequiredArgsConstructor
-public class PurchaseOrderService {
-    private final PurchaseOrderRepository purchaseOrderRepository;
-    private final SupplierRepository supplierRepository;
-    private final ProductRepository productRepository;
-
-    public List<PurchaseOrder> findAll() {
-        return purchaseOrderRepository.findAll();
-    }
-
-    public PurchaseOrder findById(UUID id) {
-        return purchaseOrderRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Purchase order not found: " + id));
-    }
-
-    public PurchaseOrder create(CreatePurchaseOrderRequest request) {
-        Supplier supplier = supplierRepository.findById(request.supplierId())
-                .orElseThrow(() -> new ResourceNotFoundException("Supplier not found: " + request.supplierId()));
-
-        PurchaseOrder purchaseOrder = new PurchaseOrder();
-        purchaseOrder.setOrderCode(request.orderCode());
-        purchaseOrder.setSupplier(supplier);
-        purchaseOrder.setOrderDate(request.orderDate());
-        purchaseOrder.setExpectedDeliveryDate(request.expectedDeliveryDate());
-        purchaseOrder.setStatus(request.status() == null ? PurchaseOrderStatus.DRAFT : request.status());
-        purchaseOrder.setNotes(request.notes());
-
-        BigDecimal totalAmount = BigDecimal.ZERO;
-        for (CreatePurchaseOrderItemRequest itemRequest : request.items()) {
-            if (itemRequest.quantity().signum() <= 0 || itemRequest.unitPrice().signum() <= 0) {
-                throw new IllegalArgumentException("Purchase order item quantity and unit price must be positive");
-            }
-            Product product = productRepository.findById(itemRequest.productId())
-                    .orElseThrow(() -> new ResourceNotFoundException("Product not found: " + itemRequest.productId()));
-            PurchaseOrderItem item = new PurchaseOrderItem();
-            item.setPurchaseOrder(purchaseOrder);
-            item.setProduct(product);
-            item.setQuantity(itemRequest.quantity());
-            item.setUnitPrice(itemRequest.unitPrice());
-            item.setLineTotal(itemRequest.quantity().multiply(itemRequest.unitPrice()));
-            purchaseOrder.getItems().add(item);
-            totalAmount = totalAmount.add(item.getLineTotal());
-        }
-        purchaseOrder.setTotalAmount(totalAmount);
-        return purchaseOrderRepository.save(purchaseOrder);
-    }
-}
+import java.math.BigDecimal; import java.util.*; import com.huy.enterprise.common.*; import com.huy.enterprise.common.enums.PurchaseOrderStatus; import com.huy.enterprise.product.*; import com.huy.enterprise.supplier.*; import lombok.RequiredArgsConstructor; import org.springframework.stereotype.Service; import org.springframework.transaction.annotation.Transactional;
+@Service @RequiredArgsConstructor @Transactional(readOnly=true)
+public class PurchaseOrderService{private final PurchaseOrderRepository repository;private final SupplierRepository suppliers;private final ProductRepository products;
+public List<PurchaseOrderResponse> all(){return repository.findAll().stream().map(PurchaseOrderResponse::from).toList();}public PurchaseOrderResponse one(UUID id){return PurchaseOrderResponse.from(get(id));}
+@Transactional public PurchaseOrderResponse create(CreatePurchaseOrderRequest r){if(repository.existsByOrderCode(r.orderCode()))throw new ConflictException("Purchase order code already exists: "+r.orderCode());PurchaseOrder o=new PurchaseOrder();o.setOrderCode(r.orderCode());o.setStatus(r.status()==null?PurchaseOrderStatus.DRAFT:r.status());populate(o,r.supplierId(),r.orderDate(),r.expectedDeliveryDate(),r.notes(),r.items());return PurchaseOrderResponse.from(repository.save(o));}
+@Transactional public PurchaseOrderResponse update(UUID id,UpdatePurchaseOrderRequest r){PurchaseOrder o=get(id);populate(o,r.supplierId(),r.orderDate(),r.expectedDeliveryDate(),r.notes(),r.items());return PurchaseOrderResponse.from(repository.save(o));}
+@Transactional public PurchaseOrderResponse updateStatus(UUID id,PurchaseOrderStatus status){PurchaseOrder o=get(id);o.setStatus(status);return PurchaseOrderResponse.from(repository.save(o));}
+private PurchaseOrder get(UUID id){return repository.findById(id).orElseThrow(()->new ResourceNotFoundException("Purchase order not found: "+id));}
+private void populate(PurchaseOrder o,UUID supplierId,java.time.LocalDate orderDate,java.time.LocalDate expected,String notes,List<CreatePurchaseOrderItemRequest> requests){o.setSupplier(suppliers.findById(supplierId).orElseThrow(()->new ResourceNotFoundException("Supplier not found: "+supplierId)));o.setOrderDate(orderDate);o.setExpectedDeliveryDate(expected);o.setNotes(notes);o.getItems().clear();BigDecimal total=BigDecimal.ZERO;for(CreatePurchaseOrderItemRequest r:requests){Product p=products.findById(r.productId()).orElseThrow(()->new ResourceNotFoundException("Product not found: "+r.productId()));PurchaseOrderItem i=new PurchaseOrderItem();i.setPurchaseOrder(o);i.setProduct(p);i.setQuantity(r.quantity());i.setUnitPrice(r.unitPrice());i.setLineTotal(r.quantity().multiply(r.unitPrice()));o.getItems().add(i);total=total.add(i.getLineTotal());}o.setTotalAmount(total);}}

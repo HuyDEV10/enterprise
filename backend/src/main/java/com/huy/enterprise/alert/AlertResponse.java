@@ -1,0 +1,3 @@
+package com.huy.enterprise.alert;
+import java.time.OffsetDateTime; import java.util.UUID; import com.huy.enterprise.common.enums.*;
+public record AlertResponse(UUID id,String title,String message,String alertType,AlertPriority priority,AlertStatus status,UUID recipientUserId,UUID riskEventId,OffsetDateTime resolvedAt){static AlertResponse from(Alert a){return new AlertResponse(a.getId(),a.getTitle(),a.getMessage(),a.getAlertType(),a.getPriority(),a.getStatus(),a.getRecipientUser()==null?null:a.getRecipientUser().getId(),a.getRiskEvent()==null?null:a.getRiskEvent().getId(),a.getResolvedAt());}}

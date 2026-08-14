@@ -1,0 +1,3 @@
+package com.huy.enterprise.risk;
+import java.time.OffsetDateTime; import java.util.UUID; import com.huy.enterprise.common.enums.*;
+public record RiskEventResponse(UUID id,String title,RiskType riskType,ImpactLevel impactLevel,String description,OffsetDateTime detectedAt,RiskEventStatus status,UUID supplierId,UUID productId,UUID purchaseOrderId,UUID shipmentId){static RiskEventResponse from(RiskEvent r){return new RiskEventResponse(r.getId(),r.getTitle(),r.getRiskType(),r.getImpactLevel(),r.getDescription(),r.getDetectedAt(),r.getStatus(),r.getSupplier()==null?null:r.getSupplier().getId(),r.getProduct()==null?null:r.getProduct().getId(),r.getPurchaseOrder()==null?null:r.getPurchaseOrder().getId(),r.getShipment()==null?null:r.getShipment().getId());}}

@@ -1,7 +1,3 @@
 package com.huy.enterprise.shipment;
-
-import org.springframework.data.jpa.repository.JpaRepository;
-import java.util.UUID;
-
-public interface ShipmentRepository extends JpaRepository<Shipment, UUID> {
-}
+import java.util.*; import org.springframework.data.jpa.repository.JpaRepository;
+public interface ShipmentRepository extends JpaRepository<Shipment,UUID>{boolean existsByShipmentCode(String shipmentCode);}
