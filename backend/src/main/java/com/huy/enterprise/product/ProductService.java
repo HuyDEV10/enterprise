@@ -1,38 +1,30 @@
 package com.huy.enterprise.product;
 
-import com.huy.enterprise.common.ResourceNotFoundException;
+import com.huy.enterprise.common.*;
 import com.huy.enterprise.common.enums.RecordStatus;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import java.util.List;
-import java.util.UUID;
+import org.springframework.transaction.annotation.Transactional;
+import java.util.*;
 
-@Service
-@RequiredArgsConstructor
+@Service @RequiredArgsConstructor @Transactional(readOnly=true)
 public class ProductService {
-    private final ProductRepository productRepository;
-    private final ProductCategoryRepository productCategoryRepository;
-
-    public List<Product> findAll() {
-        return productRepository.findAll();
+    private final ProductRepository repository;
+    private final ProductCategoryRepository categoryRepository;
+    public List<ProductResponse> findAll() { return repository.findAll().stream().map(ProductResponse::from).toList(); }
+    public ProductResponse findById(UUID id) { return ProductResponse.from(get(id)); }
+    @Transactional public ProductResponse create(CreateProductRequest r) {
+        if (repository.existsByProductCode(r.productCode())) throw new ConflictException("Product code already exists: " + r.productCode());
+        Product p = new Product(); p.setProductCode(r.productCode()); apply(p, r.categoryId(), r.name(), r.unit(), r.referencePrice(), r.description(), r.status());
+        return ProductResponse.from(repository.save(p));
     }
-
-    public Product findById(UUID id) {
-        return productRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Product not found: " + id));
+    @Transactional public ProductResponse update(UUID id, UpdateProductRequest r) {
+        Product p = get(id); apply(p, r.categoryId(), r.name(), r.unit(), r.referencePrice(), r.description(), r.status()); return ProductResponse.from(repository.save(p));
     }
-
-    public Product create(CreateProductRequest request) {
-        Product p = new Product();
-        if (request.categoryId() != null)
-            p.setCategory(productCategoryRepository.findById(request.categoryId()).orElseThrow(
-                    () -> new ResourceNotFoundException("Product category not found: " + request.categoryId())));
-        p.setProductCode(request.productCode());
-        p.setName(request.name());
-        p.setUnit(request.unit());
-        p.setReferencePrice(request.referencePrice());
-        p.setDescription(request.description());
-        p.setStatus(request.status() == null ? RecordStatus.ACTIVE : request.status());
-        return productRepository.save(p);
+    @Transactional public void deactivate(UUID id) { Product p=get(id); p.setStatus(RecordStatus.INACTIVE); repository.save(p); }
+    private Product get(UUID id) { return repository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Product not found: " + id)); }
+    private void apply(Product p, UUID categoryId, String name, String unit, java.math.BigDecimal price, String description, RecordStatus status) {
+        p.setCategory(categoryId == null ? null : categoryRepository.findById(categoryId).orElseThrow(() -> new ResourceNotFoundException("Product category not found: " + categoryId)));
+        p.setName(name); p.setUnit(unit); p.setReferencePrice(price); p.setDescription(description); p.setStatus(status == null ? RecordStatus.ACTIVE : status);
     }
 }

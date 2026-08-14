@@ -1,9 +1,5 @@
 package com.huy.enterprise.inventory;
 
-import java.util.UUID;
-
 import org.springframework.data.jpa.repository.JpaRepository;
-
-public interface WarehouseRepository extends JpaRepository<Warehouse, UUID> {
-
-}
+import java.util.*;
+public interface WarehouseRepository extends JpaRepository<Warehouse,UUID>{boolean existsByWarehouseCode(String warehouseCode);}

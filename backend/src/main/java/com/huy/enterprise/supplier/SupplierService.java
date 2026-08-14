@@ -1,39 +1,50 @@
 package com.huy.enterprise.supplier;
 
-import com.huy.enterprise.common.ResourceNotFoundException;
-import com.huy.enterprise.common.enums.RecordStatus;
-import com.huy.enterprise.common.enums.RiskLevel;
+import com.huy.enterprise.common.*;
+import com.huy.enterprise.common.enums.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import java.util.List;
-import java.util.UUID;
+import org.springframework.transaction.annotation.Transactional;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 public class SupplierService {
-    private final SupplierRepository supplierRepository;
+    private final SupplierRepository repository;
 
-    public List<Supplier> findAll() {
-        return supplierRepository.findAll();
+    public List<SupplierResponse> findAll(RiskLevel riskLevel) {
+        List<Supplier> list = riskLevel == null ? repository.findAll() : repository.findByRiskLevel(riskLevel);
+        return list.stream().map(SupplierResponse::from).toList();
     }
 
-    public Supplier findById(UUID id) {
-        return supplierRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Supplier not found: " + id));
-    }
+    public SupplierResponse findById(UUID id) { return SupplierResponse.from(get(id)); }
 
-    public Supplier create(CreateSupplierRequest request) {
+    @Transactional
+    public SupplierResponse create(CreateSupplierRequest r) {
+        if (repository.existsBySupplierCode(r.supplierCode())) throw new ConflictException("Supplier code already exists: " + r.supplierCode());
         Supplier s = new Supplier();
-        s.setSupplierCode(request.supplierCode());
-        s.setName(request.name());
-        s.setEmail(request.email());
-        s.setPhone(request.phone());
-        s.setAddress(request.address());
-        s.setCountry(request.country());
-        s.setRegion(request.region());
-        s.setStatus(request.status() == null ? RecordStatus.ACTIVE : request.status());
-        s.setRiskLevel(request.riskLevel() == null ? RiskLevel.LOW : request.riskLevel());
-        s.setNotes(request.notes());
-        return supplierRepository.save(s);
+        s.setSupplierCode(r.supplierCode());
+        apply(s, r.name(), r.email(), r.phone(), r.address(), r.country(), r.region(), r.status(), r.riskLevel(), r.notes());
+        return SupplierResponse.from(repository.save(s));
+    }
+
+    @Transactional
+    public SupplierResponse update(UUID id, UpdateSupplierRequest r) {
+        Supplier s = get(id);
+        apply(s, r.name(), r.email(), r.phone(), r.address(), r.country(), r.region(), r.status(), r.riskLevel(), r.notes());
+        return SupplierResponse.from(repository.save(s));
+    }
+
+    @Transactional
+    public void deactivate(UUID id) {
+        Supplier s = get(id); s.setStatus(RecordStatus.INACTIVE); repository.save(s);
+    }
+
+    private Supplier get(UUID id) { return repository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Supplier not found: " + id)); }
+    private void apply(Supplier s, String name, String email, String phone, String address, String country, String region,
+            RecordStatus status, RiskLevel riskLevel, String notes) {
+        s.setName(name); s.setEmail(email); s.setPhone(phone); s.setAddress(address); s.setCountry(country); s.setRegion(region);
+        s.setStatus(status == null ? RecordStatus.ACTIVE : status); s.setRiskLevel(riskLevel == null ? RiskLevel.LOW : riskLevel); s.setNotes(notes);
     }
 }

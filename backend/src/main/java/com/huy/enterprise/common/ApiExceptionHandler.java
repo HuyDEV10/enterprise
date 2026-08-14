@@ -1,31 +1,47 @@
 package com.huy.enterprise.common;
 
 import java.time.OffsetDateTime;
-import java.util.Map;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import java.util.stream.Collectors;
+import jakarta.servlet.http.HttpServletRequest;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.http.*;
 import org.springframework.web.bind.MethodArgumentNotValidException;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
 @RestControllerAdvice
 public class ApiExceptionHandler {
-
     @ExceptionHandler(ResourceNotFoundException.class)
-    ResponseEntity<Map<String, Object>> handleNotFound(ResourceNotFoundException exception) {
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorBody(exception.getMessage()));
+    ResponseEntity<ApiErrorResponse> notFound(ResourceNotFoundException ex, HttpServletRequest req) {
+        return build(HttpStatus.NOT_FOUND, ex.getMessage(), req);
+    }
+
+    @ExceptionHandler({BusinessException.class, IllegalArgumentException.class, MethodArgumentTypeMismatchException.class})
+    ResponseEntity<ApiErrorResponse> badRequest(Exception ex, HttpServletRequest req) {
+        return build(HttpStatus.BAD_REQUEST, ex.getMessage(), req);
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    ResponseEntity<Map<String, Object>> handleValidation(MethodArgumentNotValidException exception) {
-        String message = exception.getBindingResult().getFieldErrors().stream()
-                .findFirst()
-                .map(error -> error.getField() + " " + error.getDefaultMessage())
-                .orElse("Invalid request data");
-        return ResponseEntity.badRequest().body(errorBody(message));
+    ResponseEntity<ApiErrorResponse> validation(MethodArgumentNotValidException ex, HttpServletRequest req) {
+        String message = ex.getBindingResult().getFieldErrors().stream()
+                .map(e -> e.getField() + " " + e.getDefaultMessage())
+                .distinct().collect(Collectors.joining("; "));
+        return build(HttpStatus.BAD_REQUEST, message.isBlank() ? "Invalid request data" : message, req);
     }
 
-    private Map<String, Object> errorBody(String message) {
-        return Map.of("timestamp", OffsetDateTime.now(), "message", message);
+    @ExceptionHandler({ConflictException.class, DataIntegrityViolationException.class})
+    ResponseEntity<ApiErrorResponse> conflict(Exception ex, HttpServletRequest req) {
+        String message = ex instanceof ConflictException ? ex.getMessage() : "Request conflicts with existing data";
+        return build(HttpStatus.CONFLICT, message, req);
+    }
+
+    @ExceptionHandler(Exception.class)
+    ResponseEntity<ApiErrorResponse> unexpected(Exception ex, HttpServletRequest req) {
+        return build(HttpStatus.INTERNAL_SERVER_ERROR, "Unexpected server error", req);
+    }
+
+    private ResponseEntity<ApiErrorResponse> build(HttpStatus status, String message, HttpServletRequest req) {
+        return ResponseEntity.status(status).body(new ApiErrorResponse(
+                OffsetDateTime.now(), status.value(), status.getReasonPhrase(), message, req.getRequestURI()));
     }
 }
