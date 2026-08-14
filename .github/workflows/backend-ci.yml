@@ -42,6 +42,17 @@ jobs:
           java-version: '21'
           cache: maven
 
+      - name: Validate PowerShell startup script syntax
+        shell: pwsh
+        run: |
+          $tokens = $null
+          $errors = $null
+          [System.Management.Automation.Language.Parser]::ParseFile("scripts/run-dev.ps1", [ref]$tokens, [ref]$errors) | Out-Null
+          if ($errors.Count -gt 0) {
+            $errors | ForEach-Object { Write-Error $_.Message }
+            exit 1
+          }
+
       - name: Make Maven wrapper executable
         run: chmod +x mvnw
 
