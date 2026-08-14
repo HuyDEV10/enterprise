@@ -57,15 +57,12 @@ $dbUser = Resolve-Setting "DB_USER" "postgres" $dotEnv
 $dbPassword = Resolve-Setting "DB_PASSWORD" "postgres" $dotEnv
 $serverPort = Resolve-Setting "SERVER_PORT" "8080" $dotEnv
 
-# Use one source of truth for Docker Compose and Spring Boot.
+# DB_* is the only local database configuration source used by Docker and Spring Boot.
 $env:DB_PORT = $dbPort
 $env:DB_NAME = $dbName
 $env:DB_USER = $dbUser
 $env:DB_PASSWORD = $dbPassword
 $env:SERVER_PORT = $serverPort
-$env:SPRING_DATASOURCE_URL = "jdbc:postgresql://localhost:$dbPort/$dbName"
-$env:SPRING_DATASOURCE_USERNAME = $dbUser
-$env:SPRING_DATASOURCE_PASSWORD = $dbPassword
 
 if ($ResetDatabase) {
     Write-Host "Resetting project PostgreSQL volume..."
@@ -97,9 +94,9 @@ if (-not $healthy) {
     throw "PostgreSQL did not become healthy."
 }
 
-# Existing Docker volumes keep the password from their first initialization.
-# Local Unix-socket access inside the official PostgreSQL image allows us to
-# synchronize the role password without deleting the user's data.
+# POSTGRES_PASSWORD only applies when a PostgreSQL volume is initialized for the first time.
+# If the user already has a volume with an older password, synchronize the database role
+# through the container's local socket so existing data does not need to be deleted.
 $escapedUser = $dbUser.Replace('"', '""')
 $escapedPassword = $dbPassword.Replace("'", "''")
 $alterRoleSql = "ALTER ROLE `"$escapedUser`" WITH PASSWORD '$escapedPassword';"
@@ -107,7 +104,7 @@ $alterRoleSql = "ALTER ROLE `"$escapedUser`" WITH PASSWORD '$escapedPassword';"
 Write-Host "Synchronizing PostgreSQL role password with project configuration..."
 docker exec $container psql --username $dbUser --dbname postgres --set ON_ERROR_STOP=1 --command $alterRoleSql
 if ($LASTEXITCODE -ne 0) {
-    throw "Could not synchronize PostgreSQL password. If the volume is not needed, run .\scripts\run-dev.ps1 -ResetDatabase once."
+    throw "Could not synchronize PostgreSQL password. If this development volume is disposable, run .\scripts\run-dev.ps1 -ResetDatabase once."
 }
 
 Write-Host "Verifying PostgreSQL TCP authentication..."
