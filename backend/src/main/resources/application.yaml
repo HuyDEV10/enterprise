@@ -5,9 +5,9 @@ spring:
   application:
     name: enterprise-risk-backend
   datasource:
-    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:${DB_PORT:5433}/${DB_NAME:enterprise_risk_db}}
-    username: ${SPRING_DATASOURCE_USERNAME:${DB_USER:postgres}}
-    password: ${SPRING_DATASOURCE_PASSWORD:${DB_PASSWORD:postgres}}
+    url: jdbc:postgresql://localhost:${DB_PORT:5433}/${DB_NAME:enterprise_risk_db}
+    username: ${DB_USER:postgres}
+    password: ${DB_PASSWORD:postgres}
   jpa:
     hibernate:
       ddl-auto: validate
