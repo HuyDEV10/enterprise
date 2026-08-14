@@ -28,7 +28,9 @@ import java.util.Set;
 class Phase4SecurityIntegrationTests {
     private static final String PASSWORD = "Test@123";
     private static final String ADMIN = "phase4_admin_test";
+    private static final String MANAGER = "phase4_manager_test";
     private static final String STAFF = "phase4_staff_test";
+    private static final String ANALYST = "phase4_analyst_test";
 
     @Autowired MockMvc mvc;
     @Autowired ObjectMapper json;
@@ -39,7 +41,9 @@ class Phase4SecurityIntegrationTests {
     @BeforeEach
     void prepareUsers() {
         createUser(ADMIN, "ADMIN");
+        createUser(MANAGER, "MANAGER");
         createUser(STAFF, "STAFF");
+        createUser(ANALYST, "ANALYST");
     }
 
     @Test
@@ -61,8 +65,7 @@ class Phase4SecurityIntegrationTests {
 
     @Test
     void protectedEndpointWithoutTokenReturns401() throws Exception {
-        mvc.perform(get("/api/auth/me"))
-                .andExpect(status().isUnauthorized());
+        mvc.perform(get("/api/auth/me")).andExpect(status().isUnauthorized());
     }
 
     @Test
@@ -72,13 +75,40 @@ class Phase4SecurityIntegrationTests {
     }
 
     @Test
-    void adminCanAccessUsersButStaffCannot() throws Exception {
+    void adminCanAccessUsersButOtherRolesCannot() throws Exception {
         String adminToken = login(ADMIN, PASSWORD);
-        String staffToken = login(STAFF, PASSWORD);
+        mvc.perform(get("/api/users").header("Authorization", "Bearer " + adminToken)).andExpect(status().isOk());
+        for (String username : new String[]{MANAGER, STAFF, ANALYST}) {
+            String token = login(username, PASSWORD);
+            mvc.perform(get("/api/users").header("Authorization", "Bearer " + token)).andExpect(status().isForbidden());
+        }
+    }
 
-        mvc.perform(get("/api/users").header("Authorization", "Bearer " + adminToken))
-                .andExpect(status().isOk());
-        mvc.perform(get("/api/users").header("Authorization", "Bearer " + staffToken))
+    @Test
+    void managerAndAnalystCanReadCompanyButStaffCannot() throws Exception {
+        String managerToken = login(MANAGER, PASSWORD);
+        String analystToken = login(ANALYST, PASSWORD);
+        String staffToken = login(STAFF, PASSWORD);
+        mvc.perform(get("/api/companies").header("Authorization", "Bearer " + managerToken)).andExpect(status().isOk());
+        mvc.perform(get("/api/companies").header("Authorization", "Bearer " + analystToken)).andExpect(status().isOk());
+        mvc.perform(get("/api/companies").header("Authorization", "Bearer " + staffToken)).andExpect(status().isForbidden());
+    }
+
+    @Test
+    void staffCannotAccessRiskEventsWhileAnalystCanReadThem() throws Exception {
+        String staffToken = login(STAFF, PASSWORD);
+        String analystToken = login(ANALYST, PASSWORD);
+        mvc.perform(get("/api/risk-events").header("Authorization", "Bearer " + staffToken)).andExpect(status().isForbidden());
+        mvc.perform(get("/api/risk-events").header("Authorization", "Bearer " + analystToken)).andExpect(status().isOk());
+    }
+
+    @Test
+    void analystIsReadOnlyForGeneralBusinessModules() throws Exception {
+        String analystToken = login(ANALYST, PASSWORD);
+        mvc.perform(get("/api/suppliers").header("Authorization", "Bearer " + analystToken)).andExpect(status().isOk());
+        mvc.perform(post("/api/suppliers").header("Authorization", "Bearer " + analystToken)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("{\"supplierCode\":\"RBAC-A\",\"name\":\"Analyst Write Test\",\"email\":\"a@test.local\",\"riskLevel\":\"LOW\"}"))
                 .andExpect(status().isForbidden());
     }
 
