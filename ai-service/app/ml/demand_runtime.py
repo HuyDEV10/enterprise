@@ -4,6 +4,7 @@ from datetime import date, timedelta
 from typing import Any, Sequence
 
 import numpy as np
+import pandas as pd
 
 from app.ml.demand_features import FEATURE_COLUMNS, feature_vector_from_history
 
@@ -26,7 +27,8 @@ def predict_next(bundle: dict[str, Any], history: Sequence[float], target_date: 
         if feature_columns != FEATURE_COLUMNS:
             raise ValueError("Model feature contract does not match the current service")
         vector = feature_vector_from_history(history, target_date)
-        raw_prediction = float(estimator.predict([vector])[0])
+        feature_frame = pd.DataFrame([vector], columns=FEATURE_COLUMNS)
+        raw_prediction = float(estimator.predict(feature_frame)[0])
 
     if not np.isfinite(raw_prediction):
         raise ValueError("Model returned a non-finite forecast")
