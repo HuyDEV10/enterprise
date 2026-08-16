@@ -8,6 +8,7 @@ import org.springframework.data.repository.query.Param;
 import java.time.LocalDate;
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 public interface ShipmentRepository extends JpaRepository<Shipment, UUID> {
@@ -22,4 +23,8 @@ public interface ShipmentRepository extends JpaRepository<Shipment, UUID> {
     List<Shipment> findOverdueShipments(
             @Param("today") LocalDate today,
             @Param("statuses") Collection<ShipmentStatus> statuses);
+
+    Optional<Shipment> findFirstByPurchaseOrderIdAndStatusInOrderByExpectedArrivalDateAsc(
+            UUID purchaseOrderId,
+            Collection<ShipmentStatus> statuses);
 }

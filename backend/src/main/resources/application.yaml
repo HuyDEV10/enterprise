@@ -43,3 +43,4 @@ app:
     base-url: ${AI_SERVICE_BASE_URL:http://localhost:8000}
     connect-timeout-ms: ${AI_SERVICE_CONNECT_TIMEOUT_MS:2000}
     read-timeout-ms: ${AI_SERVICE_READ_TIMEOUT_MS:5000}
+    inventory-risk-cron: ${AI_INVENTORY_RISK_CRON:0 */15 * * * *}

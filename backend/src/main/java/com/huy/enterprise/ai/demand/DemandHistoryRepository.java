@@ -15,4 +15,6 @@ public interface DemandHistoryRepository extends JpaRepository<DemandHistory, UU
             LocalDate to);
 
     long countByMappingId(UUID mappingId);
+
+    void deleteByMappingId(UUID mappingId);
 }

@@ -1,5 +1,6 @@
 package com.huy.enterprise.common;
 
+import com.huy.enterprise.ai.AiServiceUnavailableException;
 import java.time.OffsetDateTime;
 import java.util.stream.Collectors;
 import jakarta.servlet.http.HttpServletRequest;
@@ -15,6 +16,11 @@ public class ApiExceptionHandler {
     @ExceptionHandler(ResourceNotFoundException.class)
     ResponseEntity<ApiErrorResponse> notFound(ResourceNotFoundException ex, HttpServletRequest req) {
         return build(HttpStatus.NOT_FOUND, ex.getMessage(), req);
+    }
+
+    @ExceptionHandler(AiServiceUnavailableException.class)
+    ResponseEntity<ApiErrorResponse> aiUnavailable(AiServiceUnavailableException ex, HttpServletRequest req) {
+        return build(HttpStatus.SERVICE_UNAVAILABLE, ex.getMessage(), req);
     }
 
     @ExceptionHandler(AuthenticationException.class)
