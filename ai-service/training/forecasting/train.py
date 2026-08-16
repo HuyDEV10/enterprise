@@ -70,10 +70,13 @@ def _predict_candidate(bundle: dict[str, Any], history_frame: pd.DataFrame, eval
         elif bundle["model_name"] == BASELINE_ROLLING_MEAN_28:
             day_predictions = np.asarray([float(np.mean(histories[series_id][-28:])) for series_id in series_ids], dtype="float64")
         else:
-            matrix = np.asarray([
-                feature_vector_from_history(histories[series_id], forecast_date)
-                for series_id in series_ids
-            ], dtype="float64")
+            matrix = pd.DataFrame(
+                [
+                    feature_vector_from_history(histories[series_id], forecast_date)
+                    for series_id in series_ids
+                ],
+                columns=FEATURE_COLUMNS,
+            )
             day_predictions = np.asarray(bundle["estimator"].predict(matrix), dtype="float64")
 
         day_predictions = np.maximum(day_predictions, 0.0)
