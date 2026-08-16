@@ -35,7 +35,6 @@ import java.util.EnumSet;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
 import java.util.UUID;
 
@@ -76,7 +75,6 @@ public class ExternalEventImpactService {
         List<PurchaseOrderItem> allOrderItems = purchaseOrderItems.findAll();
         List<Shipment> allShipments = shipments.findAll();
         List<ExternalEventImpactResponse> result = new ArrayList<>();
-        Set<String> activeRiskRefs = new LinkedHashSet<>();
 
         for (Supplier supplier : suppliers.findAll()) {
             Exposure exposure = exposureFor(supplier, allOrders, allOrderItems, allShipments);
@@ -112,7 +110,6 @@ public class ExternalEventImpactService {
             if (scoring.signal() == ExternalEventSignal.RISK
                     && (scoring.impactLevel() == ImpactLevel.HIGH
                     || scoring.impactLevel() == ImpactLevel.CRITICAL)) {
-                activeRiskRefs.add(sourceRef);
                 ensureRisk(event, supplier, impact, sourceRef);
             } else {
                 resolveRisk(event, supplier);
@@ -147,7 +144,9 @@ public class ExternalEventImpactService {
                 .filter(order -> order.getSupplier().getId().equals(supplier.getId()))
                 .filter(order -> ACTIVE_ORDER_STATUSES.contains(order.getStatus()))
                 .toList();
-        Set<UUID> orderIds = activeOrders.stream().map(PurchaseOrder::getId).collect(java.util.stream.Collectors.toSet());
+        Set<UUID> orderIds = activeOrders.stream()
+                .map(PurchaseOrder::getId)
+                .collect(java.util.stream.Collectors.toSet());
         List<Shipment> activeShipments = allShipments.stream()
                 .filter(shipment -> orderIds.contains(shipment.getPurchaseOrder().getId()))
                 .filter(shipment -> ACTIVE_SHIPMENT_STATUSES.contains(shipment.getStatus()))
@@ -163,16 +162,16 @@ public class ExternalEventImpactService {
         int inventoryCovered = 0;
         int lowStock = 0;
         for (Product product : affectedProducts) {
+            if (!inventoryItems.existsByProductId(product.getId())) {
+                continue;
+            }
+            inventoryCovered++;
             BigDecimal quantity = inventoryItems.sumQuantityByProductId(product.getId());
             BigDecimal threshold = inventoryItems.sumLowStockThresholdByProductId(product.getId());
-            if ((quantity != null && quantity.compareTo(BigDecimal.ZERO) != 0)
-                    || (threshold != null && threshold.compareTo(BigDecimal.ZERO) != 0)) {
-                inventoryCovered++;
-                BigDecimal safeQuantity = quantity == null ? BigDecimal.ZERO : quantity;
-                BigDecimal safeThreshold = threshold == null ? BigDecimal.ZERO : threshold;
-                if (safeQuantity.compareTo(safeThreshold) <= 0) {
-                    lowStock++;
-                }
+            BigDecimal safeQuantity = quantity == null ? BigDecimal.ZERO : quantity;
+            BigDecimal safeThreshold = threshold == null ? BigDecimal.ZERO : threshold;
+            if (safeQuantity.compareTo(safeThreshold) <= 0) {
+                lowStock++;
             }
         }
         return new Exposure(activeOrders.size(), activeShipments.size(), affectedProducts.size(), inventoryCovered, lowStock);
@@ -228,12 +227,15 @@ public class ExternalEventImpactService {
                     .append("[weight=")
                     .append(entry.getValue().weight())
                     .append(", factor=")
-                    .append(entry.getValue().factor() == null ? "N/A" : String.format(java.util.Locale.ROOT, "%.2f", entry.getValue().factor()))
+                    .append(entry.getValue().factor() == null
+                            ? "N/A"
+                            : String.format(java.util.Locale.ROOT, "%.2f", entry.getValue().factor()))
                     .append(", reason=")
                     .append(entry.getValue().reason())
                     .append("]; ");
         }
-        builder.append("Missing components are excluded and available weights are renormalized. This is a business rule score, not a supervised ML prediction.");
+        builder.append("Missing components are excluded and available weights are renormalized. "
+                + "This is a business rule score, not a supervised ML prediction.");
         return builder.toString();
     }
 
@@ -264,20 +266,13 @@ public class ExternalEventImpactService {
             risk.setSourceRef(sourceRef);
             risk.setStatus(RiskEventStatus.OPEN);
             risk.setDetectedAt(OffsetDateTime.now());
-            risk.setRiskType(RiskType.SUPPLIER);
-            risk.setSupplier(supplier);
-            risk.setImpactLevel(impact.getImpactLevel());
-            risk.setTitle(title);
-            risk.setDescription(description);
-            risk = riskEvents.save(risk);
-        } else {
-            risk.setRiskType(RiskType.SUPPLIER);
-            risk.setSupplier(supplier);
-            risk.setImpactLevel(impact.getImpactLevel());
-            risk.setTitle(title);
-            risk.setDescription(description);
-            risk = riskEvents.save(risk);
         }
+        risk.setRiskType(RiskType.SUPPLIER);
+        risk.setSupplier(supplier);
+        risk.setImpactLevel(impact.getImpactLevel());
+        risk.setTitle(title);
+        risk.setDescription(description);
+        risk = riskEvents.save(risk);
         ensureAlert(risk);
     }
 
