@@ -74,13 +74,21 @@ class DemandForecastService:
         minimum_history_days = int(bundle.get("minimum_history_days", MIN_HISTORY_DAYS))
         quantities, last_history_date = self._validate_history(request, minimum_history_days)
 
+        forecast_anchor = (
+            request.forecastStartDate - timedelta(days=1)
+            if request.forecastStartDate is not None
+            else last_history_date
+        )
         predictions = recursive_forecast(
             bundle=bundle,
             history=quantities,
-            last_history_date=last_history_date,
+            last_history_date=forecast_anchor,
             horizon_days=28,
         )
-        points = [DemandForecastPoint(date=forecast_date, quantity=round(quantity, 4)) for forecast_date, quantity in predictions]
+        points = [
+            DemandForecastPoint(date=forecast_date, quantity=round(quantity, 4))
+            for forecast_date, quantity in predictions
+        ]
 
         def total(days: int) -> float:
             return round(sum(point.quantity for point in points[:days]), 4)
