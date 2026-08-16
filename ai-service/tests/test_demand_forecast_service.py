@@ -70,3 +70,17 @@ def test_service_returns_7_14_28_aggregates(tmp_path: Path) -> None:
     assert response.summary.next7Days > 0
     assert response.summary.next14Days >= response.summary.next7Days
     assert response.summary.next28Days >= response.summary.next14Days
+
+
+def test_service_can_anchor_forecast_to_enterprise_calendar(tmp_path: Path) -> None:
+    artifact = tmp_path / "model.joblib"
+    _write_baseline_bundle(artifact)
+    service = DemandForecastService(artifact)
+    forecast_start = date(2030, 5, 10)
+
+    response = service.forecast(
+        DemandForecastRequest(history=_history(56), forecastStartDate=forecast_start)
+    )
+
+    assert response.forecast[0].date == forecast_start
+    assert response.forecast[-1].date == forecast_start + timedelta(days=27)
