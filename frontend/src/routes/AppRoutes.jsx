@@ -1,4 +1,4 @@
-import { Navigate,Route,Routes } from 'react-router-dom'
+import { Navigate, Route, Routes } from 'react-router-dom'
 import MainLayout from '../layouts/MainLayout'
 import ProtectedRoute from '../auth/ProtectedRoute'
 import RoleProtectedRoute from '../auth/RoleProtectedRoute'
@@ -6,5 +6,74 @@ import LoginPage from '../pages/LoginPage'
 import AccessDeniedPage from '../pages/AccessDeniedPage'
 import UsersPage from '../pages/UsersPage'
 import DashboardPage from '../pages/DashboardPage'
-import SupplierListPage from '../pages/SupplierListPage';import SupplierFormPage from '../pages/SupplierFormPage';import SupplierDetailPage from '../pages/SupplierDetailPage';import ProductListPage from '../pages/ProductListPage';import ProductFormPage from '../pages/ProductFormPage';import CategoryPage from '../pages/CategoryPage';import WarehouseListPage from '../pages/WarehouseListPage';import WarehouseFormPage from '../pages/WarehouseFormPage';import InventoryPage from '../pages/InventoryPage';import InventoryFormPage from '../pages/InventoryFormPage';import PurchaseOrderListPage from '../pages/PurchaseOrderListPage';import PurchaseOrderFormPage from '../pages/PurchaseOrderFormPage';import PurchaseOrderDetailPage from '../pages/PurchaseOrderDetailPage';import ShipmentListPage from '../pages/ShipmentListPage';import ShipmentFormPage from '../pages/ShipmentFormPage';import ShipmentDetailPage from '../pages/ShipmentDetailPage';import RiskListPage from '../pages/RiskListPage';import RiskFormPage from '../pages/RiskFormPage';import RiskDetailPage from '../pages/RiskDetailPage';import AlertPage from '../pages/AlertPage';import AlertFormPage from '../pages/AlertFormPage';import CompanyPage from '../pages/CompanyPage';import NotFoundPage from '../pages/NotFoundPage'
-export default function AppRoutes(){return <Routes><Route path="/login" element={<LoginPage/>}/><Route path="/access-denied" element={<AccessDeniedPage/>}/><Route element={<ProtectedRoute/>}><Route element={<MainLayout/>}><Route index element={<Navigate to="/dashboard" replace/>}/><Route path="/dashboard" element={<DashboardPage/>}/><Route path="/suppliers" element={<SupplierListPage/>}/><Route path="/suppliers/new" element={<SupplierFormPage/>}/><Route path="/suppliers/:id" element={<SupplierDetailPage/>}/><Route path="/suppliers/:id/edit" element={<SupplierFormPage/>}/><Route path="/products" element={<ProductListPage/>}/><Route path="/products/new" element={<ProductFormPage/>}/><Route path="/products/:id/edit" element={<ProductFormPage/>}/><Route path="/product-categories" element={<CategoryPage/>}/><Route path="/warehouses" element={<WarehouseListPage/>}/><Route path="/warehouses/new" element={<WarehouseFormPage/>}/><Route path="/warehouses/:id/edit" element={<WarehouseFormPage/>}/><Route path="/inventory" element={<InventoryPage/>}/><Route path="/inventory/new" element={<InventoryFormPage/>}/><Route path="/inventory/:id/edit" element={<InventoryFormPage/>}/><Route path="/purchase-orders" element={<PurchaseOrderListPage/>}/><Route path="/purchase-orders/new" element={<PurchaseOrderFormPage/>}/><Route path="/purchase-orders/:id" element={<PurchaseOrderDetailPage/>}/><Route path="/purchase-orders/:id/edit" element={<PurchaseOrderFormPage/>}/><Route path="/shipments" element={<ShipmentListPage/>}/><Route path="/shipments/new" element={<ShipmentFormPage/>}/><Route path="/shipments/:id" element={<ShipmentDetailPage/>}/><Route path="/shipments/:id/edit" element={<ShipmentFormPage/>}/><Route path="/risks" element={<RiskListPage/>}/><Route path="/risks/new" element={<RiskFormPage/>}/><Route path="/risks/:id" element={<RiskDetailPage/>}/><Route path="/risks/:id/edit" element={<RiskFormPage/>}/><Route path="/alerts" element={<AlertPage/>}/><Route path="/alerts/new" element={<AlertFormPage/>}/><Route path="/company" element={<CompanyPage/>}/><Route element={<RoleProtectedRoute roles={['ADMIN']}/> }><Route path="/users" element={<UsersPage/>}/></Route></Route></Route><Route path="*" element={<NotFoundPage/>}/></Routes>}
+import SupplierListPage from '../pages/SupplierListPage'
+import SupplierFormPage from '../pages/SupplierFormPage'
+import SupplierDetailPage from '../pages/SupplierDetailPage'
+import ProductListPage from '../pages/ProductListPage'
+import ProductFormPage from '../pages/ProductFormPage'
+import CategoryPage from '../pages/CategoryPage'
+import WarehouseListPage from '../pages/WarehouseListPage'
+import WarehouseFormPage from '../pages/WarehouseFormPage'
+import InventoryPage from '../pages/InventoryPage'
+import InventoryFormPage from '../pages/InventoryFormPage'
+import PurchaseOrderListPage from '../pages/PurchaseOrderListPage'
+import PurchaseOrderFormPage from '../pages/PurchaseOrderFormPage'
+import PurchaseOrderDetailPage from '../pages/PurchaseOrderDetailPage'
+import ShipmentListPage from '../pages/ShipmentListPage'
+import ShipmentFormPage from '../pages/ShipmentFormPage'
+import ShipmentDetailPage from '../pages/ShipmentDetailPage'
+import RiskListPage from '../pages/RiskListPage'
+import RiskFormPage from '../pages/RiskFormPage'
+import RiskDetailPage from '../pages/RiskDetailPage'
+import RiskMonitoringPage from '../pages/RiskMonitoringPage'
+import AlertPage from '../pages/AlertPage'
+import AlertFormPage from '../pages/AlertFormPage'
+import CompanyPage from '../pages/CompanyPage'
+import NotFoundPage from '../pages/NotFoundPage'
+
+export default function AppRoutes() {
+  return <Routes>
+    <Route path="/login" element={<LoginPage />} />
+    <Route path="/access-denied" element={<AccessDeniedPage />} />
+    <Route element={<ProtectedRoute />}>
+      <Route element={<MainLayout />}>
+        <Route index element={<Navigate to="/dashboard" replace />} />
+        <Route path="/dashboard" element={<DashboardPage />} />
+        <Route path="/risk-monitoring" element={<RiskMonitoringPage />} />
+        <Route path="/suppliers" element={<SupplierListPage />} />
+        <Route path="/suppliers/new" element={<SupplierFormPage />} />
+        <Route path="/suppliers/:id" element={<SupplierDetailPage />} />
+        <Route path="/suppliers/:id/edit" element={<SupplierFormPage />} />
+        <Route path="/products" element={<ProductListPage />} />
+        <Route path="/products/new" element={<ProductFormPage />} />
+        <Route path="/products/:id/edit" element={<ProductFormPage />} />
+        <Route path="/product-categories" element={<CategoryPage />} />
+        <Route path="/warehouses" element={<WarehouseListPage />} />
+        <Route path="/warehouses/new" element={<WarehouseFormPage />} />
+        <Route path="/warehouses/:id/edit" element={<WarehouseFormPage />} />
+        <Route path="/inventory" element={<InventoryPage />} />
+        <Route path="/inventory/new" element={<InventoryFormPage />} />
+        <Route path="/inventory/:id/edit" element={<InventoryFormPage />} />
+        <Route path="/purchase-orders" element={<PurchaseOrderListPage />} />
+        <Route path="/purchase-orders/new" element={<PurchaseOrderFormPage />} />
+        <Route path="/purchase-orders/:id" element={<PurchaseOrderDetailPage />} />
+        <Route path="/purchase-orders/:id/edit" element={<PurchaseOrderFormPage />} />
+        <Route path="/shipments" element={<ShipmentListPage />} />
+        <Route path="/shipments/new" element={<ShipmentFormPage />} />
+        <Route path="/shipments/:id" element={<ShipmentDetailPage />} />
+        <Route path="/shipments/:id/edit" element={<ShipmentFormPage />} />
+        <Route path="/risks" element={<RiskListPage />} />
+        <Route path="/risks/new" element={<RiskFormPage />} />
+        <Route path="/risks/:id" element={<RiskDetailPage />} />
+        <Route path="/risks/:id/edit" element={<RiskFormPage />} />
+        <Route path="/alerts" element={<AlertPage />} />
+        <Route path="/alerts/new" element={<AlertFormPage />} />
+        <Route path="/company" element={<CompanyPage />} />
+        <Route element={<RoleProtectedRoute roles={['ADMIN']} />}>
+          <Route path="/users" element={<UsersPage />} />
+        </Route>
+      </Route>
+    </Route>
+    <Route path="*" element={<NotFoundPage />} />
+  </Routes>
+}
