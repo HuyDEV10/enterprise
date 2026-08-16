@@ -62,41 +62,36 @@ public class AiServiceClient {
         }
     }
 
+    public EntitySentimentResponse analyzeEntitySentiment(String entity, String text) {
+        ensureEnabled();
+        try {
+            EntitySentimentResponse response = restClient.post()
+                    .uri("/api/v1/sentiment/entity")
+                    .body(new EntitySentimentRequest(entity, text))
+                    .retrieve()
+                    .body(EntitySentimentResponse.class);
+            if (response == null) {
+                throw new AiServiceUnavailableException("AI service returned an empty entity sentiment response");
+            }
+            return response;
+        } catch (RestClientException ex) {
+            throw new AiServiceUnavailableException("Entity sentiment service is unavailable", ex);
+        }
+    }
+
     private void ensureEnabled() {
         if (!properties.isEnabled()) {
             throw new AiServiceUnavailableException("AI service integration is disabled");
         }
     }
 
-    public record DemandHistoryPoint(LocalDate date, double quantity) {
-    }
-
-    public record DemandForecastRequest(List<DemandHistoryPoint> history, LocalDate forecastStartDate) {
-    }
-
-    public record DemandForecastPoint(LocalDate date, double quantity) {
-    }
-
-    public record DemandForecastSummary(double next7Days, double next14Days, double next28Days) {
-    }
-
-    public record DemandForecastResponse(
-            int historyDays,
-            String modelVersion,
-            List<DemandForecastPoint> forecast,
-            DemandForecastSummary summary) {
-    }
-
-    public record M5DemandPoint(LocalDate date, double quantity, Double sellPrice, String sourceDayKey) {
-    }
-
-    public record M5SeriesResponse(
-            String seriesId,
-            String itemId,
-            String storeId,
-            String departmentId,
-            String categoryId,
-            String stateId,
-            List<M5DemandPoint> history) {
-    }
+    public record DemandHistoryPoint(LocalDate date, double quantity) {}
+    public record DemandForecastRequest(List<DemandHistoryPoint> history, LocalDate forecastStartDate) {}
+    public record DemandForecastPoint(LocalDate date, double quantity) {}
+    public record DemandForecastSummary(double next7Days, double next14Days, double next28Days) {}
+    public record DemandForecastResponse(int historyDays, String modelVersion, List<DemandForecastPoint> forecast, DemandForecastSummary summary) {}
+    public record M5DemandPoint(LocalDate date, double quantity, Double sellPrice, String sourceDayKey) {}
+    public record M5SeriesResponse(String seriesId, String itemId, String storeId, String departmentId, String categoryId, String stateId, List<M5DemandPoint> history) {}
+    public record EntitySentimentRequest(String entity, String text) {}
+    public record EntitySentimentResponse(String entity, String sentiment, double confidence, String modelVersion) {}
 }
