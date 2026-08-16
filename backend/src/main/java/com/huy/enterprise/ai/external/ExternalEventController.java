@@ -21,6 +21,7 @@ import java.util.UUID;
 public class ExternalEventController {
     private final GdeltIngestionService gdelt;
     private final ExternalEventService service;
+    private final ExternalEventImpactService impacts;
 
     @PostMapping("/gdelt/latest")
     public GdeltIngestionResponse ingestLatest(
@@ -47,5 +48,15 @@ public class ExternalEventController {
             @PathVariable UUID id,
             @Valid @RequestBody AnalyzeExternalEventRequest request) {
         return service.analyze(id, request);
+    }
+
+    @PostMapping("/{id}/impacts/calculate")
+    public List<ExternalEventImpactResponse> calculateImpacts(@PathVariable UUID id) {
+        return impacts.calculate(id);
+    }
+
+    @GetMapping("/{id}/impacts")
+    public List<ExternalEventImpactResponse> impacts(@PathVariable UUID id) {
+        return impacts.byEvent(id);
     }
 }
