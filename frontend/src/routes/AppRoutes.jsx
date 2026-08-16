@@ -26,6 +26,8 @@ import RiskListPage from '../pages/RiskListPage'
 import RiskFormPage from '../pages/RiskFormPage'
 import RiskDetailPage from '../pages/RiskDetailPage'
 import RiskMonitoringPage from '../pages/RiskMonitoringPage'
+import AiForecastPage from '../pages/AiForecastPage'
+import ExternalEventsPage from '../pages/ExternalEventsPage'
 import AlertPage from '../pages/AlertPage'
 import AlertFormPage from '../pages/AlertFormPage'
 import CompanyPage from '../pages/CompanyPage'
@@ -40,6 +42,8 @@ export default function AppRoutes() {
         <Route index element={<Navigate to="/dashboard" replace />} />
         <Route path="/dashboard" element={<DashboardPage />} />
         <Route path="/risk-monitoring" element={<RiskMonitoringPage />} />
+        <Route path="/ai-forecast" element={<AiForecastPage />} />
+        <Route path="/external-events" element={<ExternalEventsPage />} />
         <Route path="/suppliers" element={<SupplierListPage />} />
         <Route path="/suppliers/new" element={<SupplierFormPage />} />
         <Route path="/suppliers/:id" element={<SupplierDetailPage />} />
