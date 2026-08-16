@@ -4,10 +4,78 @@ import { dashboardApi } from '../api/dashboardApi'
 import { riskEventApi } from '../api/riskEventApi'
 import { alertApi } from '../api/alertApi'
 import { inventoryApi } from '../api/inventoryApi'
+import { riskMonitoringApi } from '../api/riskMonitoringApi'
 import { getApiErrorMessage } from '../api/apiClient'
 import PageHeader from '../components/PageHeader'
 import StatCard from '../components/StatCard'
 import Badge from '../components/Badge'
 import { ErrorState, LoadingState, EmptyState } from '../components/States'
 import { formatDateTime, formatNumber } from '../utils/formatters'
-export default function DashboardPage(){const[data,setData]=useState(null),[risks,setRisks]=useState([]),[alerts,setAlerts]=useState([]),[lowStock,setLowStock]=useState([]),[loading,setLoading]=useState(true),[error,setError]=useState('');const load=async()=>{setLoading(true);setError('');try{const[summary,riskRows,alertRows,stockRows]=await Promise.all([dashboardApi.getSummary(),riskEventApi.getAll(),alertApi.getAll(),inventoryApi.getLowStock()]);setData(summary);setRisks([...riskRows].sort((a,b)=>new Date(b.detectedAt)-new Date(a.detectedAt)).slice(0,5));setAlerts(alertRows.filter(a=>['HIGH','CRITICAL'].includes(a.priority)&&a.status!=='RESOLVED').slice(0,5));setLowStock(stockRows.slice(0,5))}catch(e){setError(getApiErrorMessage(e,'Không thể tải dashboard.'))}finally{setLoading(false)}};useEffect(()=>{load()},[]);if(loading)return <LoadingState text="Đang tải dashboard..."/>;if(error)return <ErrorState message={error} onRetry={load}/>;return <><PageHeader title="Tổng quan" description="Theo dõi nhanh trạng thái chuỗi cung ứng và các rủi ro cần chú ý."/><section className="stats-grid"><StatCard label="Nhà cung cấp" value={data?.totalSuppliers}/><StatCard label="NCC rủi ro cao" value={data?.highRiskSuppliers} tone="danger"/><StatCard label="Đơn mua hàng" value={data?.totalPurchaseOrders}/><StatCard label="Đơn bị trễ" value={data?.delayedPurchaseOrders} tone="warning"/><StatCard label="Rủi ro đang mở" value={data?.openRiskEvents} tone="danger"/><StatCard label="Cảnh báo chưa xử lý" value={data?.unresolvedAlerts} tone="warning"/><StatCard label="Mặt hàng sắp hết" value={data?.lowStockItems} tone="warning"/></section><section className="dashboard-grid"><article className="panel"><div className="panel-heading"><div><h2>Rủi ro gần đây</h2><p>Các sự kiện mới được ghi nhận.</p></div><Link to="/risks">Xem tất cả</Link></div>{risks.length===0?<EmptyState title="Chưa có sự kiện rủi ro."/>:<div className="compact-list">{risks.map(item=><Link to={`/risks/${item.id}`} className="compact-row" key={item.id}><div><strong>{item.title}</strong><small>{formatDateTime(item.detectedAt)}</small></div><Badge value={item.impactLevel}/></Link>)}</div>}</article><article className="panel"><div className="panel-heading"><div><h2>Cảnh báo ưu tiên</h2><p>HIGH/CRITICAL chưa được xử lý.</p></div><Link to="/alerts">Xem tất cả</Link></div>{alerts.length===0?<EmptyState title="Không có cảnh báo ưu tiên cao."/>:<div className="compact-list">{alerts.map(item=><div className="compact-row" key={item.id}><div><strong>{item.title}</strong><small>{item.alertType}</small></div><Badge value={item.priority}/></div>)}</div>}</article><article className="panel panel--wide"><div className="panel-heading"><div><h2>Tồn kho thấp</h2><p>Các mặt hàng đã chạm hoặc thấp hơn ngưỡng cảnh báo.</p></div><Link to="/inventory?filter=low">Mở tồn kho</Link></div>{lowStock.length===0?<EmptyState title="Không có mặt hàng tồn kho thấp."/>:<div className="table-wrap"><table><thead><tr><th>Kho</th><th>Sản phẩm</th><th>Số lượng</th><th>Ngưỡng</th></tr></thead><tbody>{lowStock.map(item=><tr key={item.id}><td>{item.warehouseName}</td><td>{item.productName}</td><td className="text-danger strong">{formatNumber(item.quantity)}</td><td>{formatNumber(item.lowStockThreshold)}</td></tr>)}</tbody></table></div>}</article></section></>}
+
+export default function DashboardPage() {
+  const [data, setData] = useState(null)
+  const [monitoring, setMonitoring] = useState(null)
+  const [risks, setRisks] = useState([])
+  const [alerts, setAlerts] = useState([])
+  const [lowStock, setLowStock] = useState([])
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState('')
+
+  const load = async () => {
+    setLoading(true)
+    setError('')
+    try {
+      const [summary, monitoringSummary, riskRows, alertRows, stockRows] = await Promise.all([
+        dashboardApi.getSummary(),
+        riskMonitoringApi.getSummary(),
+        riskEventApi.getAll(),
+        alertApi.getAll(),
+        inventoryApi.getLowStock(),
+      ])
+      setData(summary)
+      setMonitoring(monitoringSummary)
+      setRisks([...riskRows].sort((a, b) => new Date(b.detectedAt) - new Date(a.detectedAt)).slice(0, 5))
+      setAlerts(alertRows.filter((a) => ['HIGH', 'CRITICAL'].includes(a.priority) && a.status !== 'RESOLVED').slice(0, 5))
+      setLowStock(stockRows.slice(0, 5))
+    } catch (e) {
+      setError(getApiErrorMessage(e, 'Không thể tải dashboard.'))
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  useEffect(() => { load() }, [])
+
+  if (loading) return <LoadingState text="Đang tải dashboard..." />
+  if (error) return <ErrorState message={error} onRetry={load} />
+
+  return <>
+    <PageHeader title="Tổng quan" description="Theo dõi nhanh trạng thái chuỗi cung ứng và các rủi ro cần chú ý." />
+    <section className="stats-grid">
+      <StatCard label="Rủi ro tự động" value={monitoring?.automaticActiveRisks ?? 0} tone="danger" />
+      <StatCard label="Risk nghiêm trọng" value={monitoring?.criticalRisks ?? 0} tone="danger" />
+      <StatCard label="Shipment trễ" value={monitoring?.delayedShipmentRisks ?? 0} tone="warning" />
+      <StatCard label="Mặt hàng sắp hết" value={monitoring?.lowStockRisks ?? data?.lowStockItems ?? 0} tone="warning" />
+      <StatCard label="Nhà cung cấp" value={data?.totalSuppliers} />
+      <StatCard label="NCC rủi ro cao" value={data?.highRiskSuppliers} tone="danger" />
+      <StatCard label="Đơn mua hàng" value={data?.totalPurchaseOrders} />
+      <StatCard label="Đơn bị trễ" value={data?.delayedPurchaseOrders} tone="warning" />
+      <StatCard label="Rủi ro đang mở" value={data?.openRiskEvents} tone="danger" />
+      <StatCard label="Cảnh báo chưa xử lý" value={data?.unresolvedAlerts} tone="warning" />
+    </section>
+    <section className="dashboard-grid">
+      <article className="panel">
+        <div className="panel-heading"><div><h2>Rủi ro gần đây</h2><p>Các sự kiện mới được ghi nhận.</p></div><Link to="/risks">Xem tất cả</Link></div>
+        {risks.length === 0 ? <EmptyState title="Chưa có sự kiện rủi ro." /> : <div className="compact-list">{risks.map((item) => <Link to={`/risks/${item.id}`} className="compact-row" key={item.id}><div><strong>{item.title}</strong><small>{item.autoGenerated ? `AUTO · ${item.ruleCode}` : 'MANUAL'} · {formatDateTime(item.detectedAt)}</small></div><Badge value={item.impactLevel} /></Link>)}</div>}
+      </article>
+      <article className="panel">
+        <div className="panel-heading"><div><h2>Cảnh báo ưu tiên</h2><p>HIGH/CRITICAL chưa được xử lý.</p></div><Link to="/alerts">Xem tất cả</Link></div>
+        {alerts.length === 0 ? <EmptyState title="Không có cảnh báo ưu tiên cao." /> : <div className="compact-list">{alerts.map((item) => <div className="compact-row" key={item.id}><div><strong>{item.title}</strong><small>{item.alertType}</small></div><Badge value={item.priority} /></div>)}</div>}
+      </article>
+      <article className="panel panel--wide">
+        <div className="panel-heading"><div><h2>Tồn kho thấp</h2><p>Các mặt hàng đã chạm hoặc thấp hơn ngưỡng cảnh báo.</p></div><Link to="/inventory?filter=low">Mở tồn kho</Link></div>
+        {lowStock.length === 0 ? <EmptyState title="Không có mặt hàng tồn kho thấp." /> : <div className="table-wrap"><table><thead><tr><th>Kho</th><th>Sản phẩm</th><th>Số lượng</th><th>Ngưỡng</th></tr></thead><tbody>{lowStock.map((item) => <tr key={item.id}><td>{item.warehouseName}</td><td>{item.productName}</td><td className="text-danger strong">{formatNumber(item.quantity)}</td><td>{formatNumber(item.lowStockThreshold)}</td></tr>)}</tbody></table></div>}
+      </article>
+    </section>
+  </>
+}
