@@ -12,6 +12,7 @@ class DemandHistoryPoint(BaseModel):
 
 class DemandForecastRequest(BaseModel):
     history: list[DemandHistoryPoint]
+    forecastStartDate: date | None = None
 
     @field_validator("history")
     @classmethod
