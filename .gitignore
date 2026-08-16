@@ -13,6 +13,16 @@ target/
 node_modules/
 dist/
 
+# AI service local environment / caches / datasets
+ai-service/.venv/
+ai-service/**/__pycache__/
+ai-service/.pytest_cache/
+ai-service/**/*.pyc
+ai-service/data/raw/*
+!ai-service/data/raw/.gitkeep
+ai-service/data/processed/*
+!ai-service/data/processed/.gitkeep
+
 ### STS ###
 .apt_generated
 .classpath

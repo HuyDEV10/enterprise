@@ -38,3 +38,8 @@ app:
     delayed-shipment:
       high-after-days: ${RISK_SHIPMENT_HIGH_AFTER_DAYS:3}
       critical-after-days: ${RISK_SHIPMENT_CRITICAL_AFTER_DAYS:7}
+  ai-service:
+    enabled: ${AI_SERVICE_ENABLED:true}
+    base-url: ${AI_SERVICE_BASE_URL:http://localhost:8000}
+    connect-timeout-ms: ${AI_SERVICE_CONNECT_TIMEOUT_MS:2000}
+    read-timeout-ms: ${AI_SERVICE_READ_TIMEOUT_MS:5000}
