@@ -1,5 +1,5 @@
 import { NavLink } from 'react-router-dom'
-import { Activity, AlertTriangle, Boxes, Building2, LayoutDashboard, Package, ShoppingCart, Truck, Warehouse, Users } from 'lucide-react'
+import { Activity, AlertTriangle, Boxes, BrainCircuit, Building2, Globe2, LayoutDashboard, Package, ShoppingCart, Truck, Warehouse, Users } from 'lucide-react'
 import { useAuth } from '../auth/AuthContext'
 
 const management = [
@@ -19,6 +19,8 @@ export default function Sidebar() {
       items: [
         { to: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
         { to: '/risk-monitoring', label: 'Giám sát rủi ro', icon: Activity },
+        { to: '/ai-forecast', label: 'AI Forecast', icon: BrainCircuit },
+        { to: '/external-events', label: 'External Events', icon: Globe2 },
       ],
     },
     { section: 'QUẢN LÝ', items: management },
