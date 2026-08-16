@@ -29,3 +29,12 @@ app:
     password: ${BOOTSTRAP_ADMIN_PASSWORD:Admin@123}
     email: ${BOOTSTRAP_ADMIN_EMAIL:admin@enterprise.local}
     full-name: ${BOOTSTRAP_ADMIN_FULL_NAME:System Administrator}
+  risk-monitoring:
+    enabled: ${RISK_MONITORING_ENABLED:true}
+    cron: ${RISK_MONITORING_CRON:0 */5 * * * *}
+    delayed-order:
+      high-after-days: ${RISK_ORDER_HIGH_AFTER_DAYS:3}
+      critical-after-days: ${RISK_ORDER_CRITICAL_AFTER_DAYS:7}
+    delayed-shipment:
+      high-after-days: ${RISK_SHIPMENT_HIGH_AFTER_DAYS:3}
+      critical-after-days: ${RISK_SHIPMENT_CRITICAL_AFTER_DAYS:7}
