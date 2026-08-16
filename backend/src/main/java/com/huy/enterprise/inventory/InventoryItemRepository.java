@@ -10,6 +10,7 @@ import java.util.UUID;
 
 public interface InventoryItemRepository extends JpaRepository<InventoryItem, UUID> {
     boolean existsByWarehouseIdAndProductId(UUID warehouseId, UUID productId);
+    boolean existsByProductId(UUID productId);
 
     @Query("select i from InventoryItem i where i.quantity <= i.lowStockThreshold")
     List<InventoryItem> findLowStockItems();
