@@ -16,6 +16,7 @@ import com.huy.enterprise.inventory.WarehouseRepository;
 import com.huy.enterprise.monitoring.RiskMonitoringResult;
 import com.huy.enterprise.monitoring.RiskMonitoringService;
 import com.huy.enterprise.order.PurchaseOrder;
+import com.huy.enterprise.order.PurchaseOrderItemRepository;
 import com.huy.enterprise.order.PurchaseOrderRepository;
 import com.huy.enterprise.product.Product;
 import com.huy.enterprise.product.ProductRepository;
@@ -25,6 +26,7 @@ import com.huy.enterprise.shipment.Shipment;
 import com.huy.enterprise.shipment.ShipmentRepository;
 import com.huy.enterprise.supplier.Supplier;
 import com.huy.enterprise.supplier.SupplierRepository;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -33,11 +35,10 @@ import org.springframework.transaction.annotation.Transactional;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
-import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@SpringBootTest
+@SpringBootTest(properties = "app.risk-monitoring.enabled=false")
 @Transactional
 class Phase5RiskMonitoringIntegrationTests {
     @Autowired RiskMonitoringService monitoring;
@@ -46,9 +47,26 @@ class Phase5RiskMonitoringIntegrationTests {
     @Autowired WarehouseRepository warehouses;
     @Autowired InventoryItemRepository inventory;
     @Autowired PurchaseOrderRepository orders;
+    @Autowired PurchaseOrderItemRepository orderItems;
     @Autowired ShipmentRepository shipments;
     @Autowired RiskEventRepository risks;
     @Autowired AlertRepository alerts;
+
+    @BeforeEach
+    void isolateMonitoringData() {
+        // This cleanup runs inside the test transaction. Spring rolls the whole
+        // transaction back after each test, so existing local development data
+        // is restored and the test always starts from a deterministic state.
+        alerts.deleteAll();
+        risks.deleteAll();
+        shipments.deleteAll();
+        orderItems.deleteAll();
+        orders.deleteAll();
+        inventory.deleteAll();
+        warehouses.deleteAll();
+        products.deleteAll();
+        suppliers.deleteAll();
+    }
 
     @Test
     void fullMonitoringCycleDetectsDeduplicatesAndAutoResolvesWithoutTouchingManualRisk() {
