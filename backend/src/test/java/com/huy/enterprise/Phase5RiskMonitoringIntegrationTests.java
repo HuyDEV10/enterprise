@@ -31,6 +31,10 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
+import com.huy.enterprise.ai.demand.DemandHistoryRepository;
+import com.huy.enterprise.ai.demand.DemandSeriesMappingRepository;
+import com.huy.enterprise.ai.external.ExternalEventImpactRepository;
+import com.huy.enterprise.ai.external.ExternalEventRepository;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -41,29 +45,57 @@ import static org.assertj.core.api.Assertions.assertThat;
 @SpringBootTest(properties = "app.risk-monitoring.enabled=false")
 @Transactional
 class Phase5RiskMonitoringIntegrationTests {
-    @Autowired RiskMonitoringService monitoring;
-    @Autowired SupplierRepository suppliers;
-    @Autowired ProductRepository products;
-    @Autowired WarehouseRepository warehouses;
-    @Autowired InventoryItemRepository inventory;
-    @Autowired PurchaseOrderRepository orders;
-    @Autowired PurchaseOrderItemRepository orderItems;
-    @Autowired ShipmentRepository shipments;
-    @Autowired RiskEventRepository risks;
-    @Autowired AlertRepository alerts;
+    @Autowired
+    RiskMonitoringService monitoring;
+    @Autowired
+    SupplierRepository suppliers;
+    @Autowired
+    ProductRepository products;
+    @Autowired
+    WarehouseRepository warehouses;
+    @Autowired
+    InventoryItemRepository inventory;
+    @Autowired
+    PurchaseOrderRepository orders;
+    @Autowired
+    PurchaseOrderItemRepository orderItems;
+    @Autowired
+    ShipmentRepository shipments;
+    @Autowired
+    RiskEventRepository risks;
+    @Autowired
+    AlertRepository alerts;
+    @Autowired
+    DemandHistoryRepository demandHistory;
+    @Autowired
+    DemandSeriesMappingRepository demandMappings;
+    @Autowired
+    ExternalEventImpactRepository externalEventImpacts;
+    @Autowired
+    ExternalEventRepository externalEvents;
 
     @BeforeEach
     void isolateMonitoringData() {
-        // This cleanup runs inside the test transaction. Spring rolls the whole
-        // transaction back after each test, so existing local development data
-        // is restored and the test always starts from a deterministic state.
+        // Cleanup chỉ tồn tại bên trong transaction của test.
+        // Sau test Spring rollback nên dữ liệu development được giữ nguyên.
+
         alerts.deleteAll();
         risks.deleteAll();
+
+        // Phase 6D / 6E
+        externalEventImpacts.deleteAll();
+        externalEvents.deleteAll();
+
         shipments.deleteAll();
         orderItems.deleteAll();
         orders.deleteAll();
         inventory.deleteAll();
         warehouses.deleteAll();
+
+        // Phase 6A / 6C
+        demandHistory.deleteAll();
+        demandMappings.deleteAll();
+
         products.deleteAll();
         suppliers.deleteAll();
     }

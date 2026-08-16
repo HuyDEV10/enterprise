@@ -1,0 +1,84 @@
+{
+  "modelName": "HIST_GRADIENT_BOOSTING",
+  "modelVersion": "m5-ca_1-foods_3-20260816T112231Z",
+  "trainedAt": "2026-08-16T11:22:31.518909+00:00",
+  "dataset": {
+    "name": "M5 Forecasting - Accuracy",
+    "source": "https://doi.org/10.5281/zenodo.10203108",
+    "files": [
+      "calendar.csv",
+      "sales_train_evaluation.csv",
+      "sell_prices.csv"
+    ],
+    "integrityVerified": true,
+    "checksums": {
+      "calendar.csv": "3ffeab2991b0c8e861d008b39ea4c95c",
+      "sales_train_evaluation.csv": "b806dfc9f30a745102b708c09951f6aa",
+      "sell_prices.csv": "08c591caa99e55daf3e0ccac913f7c85"
+    },
+    "storeId": "CA_1",
+    "departmentId": "FOODS_3",
+    "seriesCount": 823,
+    "observationCount": 1597443,
+    "dateStart": "2011-01-29",
+    "dateEnd": "2016-05-22"
+  },
+  "split": {
+    "train": "d_1..d_1885",
+    "validation": "d_1886..d_1913",
+    "test": "d_1914..d_1941",
+    "strategy": "chronological_recursive_28_day"
+  },
+  "features": [
+    "lag_1",
+    "lag_7",
+    "lag_14",
+    "lag_28",
+    "rolling_mean_7",
+    "rolling_mean_14",
+    "rolling_mean_28",
+    "rolling_std_7",
+    "rolling_std_28",
+    "day_of_week",
+    "month",
+    "day_of_month"
+  ],
+  "minimumHistoryDays": 56,
+  "priceFeatureUsed": false,
+  "snapFeatureUsed": false,
+  "eventFeatureUsed": false,
+  "selectionMetric": "wape",
+  "validationMetrics": {
+    "SEASONAL_NAIVE_7": {
+      "mae": 1.9792570734247525,
+      "rmse": 3.735063989137385,
+      "wape": 73.9797573476935
+    },
+    "ROLLING_MEAN_28": {
+      "mae": 1.6730145448335996,
+      "rmse": 3.194078067956667,
+      "wape": 62.533165462832464
+    },
+    "RIDGE": {
+      "mae": 1.756528660484895,
+      "rmse": 3.14103882546438,
+      "wape": 65.65471753100293
+    },
+    "HIST_GRADIENT_BOOSTING": {
+      "mae": 1.6440871639230525,
+      "rmse": 2.991758402353291,
+      "wape": 61.45193117083439
+    }
+  },
+  "testMetrics": {
+    "mae": 1.6999326921833564,
+    "rmse": 3.0736783646640458,
+    "wape": 59.35430682082041
+  },
+  "limitations": [
+    "M5 item/store identities remain anonymized and are mapped to enterprise products separately.",
+    "Model v1 excludes sell price because future enterprise price values are not guaranteed at serving time.",
+    "Model v1 excludes Walmart SNAP/event features to avoid transferring retailer-specific signals into enterprise demand.",
+    "The final test window is evaluated once after model selection on the validation window."
+  ]
+}
