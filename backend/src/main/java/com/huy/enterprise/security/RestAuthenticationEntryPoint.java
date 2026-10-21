@@ -17,6 +17,6 @@ public class RestAuthenticationEntryPoint implements AuthenticationEntryPoint {
     private final ObjectMapper objectMapper;
     @Override public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException ex) throws IOException {
         response.setStatus(HttpServletResponse.SC_UNAUTHORIZED); response.setContentType(MediaType.APPLICATION_JSON_VALUE);
-        objectMapper.writeValue(response.getOutputStream(), Map.of("timestamp", OffsetDateTime.now().toString(), "status", 401, "error", "Unauthorized", "message", "Authentication is required", "path", request.getRequestURI()));
+        objectMapper.writeValue(response.getOutputStream(), Map.of("timestamp", OffsetDateTime.now().toString(), "status", 401, "error", "Unauthorized", "message", "Authentication is required", "path", request.getRequestURI(), "code", "UNAUTHORIZED", "requestId", com.huy.enterprise.common.RequestCorrelationFilter.requestId(request)));
     }
 }

@@ -1,83 +1,58 @@
 package com.huy.enterprise.ai.inventory;
 
+import com.huy.enterprise.ai.AiServiceInputException;
+import com.huy.enterprise.ai.AiServiceProtocolException;
 import com.huy.enterprise.ai.client.AiServiceClient;
-import com.huy.enterprise.ai.demand.DemandHistory;
-import com.huy.enterprise.ai.demand.DemandHistoryRepository;
-import com.huy.enterprise.ai.demand.DemandSeriesMapping;
-import com.huy.enterprise.ai.demand.DemandSeriesMappingRepository;
-import com.huy.enterprise.common.ConflictException;
 import com.huy.enterprise.common.ResourceNotFoundException;
-import com.huy.enterprise.product.Product;
 import com.huy.enterprise.product.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
-import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Comparator;
 import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
 public class DemandDataImportService {
-    private static final String SOURCE_DATASET = "M5";
-
     private final ProductRepository products;
-    private final DemandSeriesMappingRepository mappings;
-    private final DemandHistoryRepository demandHistory;
     private final AiServiceClient aiClient;
+    private final DemandImportWriter writer;
 
-    @Transactional
     public DemandImportResponse importM5(UUID productId, String itemId, String storeId) {
-        Product product = products.findById(productId)
-                .orElseThrow(() -> new ResourceNotFoundException("Product not found: " + productId));
-
-        AiServiceClient.M5SeriesResponse source = aiClient.loadM5Series(itemId, storeId);
-        DemandSeriesMapping mapping = mappings
-                .findBySourceDatasetAndSourceItemIdAndSourceLocationId(SOURCE_DATASET, source.itemId(), source.storeId())
-                .orElse(null);
-
-        if (mapping != null && !mapping.getProduct().getId().equals(productId)) {
-            throw new ConflictException("M5 series " + source.itemId() + "/" + source.storeId()
-                    + " is already mapped to another product");
+        if (itemId == null || itemId.isBlank() || itemId.length() > 100
+                || storeId == null || storeId.isBlank() || storeId.length() > 100) {
+            throw new IllegalArgumentException("M5 itemId and storeId must contain 1 to 100 characters");
         }
-
-        if (mapping == null) {
-            mapping = new DemandSeriesMapping();
-            mapping.setProduct(product);
-            mapping.setSourceDataset(SOURCE_DATASET);
-            mapping.setSourceItemId(source.itemId());
-            mapping.setSourceLocationId(source.storeId());
+        if (!products.existsById(productId)) throw new ResourceNotFoundException("Product not found: " + productId);
+        // Network I/O and validation complete before the write transaction starts.
+        var source = aiClient.loadM5Series(itemId.trim(), storeId.trim());
+        if (source == null || !itemId.trim().equals(source.itemId()) || !storeId.trim().equals(source.storeId())
+                || source.history() == null || source.history().size() > 5000) {
+            throw new AiServiceProtocolException("M5 service returned an invalid series identity or history");
         }
-        mapping.setCategoryCode(source.categoryId());
-        mapping.setDepartmentCode(source.departmentId());
-        mapping.setActive(true);
-        mapping = mappings.save(mapping);
-
-        demandHistory.deleteByMappingId(mapping.getId());
-        List<DemandHistory> rows = new ArrayList<>(source.history().size());
-        for (AiServiceClient.M5DemandPoint point : source.history()) {
-            DemandHistory row = new DemandHistory();
-            row.setMapping(mapping);
-            row.setDemandDate(point.date());
-            row.setQuantity(BigDecimal.valueOf(point.quantity()));
-            row.setSellPrice(point.sellPrice() == null ? null : BigDecimal.valueOf(point.sellPrice()));
-            row.setSourceDayKey(point.sourceDayKey());
-            rows.add(row);
+        if (source.history().size() < 56) {
+            throw new AiServiceInputException("INSUFFICIENT_HISTORY", "At least 56 contiguous history days are required");
         }
-        demandHistory.saveAll(rows);
-
-        return new DemandImportResponse(
-                mapping.getId(),
-                product.getId(),
-                product.getProductCode(),
-                SOURCE_DATASET,
-                source.itemId(),
-                source.storeId(),
-                source.departmentId(),
-                rows.size(),
-                rows.getFirst().getDemandDate(),
-                rows.getLast().getDemandDate());
+        var history = new ArrayList<>(source.history());
+        if (history.stream().anyMatch(point -> point == null || point.date() == null)) {
+            throw new AiServiceInputException("INVALID_HISTORY", "Demand history contains missing dates");
+        }
+        history.sort(Comparator.comparing(AiServiceClient.M5DemandPoint::date));
+        LocalDate previous = null;
+        for (var point : history) {
+            if (point.quantity() == null || !Double.isFinite(point.quantity()) || point.quantity() < 0
+                    || (point.sellPrice() != null && (!Double.isFinite(point.sellPrice()) || point.sellPrice() < 0))
+                    || (point.sourceDayKey() != null && point.sourceDayKey().length() > 20)) {
+                throw new AiServiceInputException("INVALID_HISTORY", "Demand history contains invalid quantities, prices or source keys");
+            }
+            if (previous != null && !point.date().equals(previous.plusDays(1))) {
+                throw new AiServiceInputException("INVALID_HISTORY", "Demand history must contain unique, contiguous dates");
+            }
+            previous = point.date();
+        }
+        var validated = new AiServiceClient.M5SeriesResponse(source.seriesId(), source.itemId(), source.storeId(),
+                source.departmentId(), source.categoryId(), source.stateId(), history);
+        return writer.save(productId, validated);
     }
 }

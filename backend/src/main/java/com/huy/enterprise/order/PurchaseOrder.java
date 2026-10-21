@@ -46,5 +46,6 @@ public class PurchaseOrder extends BaseEntity {
     private String notes;
     @JsonIgnore
     @OneToMany(mappedBy = "purchaseOrder", cascade = CascadeType.ALL, orphanRemoval = true)
+    @org.hibernate.annotations.BatchSize(size = 100)
     private List<PurchaseOrderItem> items = new ArrayList<>();
 }

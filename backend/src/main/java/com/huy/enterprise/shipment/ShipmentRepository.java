@@ -13,6 +13,7 @@ import java.util.UUID;
 
 public interface ShipmentRepository extends JpaRepository<Shipment, UUID> {
     boolean existsByShipmentCode(String shipmentCode);
+    boolean existsByPurchaseOrderIdAndStatusIn(UUID purchaseOrderId, Collection<ShipmentStatus> statuses);
 
     @Query("select s from Shipment s " +
             "join fetch s.purchaseOrder po " +

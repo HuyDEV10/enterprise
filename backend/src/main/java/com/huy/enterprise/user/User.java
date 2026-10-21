@@ -16,6 +16,12 @@ public class User extends BaseEntity {
     @Column(name = "full_name", nullable = false) private String fullName;
     @Enumerated(EnumType.STRING) @Column(nullable = false, length = 30) private RecordStatus status = RecordStatus.ACTIVE;
     @ManyToMany(fetch = FetchType.LAZY)
+    @org.hibernate.annotations.BatchSize(size = 100)
     @JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles = new HashSet<>();
+
+    public void setRoles(Set<Role> roles) {
+        // Hibernate must be able to replace collection elements during a merge.
+        this.roles = new HashSet<>(roles);
+    }
 }

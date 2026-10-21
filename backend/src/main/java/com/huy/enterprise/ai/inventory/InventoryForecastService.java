@@ -54,10 +54,11 @@ public class InventoryForecastService {
     public InventoryForecastResponse forecast(UUID productId) {
         Product product = products.findById(productId)
                 .orElseThrow(() -> new ResourceNotFoundException("Product not found: " + productId));
-        DemandSeriesMapping mapping = mappings.findFirstByProductIdAndActiveTrue(productId)
+        DemandSeriesMapping mapping = mappings.findByProductIdAndActiveTrue(productId)
                 .orElseThrow(() -> new BusinessException("Product has no active demand-series mapping"));
 
-        List<DemandHistory> allHistory = demandHistory.findByMappingIdOrderByDemandDateAsc(mapping.getId());
+        List<DemandHistory> allHistory = new ArrayList<>(demandHistory.findTop365ByMappingIdOrderByDemandDateDesc(mapping.getId()));
+        allHistory.sort(java.util.Comparator.comparing(DemandHistory::getDemandDate));
         if (allHistory.size() < MIN_HISTORY_DAYS) {
             throw new BusinessException("INSUFFICIENT_HISTORY: at least " + MIN_HISTORY_DAYS
                     + " contiguous demand-history days are required");

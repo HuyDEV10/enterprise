@@ -3,6 +3,8 @@ package com.huy.enterprise.order;
 import com.huy.enterprise.common.enums.PurchaseOrderStatus;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.jpa.repository.Lock;
+import jakarta.persistence.LockModeType;
 import org.springframework.data.repository.query.Param;
 
 import java.time.LocalDate;
@@ -12,6 +14,9 @@ import java.util.Optional;
 import java.util.UUID;
 
 public interface PurchaseOrderRepository extends JpaRepository<PurchaseOrder, UUID> {
+    @Lock(LockModeType.PESSIMISTIC_WRITE)
+    @Query("select o from PurchaseOrder o where o.id = :id")
+    Optional<PurchaseOrder> findByIdForUpdate(UUID id);
     long countByStatus(PurchaseOrderStatus status);
     Optional<PurchaseOrder> findByOrderCode(String orderCode);
     boolean existsByOrderCode(String orderCode);

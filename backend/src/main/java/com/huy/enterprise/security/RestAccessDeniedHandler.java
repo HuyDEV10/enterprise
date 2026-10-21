@@ -17,6 +17,6 @@ public class RestAccessDeniedHandler implements AccessDeniedHandler {
     private final ObjectMapper objectMapper;
     @Override public void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException ex) throws IOException {
         response.setStatus(HttpServletResponse.SC_FORBIDDEN); response.setContentType(MediaType.APPLICATION_JSON_VALUE);
-        objectMapper.writeValue(response.getOutputStream(), Map.of("timestamp", OffsetDateTime.now().toString(), "status", 403, "error", "Forbidden", "message", "You do not have permission to perform this action", "path", request.getRequestURI()));
+        objectMapper.writeValue(response.getOutputStream(), Map.of("timestamp", OffsetDateTime.now().toString(), "status", 403, "error", "Forbidden", "message", "You do not have permission to perform this action", "path", request.getRequestURI(), "code", "FORBIDDEN", "requestId", com.huy.enterprise.common.RequestCorrelationFilter.requestId(request)));
     }
 }

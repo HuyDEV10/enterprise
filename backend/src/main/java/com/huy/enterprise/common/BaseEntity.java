@@ -15,6 +15,10 @@ public abstract class BaseEntity {
     @Column(name = "id", nullable = false, updatable = false)
     private UUID id;
 
+    @Version
+    @Column(nullable = false)
+    private Long version;
+
     @Column(name = "created_at", nullable = false, updatable = false)
     private OffsetDateTime createdAt;
 

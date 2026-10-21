@@ -17,4 +17,10 @@ public class SupplierController {
     @PostMapping @ResponseStatus(HttpStatus.CREATED) public SupplierResponse create(@Valid @RequestBody CreateSupplierRequest r) { return service.create(r); }
     @PutMapping("/{id}") public SupplierResponse update(@PathVariable UUID id, @Valid @RequestBody UpdateSupplierRequest r) { return service.update(id, r); }
     @DeleteMapping("/{id}") @ResponseStatus(HttpStatus.NO_CONTENT) public void delete(@PathVariable UUID id) { service.deactivate(id); }
+
+    @GetMapping("/page")
+    public com.huy.enterprise.common.PageResponse<SupplierResponse> page(
+            @RequestParam(required = false) RiskLevel riskLevel,
+            @org.springframework.data.web.PageableDefault(size = 20, sort = "createdAt", direction = org.springframework.data.domain.Sort.Direction.DESC)
+            org.springframework.data.domain.Pageable pageable) { return service.page(riskLevel, pageable); }
 }

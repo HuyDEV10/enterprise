@@ -8,6 +8,6 @@ import org.springframework.web.bind.annotation.*;
 @RestController @RequestMapping("/api/auth") @RequiredArgsConstructor
 public class AuthController {
     private final AuthService authService;
-    @PostMapping("/login") public LoginResponse login(@Valid @RequestBody LoginRequest request) { return authService.login(request); }
+    @PostMapping("/login") public LoginResponse login(@Valid @RequestBody LoginRequest request, jakarta.servlet.http.HttpServletRequest http) { return authService.login(request, http.getRemoteAddr()); }
     @GetMapping("/me") public CurrentUserResponse me(Authentication authentication) { return authService.currentUser(authentication.getName()); }
 }

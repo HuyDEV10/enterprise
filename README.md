@@ -2,6 +2,8 @@
 
 Backend REST API cho **Hệ thống Giám sát, Phân tích và Dự báo Rủi ro Doanh nghiệp & Chuỗi cung ứng**.
 
+Nhánh `phase4-auth-jwt-rbac` hiện có cả backend JWT/RBAC, frontend React và AI service FastAPI. Xem [hướng dẫn backend hiện tại](backend/README.md) về JWT key bắt buộc, bootstrap admin, quy tắc trạng thái, migration V6/V7 và kiểm thử. Phần Giai đoạn 2 bên dưới được giữ làm mô tả lịch sử API; tài khoản admin/mật khẩu mặc định không còn được backend tự tạo.
+
 ## Giai đoạn 2
 
 Branch hoàn thiện: `phase2/complete-backend`.

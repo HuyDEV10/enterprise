@@ -16,8 +16,17 @@ public class AuthService {
     private final AuthenticationManager authenticationManager;
     private final UserRepository userRepository;
     private final JwtService jwtService;
-    @Transactional(readOnly = true) public LoginResponse login(LoginRequest request) {
-        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.username(), request.password()));
+    private final LoginAttemptLimiter attempts;
+    @Transactional(readOnly = true) public LoginResponse login(LoginRequest request, String remoteAddress) {
+        attempts.check(request.username(), remoteAddress);
+        Authentication authentication;
+        try {
+            authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.username(), request.password()));
+        } catch (org.springframework.security.core.AuthenticationException ex) {
+            attempts.failed(request.username(), remoteAddress);
+            throw ex;
+        }
+        attempts.succeeded(request.username());
         UserDetails principal = (UserDetails) authentication.getPrincipal();
         User user = userRepository.findByUsername(principal.getUsername()).orElseThrow();
         return new LoginResponse(jwtService.generateToken(principal), "Bearer", CurrentUserResponse.from(user));

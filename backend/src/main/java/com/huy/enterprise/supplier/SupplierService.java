@@ -1,5 +1,7 @@
 package com.huy.enterprise.supplier;
 
+import org.springframework.data.domain.Pageable;
+
 import com.huy.enterprise.common.*;
 import com.huy.enterprise.common.enums.*;
 import lombok.RequiredArgsConstructor;
@@ -19,6 +21,12 @@ public class SupplierService {
     }
 
     public SupplierResponse findById(UUID id) { return SupplierResponse.from(get(id)); }
+
+    public PageResponse<SupplierResponse> page(RiskLevel riskLevel, Pageable pageable) {
+        var bounded = PageRequests.validate(pageable, "id", "supplierCode", "name", "riskLevel", "status", "createdAt", "updatedAt");
+        var page = riskLevel == null ? repository.findAll(bounded) : repository.findByRiskLevel(riskLevel, bounded);
+        return PageResponse.from(page.map(SupplierResponse::from));
+    }
 
     @Transactional
     public SupplierResponse create(CreateSupplierRequest r) {

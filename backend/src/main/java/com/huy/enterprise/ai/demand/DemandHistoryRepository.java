@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.UUID;
 
 public interface DemandHistoryRepository extends JpaRepository<DemandHistory, UUID> {
+    List<DemandHistory> findTop365ByMappingIdOrderByDemandDateDesc(UUID mappingId);
     List<DemandHistory> findByMappingIdOrderByDemandDateAsc(UUID mappingId);
 
     List<DemandHistory> findByMappingIdAndDemandDateBetweenOrderByDemandDateAsc(
