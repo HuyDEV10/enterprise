@@ -1,8 +1,8 @@
-package com.example.enterprise.risk;
+package com.huy.enterprise.risk;
 
-import com.example.enterprise.common.enums.ImpactLevel;
-import com.example.enterprise.common.enums.RiskEventStatus;
-import com.example.enterprise.common.enums.RiskType;
+import com.huy.enterprise.common.enums.ImpactLevel;
+import com.huy.enterprise.common.enums.RiskEventStatus;
+import com.huy.enterprise.common.enums.RiskType;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import java.time.OffsetDateTime;

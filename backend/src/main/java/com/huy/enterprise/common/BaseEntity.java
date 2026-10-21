@@ -1,25 +1,39 @@
+package com.huy.enterprise.common;
+
+import java.time.OffsetDateTime;
+import java.util.UUID;
+import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
+
 @Getter
 @Setter
-@MappedSuperClass
+@MappedSuperclass
 public abstract class BaseEntity {
     @Id
     @GeneratedValue
     @Column(name = "id", nullable = false, updatable = false)
     private UUID id;
+
+    @Version
+    @Column(nullable = false)
+    private Long version;
+
     @Column(name = "created_at", nullable = false, updatable = false)
     private OffsetDateTime createdAt;
+
     @Column(name = "updated_at", nullable = false)
-    private OffsetDateTime updateAt;
+    private OffsetDateTime updatedAt;
 
     @PrePersist
     void prePersist() {
         OffsetDateTime now = OffsetDateTime.now();
         createdAt = now;
-        updateAt = now;
+        updatedAt = now;
     }
 
     @PreUpdate
     void preUpdate() {
-        updateAt = OffsetDateTime.now();
+        updatedAt = OffsetDateTime.now();
     }
 }

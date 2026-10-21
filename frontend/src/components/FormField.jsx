@@ -1,0 +1,13 @@
+export default function FormField({ label, required, error, children, hint }) {
+  return (
+    <label className="form-field">
+      <span className="form-label">
+        {label}
+        {required && <em>*</em>}
+      </span>
+      {children}
+      {hint && <small className="form-hint">{hint}</small>}
+      {error && <small className="form-error">{error}</small>}
+    </label>
+  )
+}

@@ -1,9 +1,16 @@
-package com.example.enterprise.supplier;
+package com.huy.enterprise.supplier;
 
-import com.example.enterprise.common.enums.RiskLevel;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Page;
+
+import com.huy.enterprise.common.enums.RiskLevel;
 import org.springframework.data.jpa.repository.JpaRepository;
-import java.util.UUID;
+import java.util.*;
 
 public interface SupplierRepository extends JpaRepository<Supplier, UUID> {
     long countByRiskLevel(RiskLevel riskLevel);
+    Optional<Supplier> findBySupplierCode(String supplierCode);
+    boolean existsBySupplierCode(String supplierCode);
+    List<Supplier> findByRiskLevel(RiskLevel riskLevel);
+    Page<Supplier> findByRiskLevel(RiskLevel riskLevel, Pageable pageable);
 }

@@ -1,0 +1,3 @@
+package com.huy.enterprise.company;
+import java.util.*; import jakarta.validation.Valid; import lombok.RequiredArgsConstructor; import org.springframework.http.HttpStatus; import org.springframework.web.bind.annotation.*;
+@RestController @RequestMapping("/api/employees") @RequiredArgsConstructor public class EmployeeController{private final EmployeeService service;@GetMapping public List<EmployeeResponse> all(){return service.all();}@PostMapping @ResponseStatus(HttpStatus.CREATED) public EmployeeResponse create(@Valid @RequestBody EmployeeRequest r){return service.create(r);}@PutMapping("/{id}") public EmployeeResponse update(@PathVariable UUID id,@Valid @RequestBody EmployeeRequest r){return service.update(id,r);}}

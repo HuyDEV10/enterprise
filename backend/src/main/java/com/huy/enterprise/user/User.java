@@ -1,30 +1,27 @@
-package com.example.enterprise.user;
+package com.huy.enterprise.user;
 
-import com.example.enterprise.common.BaseEntity;
-import com.example.enterprise.common.enums.RecordStatus;
+import com.huy.enterprise.common.BaseEntity;
+import com.huy.enterprise.common.enums.RecordStatus;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import java.util.HashSet;
 import java.util.Set;
 
-@Getter
-@Setter
-@Entity
-@Table(name = "users")
+@Getter @Setter @Entity @Table(name = "users")
 public class User extends BaseEntity {
-    @Column(nullable = false, unique = true, length = 100)
-    private String username;
-    @Column(nullable = false, unique = true)
-    private String email;
-    @Column(name = "password_hash")
-    private String passwordHash;
-    @Column(name = "full_name", nullable = false)
-    private String fullName;
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false, length = 30)
-    private RecordStatus status = RecordStatus.ACTIVE;
+    @Column(nullable = false, unique = true, length = 100) private String username;
+    @Column(nullable = false, unique = true) private String email;
+    @Column(name = "password_hash", nullable = false) private String passwordHash;
+    @Column(name = "full_name", nullable = false) private String fullName;
+    @Enumerated(EnumType.STRING) @Column(nullable = false, length = 30) private RecordStatus status = RecordStatus.ACTIVE;
     @ManyToMany(fetch = FetchType.LAZY)
+    @org.hibernate.annotations.BatchSize(size = 100)
     @JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles = new HashSet<>();
+
+    public void setRoles(Set<Role> roles) {
+        // Hibernate must be able to replace collection elements during a merge.
+        this.roles = new HashSet<>(roles);
+    }
 }

@@ -1,0 +1,51 @@
+{
+  "modelName": "TFIDF_LOGISTIC_REGRESSION",
+  "modelVersion": "finentity-tfidf-logreg-20260816T122320Z",
+  "trainedAt": "2026-08-16T12:23:20.094453+00:00",
+  "dataset": {
+    "name": "FinEntity",
+    "repository": "https://github.com/yixuantt/FinEntity",
+    "commit": "3b6cedc5485b669c2ed168f1d949f517636eb7b8",
+    "sha256": "3208667de69383120b0380aebeaabe360669eda72269c33e1c8b09d63df55463",
+    "contentCount": 979,
+    "annotationCount": 2131,
+    "labelCounts": {
+      "NEGATIVE": 498,
+      "NEUTRAL": 1130,
+      "POSITIVE": 503
+    }
+  },
+  "split": {
+    "strategy": "grouped_by_original_content_70_15_15",
+    "trainAnnotations": 1506,
+    "validationAnnotations": 307,
+    "testAnnotations": 318,
+    "trainContents": 677,
+    "validationContents": 145,
+    "testContents": 146
+  },
+  "inputContract": "TARGET=<entity> || TEXT=<content>",
+  "labels": [
+    "NEGATIVE",
+    "NEUTRAL",
+    "POSITIVE"
+  ],
+  "selectionMetric": "macroF1",
+  "validationMetrics": {
+    "accuracy": 0.6970684039087948,
+    "macroPrecision": 0.6471785922047703,
+    "macroRecall": 0.6205415739314045,
+    "macroF1": 0.62510197124542
+  },
+  "testMetrics": {
+    "accuracy": 0.7735849056603774,
+    "macroPrecision": 0.7333712187445358,
+    "macroRecall": 0.7317611329239236,
+    "macroF1": 0.7315464598028466
+  },
+  "limitations": [
+    "FinEntity is financial-news entity sentiment, not a supply-chain event-type classifier.",
+    "The baseline is TF-IDF plus Logistic Regression; no FinBERT result is claimed without a measured experiment.",
+    "Entity matching outside the classifier remains a heuristic/business-data task and is not called machine learning."
+  ]
+}

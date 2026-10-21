@@ -1,0 +1,3 @@
+package com.huy.enterprise.shipment;
+import java.time.LocalDate; import java.util.UUID; import com.huy.enterprise.common.enums.ShipmentStatus;
+public record ShipmentResponse(UUID id,String shipmentCode,UUID purchaseOrderId,String orderCode,String carrierName,LocalDate departureDate,LocalDate expectedArrivalDate,LocalDate actualArrivalDate,ShipmentStatus status,String currentLocation,String notes){static ShipmentResponse from(Shipment s){return new ShipmentResponse(s.getId(),s.getShipmentCode(),s.getPurchaseOrder().getId(),s.getPurchaseOrder().getOrderCode(),s.getCarrierName(),s.getDepartureDate(),s.getExpectedArrivalDate(),s.getActualArrivalDate(),s.getStatus(),s.getCurrentLocation(),s.getNotes());}}

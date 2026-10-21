@@ -1,0 +1,3 @@
+package com.huy.enterprise.company;
+import java.util.*; import jakarta.validation.Valid; import lombok.RequiredArgsConstructor; import org.springframework.http.HttpStatus; import org.springframework.web.bind.annotation.*;
+@RestController @RequestMapping("/api/companies") @RequiredArgsConstructor public class CompanyController{private final CompanyService service;@GetMapping public List<CompanyResponse> all(){return service.all();}@PostMapping @ResponseStatus(HttpStatus.CREATED) public CompanyResponse create(@Valid @RequestBody CompanyRequest r){return service.create(r);}@PutMapping("/{id}") public CompanyResponse update(@PathVariable UUID id,@Valid @RequestBody CompanyRequest r){return service.update(id,r);}}

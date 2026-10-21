@@ -1,0 +1,241 @@
+.ai-notice {
+  background: #ecfdf3;
+  border: 1px solid #abefc6;
+  color: #027a48;
+}
+.ai-control-panel,
+.external-filter-panel {
+  padding: 0 20px 18px;
+}
+.ai-control-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr auto;
+  gap: 14px;
+  align-items: end;
+}
+.ai-control-action .btn {
+  width: 100%;
+}
+.ai-context-line {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 1px solid #edf1f6;
+  color: #475467;
+}
+.ai-context-line strong {
+  color: #101828;
+}
+.ai-dashboard-grid {
+  margin-top: 0;
+}
+.ai-horizon-table {
+  min-width: 620px;
+}
+.text-danger {
+  color: #b42318;
+}
+.external-toolbar {
+  padding-top: 18px;
+}
+.external-toolbar .form-field {
+  min-width: 180px;
+}
+.external-split {
+  grid-template-columns: minmax(300px, 0.75fr) minmax(0, 1.65fr);
+}
+.external-list-panel {
+  overflow: hidden;
+}
+.external-event-list {
+  padding: 0 12px 14px;
+  max-height: 760px;
+  overflow: auto;
+}
+.external-event-card {
+  width: 100%;
+  border: 1px solid transparent;
+  background: #fff;
+  border-radius: 10px;
+  padding: 13px;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  color: #344054;
+}
+.external-event-card:hover {
+  background: #f8fafc;
+}
+.external-event-card.active {
+  background: #eff4ff;
+  border-color: #b2ccff;
+}
+.external-event-card-top {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  align-items: center;
+}
+.external-event-card small {
+  color: #667085;
+}
+.external-detail-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.external-source-link {
+  overflow-wrap: anywhere;
+}
+.exposure-explanation {
+  border-top: 1px solid #edf1f6;
+  padding: 14px 20px 18px;
+}
+.exposure-explanation summary {
+  cursor: pointer;
+  font-weight: 700;
+  color: #344054;
+}
+.exposure-explanation pre {
+  white-space: pre-wrap;
+  word-break: break-word;
+  background: #f8fafc;
+  border-radius: 8px;
+  padding: 12px;
+  color: #475467;
+  font-family: inherit;
+  font-size: 13px;
+  line-height: 1.5;
+}
+.badge--risk,
+.badge--negative {
+  background: #fff1f0;
+  color: #b42318;
+}
+.badge--positive,
+.badge--opportunity-signal {
+  background: #ecfdf3;
+  color: #027a48;
+}
+.badge--neutral,
+.badge--not-analyzed {
+  background: #f2f4f7;
+  color: #475467;
+}
+@media (max-width: 1180px) {
+  .ai-control-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+  .external-split {
+    grid-template-columns: 1fr;
+  }
+  .external-event-list {
+    max-height: 420px;
+  }
+}
+@media (max-width: 680px) {
+  .ai-control-grid {
+    grid-template-columns: 1fr;
+  }
+  .external-toolbar {
+    align-items: stretch;
+    flex-direction: column;
+  }
+  .external-toolbar .form-field {
+    min-width: 0;
+  }
+  .external-event-card-top {
+    align-items: flex-start;
+  }
+  .external-detail-grid {
+    grid-template-columns: 1fr;
+  }
+}
+.ai-control-panel,
+.external-filter-panel {
+  margin-bottom: 22px;
+}
+.ai-control-panel .panel-heading {
+  padding-left: 0;
+  padding-right: 0;
+}
+.ai-context-line {
+  font-size: 12px;
+  color: #83977e;
+}
+.ai-context-line strong {
+  font-size: 12px;
+  color: #52704c;
+}
+.ai-context-line span {
+  font-size: 12px;
+}
+.external-event-card {
+  font-size: 12px;
+  color: #68805c;
+  border-radius: 9px;
+}
+.external-event-card small {
+  font-size: 11px;
+  color: #a0ac97;
+}
+.external-event-card.active {
+  background: #f1f6eb;
+  border-color: #d1e0c5;
+}
+.external-event-card:hover {
+  background: #f6f9f1;
+}
+.external-event-card:disabled {
+  opacity: 0.7;
+  cursor: wait;
+}
+.external-event-card-top {
+  font-size: 12px;
+}
+.external-source-link {
+  font-size: 12px;
+}
+.ai-horizon-table {
+  min-width: 500px;
+}
+.impact-explanation {
+  font-size: 11px;
+  color: #83977e;
+  margin-top: 7px;
+  max-width: 320px;
+}
+.impact-explanation summary {
+  cursor: pointer;
+  color: #4f8766;
+}
+.impact-explanation p {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+.external-detail-stack .panel-heading .button-row {
+  align-items: center;
+}
+.badge--risk,
+.badge--negative {
+  background: #fcf0ee;
+  color: #be797a;
+}
+.badge--positive,
+.badge--opportunity-signal {
+  background: #edf6ee;
+  color: #689b73;
+}
+.badge--neutral,
+.badge--not-analyzed {
+  background: #f1f4ee;
+  color: #95a58d;
+}
+.ai-notice {
+  background: #edf5e9;
+  border-color: #d6e6cc;
+  color: #618951;
+}

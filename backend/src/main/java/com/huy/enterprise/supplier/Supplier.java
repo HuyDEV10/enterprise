@@ -1,8 +1,8 @@
-package com.example.enterprise.supplier;
+package com.huy.enterprise.supplier;
 
-import com.example.enterprise.common.BaseEntity;
-import com.example.enterprise.common.enums.RecordStatus;
-import com.example.enterprise.common.enums.RiskLevel;
+import com.huy.enterprise.common.BaseEntity;
+import com.huy.enterprise.common.enums.RecordStatus;
+import com.huy.enterprise.common.enums.RiskLevel;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
