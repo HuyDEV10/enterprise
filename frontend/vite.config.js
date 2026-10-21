@@ -13,6 +13,20 @@ export default defineConfig(({ mode }) => {
             env.API_PROXY_TARGET ||
             'http://localhost:8080',
           changeOrigin: true,
+          configure(proxy) {
+            proxy.on('proxyReq', (proxyRequest, request) => {
+              // A browser request to this Vite server is same-origin. Do not
+              // make the backend treat the internal proxy hop as cross-origin.
+              const origin = request.headers.origin
+              if (
+                origin &&
+                URL.canParse(origin) &&
+                new URL(origin).host === request.headers.host
+              ) {
+                proxyRequest.removeHeader('origin')
+              }
+            })
+          },
         },
       },
     },
