@@ -1,9 +1,97 @@
-import { useEffect,useState } from 'react'
 import { Link } from 'react-router-dom'
+import { Plus } from 'lucide-react'
 import { purchaseOrderApi } from '../api/purchaseOrderApi'
-import { getApiErrorMessage } from '../api/apiClient'
+import Can from '../auth/Can'
 import PageHeader from '../components/PageHeader'
 import Badge from '../components/Badge'
-import { EmptyState,ErrorState,LoadingState } from '../components/States'
-import { formatCurrency,formatDate } from '../utils/formatters'
-export default function PurchaseOrderListPage(){const[rows,setRows]=useState([]),[loading,setLoading]=useState(true),[error,setError]=useState('');const load=async()=>{setLoading(true);try{setRows(await purchaseOrderApi.getAll());setError('')}catch(e){setError(getApiErrorMessage(e,'Không thể tải đơn mua hàng.'))}finally{setLoading(false)}};useEffect(()=>{load()},[]);return <><PageHeader title="Đơn mua hàng" description="Theo dõi đơn đặt nhà cung cấp và tiến độ giao hàng." actions={<Link className="btn btn-primary" to="/purchase-orders/new">+ Tạo đơn mua hàng</Link>}/>{loading?<LoadingState/>:error?<ErrorState message={error} onRetry={load}/>:rows.length===0?<EmptyState title="Chưa có đơn mua hàng nào."/>:<div className="panel table-wrap"><table><thead><tr><th>Mã đơn</th><th>Nhà cung cấp</th><th>Ngày đặt</th><th>Dự kiến giao</th><th>Tổng tiền</th><th>Trạng thái</th><th></th></tr></thead><tbody>{rows.map(r=><tr key={r.id}><td><Link className="table-link mono" to={`/purchase-orders/${r.id}`}>{r.orderCode}</Link></td><td>{r.supplierName}</td><td>{formatDate(r.orderDate)}</td><td>{formatDate(r.expectedDeliveryDate)}</td><td>{formatCurrency(r.totalAmount)}</td><td><Badge value={r.status}/></td><td className="row-actions"><Link to={`/purchase-orders/${r.id}`}>Xem</Link><Link to={`/purchase-orders/${r.id}/edit`}>Sửa</Link></td></tr>)}</tbody></table></div>}</>}
+import Pagination from '../components/Pagination'
+import usePagedList from '../hooks/usePagedList'
+import { EmptyState, ErrorState, LoadingState } from '../components/States'
+import { formatCurrency, formatDate } from '../utils/formatters'
+export default function PurchaseOrderListPage() {
+  const list = usePagedList(purchaseOrderApi.getPage)
+  return (
+    <>
+      <PageHeader
+        title="Đơn mua hàng"
+        description="Theo dõi tiến độ đặt hàng, giá trị và lịch giao của từng đơn."
+        actions={
+          <Can permission="writeOperations">
+            <Link className="btn btn-primary" to="/purchase-orders/new">
+              <Plus size={15} />
+              Tạo đơn mua hàng
+            </Link>
+          </Can>
+        }
+      />
+      {list.loading ? (
+        <LoadingState />
+      ) : list.error ? (
+        <ErrorState message={list.error} onRetry={list.load} />
+      ) : (
+        <div className="panel">
+          {list.content.length === 0 ? (
+            <EmptyState
+              title="Chưa có đơn mua hàng"
+              description="Bắt đầu với một đơn nháp để chuẩn bị đặt hàng."
+            />
+          ) : (
+            <div className="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Mã đơn</th>
+                    <th>Nhà cung cấp</th>
+                    <th>Ngày đặt</th>
+                    <th>Dự kiến giao</th>
+                    <th>Tổng tiền</th>
+                    <th>Trạng thái</th>
+                    <th>Thao tác</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {list.content.map((item) => (
+                    <tr key={item.id}>
+                      <td>
+                        <Link
+                          className="table-link mono"
+                          to={`/purchase-orders/${item.id}`}
+                        >
+                          {item.orderCode}
+                        </Link>
+                      </td>
+                      <td>{item.supplierName}</td>
+                      <td>{formatDate(item.orderDate)}</td>
+                      <td>{formatDate(item.expectedDeliveryDate)}</td>
+                      <td className="strong">
+                        {formatCurrency(item.totalAmount)}
+                      </td>
+                      <td>
+                        <Badge value={item.status} />
+                      </td>
+                      <td>
+                        <div className="row-actions">
+                          <Link to={`/purchase-orders/${item.id}`}>
+                            Chi tiết
+                          </Link>
+                          {item.status === 'DRAFT' && (
+                            <Can permission="writeOperations">
+                              <Link to={`/purchase-orders/${item.id}/edit`}>
+                                Sửa
+                              </Link>
+                            </Can>
+                          )}
+                        </div>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          )}
+          <Pagination {...list} />
+        </div>
+      )}
+    </>
+  )
+}

@@ -1,10 +1,181 @@
-import { useEffect,useState } from 'react'
-import { Link,useNavigate,useParams } from 'react-router-dom'
+import { localToday } from '../utils/workflows'
+import { useEffect, useState } from 'react'
+import { Link, Navigate, useNavigate, useParams } from 'react-router-dom'
 import { shipmentApi } from '../api/shipmentApi'
 import { purchaseOrderApi } from '../api/purchaseOrderApi'
 import { getApiErrorMessage } from '../api/apiClient'
 import PageHeader from '../components/PageHeader'
 import FormField from '../components/FormField'
-import { LoadingState } from '../components/States'
-const initial={shipmentCode:'',purchaseOrderId:'',carrierName:'',departureDate:'',expectedArrivalDate:'',actualArrivalDate:'',status:'PENDING',currentLocation:'',notes:''}
-export default function ShipmentFormPage(){const{id}=useParams(),editing=Boolean(id),navigate=useNavigate();const[form,setForm]=useState(initial),[orders,setOrders]=useState([]),[loading,setLoading]=useState(true),[saving,setSaving]=useState(false),[error,setError]=useState('');useEffect(()=>{Promise.all([purchaseOrderApi.getAll(),editing?shipmentApi.getById(id):Promise.resolve(null)]).then(([o,s])=>{setOrders(o);if(s)setForm({...initial,...s})}).catch(e=>setError(getApiErrorMessage(e))).finally(()=>setLoading(false))},[editing,id]);const set=k=>e=>setForm(p=>({...p,[k]:e.target.value}));const submit=async e=>{e.preventDefault();setSaving(true);setError('');const common={purchaseOrderId:form.purchaseOrderId,carrierName:form.carrierName||null,departureDate:form.departureDate||null,expectedArrivalDate:form.expectedArrivalDate||null,actualArrivalDate:form.actualArrivalDate||null,currentLocation:form.currentLocation||null,notes:form.notes||null};try{const saved=editing?await shipmentApi.update(id,common):await shipmentApi.create({shipmentCode:form.shipmentCode.trim(),...common,status:form.status});navigate(`/shipments/${saved.id}`)}catch(e2){setError(getApiErrorMessage(e2,'Không thể lưu vận chuyển.'))}finally{setSaving(false)}};if(loading)return <LoadingState/>;return <><PageHeader title={editing?'Cập nhật vận chuyển':'Tạo vận chuyển'}/><form className="panel form-panel" onSubmit={submit}>{error&&<div className="alert alert-danger">{error}</div>}<div className="form-grid"><FormField label="Mã vận chuyển" required><input value={form.shipmentCode} onChange={set('shipmentCode')} disabled={editing} required={!editing}/></FormField><FormField label="Đơn mua hàng" required><select value={form.purchaseOrderId} onChange={set('purchaseOrderId')} required><option value="">Chọn đơn</option>{orders.map(o=><option value={o.id} key={o.id}>{o.orderCode} · {o.supplierName}</option>)}</select></FormField><FormField label="Đơn vị vận chuyển"><input value={form.carrierName||''} onChange={set('carrierName')}/></FormField>{!editing&&<FormField label="Trạng thái"><select value={form.status} onChange={set('status')}><option>PENDING</option><option>SHIPPING</option></select></FormField>}<FormField label="Ngày khởi hành"><input type="date" value={form.departureDate||''} onChange={set('departureDate')}/></FormField><FormField label="Ngày đến dự kiến"><input type="date" value={form.expectedArrivalDate||''} onChange={set('expectedArrivalDate')}/></FormField><FormField label="Ngày đến thực tế"><input type="date" value={form.actualArrivalDate||''} onChange={set('actualArrivalDate')}/></FormField><FormField label="Vị trí hiện tại"><input value={form.currentLocation||''} onChange={set('currentLocation')}/></FormField><FormField label="Ghi chú"><textarea rows="3" value={form.notes||''} onChange={set('notes')}/></FormField></div><div className="form-actions"><Link className="btn btn-secondary" to={editing?`/shipments/${id}`:'/shipments'}>Hủy</Link><button className="btn btn-primary" disabled={saving}>{saving?'Đang lưu...':'Lưu vận chuyển'}</button></div></form></>}
+import { ErrorState, LoadingState } from '../components/States'
+const initial = {
+  shipmentCode: '',
+  purchaseOrderId: '',
+  carrierName: '',
+  departureDate: '',
+  expectedArrivalDate: '',
+  actualArrivalDate: '',
+  status: 'PENDING',
+  currentLocation: '',
+  notes: '',
+}
+export default function ShipmentFormPage() {
+  const { id } = useParams(),
+    editing = Boolean(id),
+    navigate = useNavigate()
+  const [form, setForm] = useState(initial),
+    [orders, setOrders] = useState([]),
+    [loading, setLoading] = useState(true),
+    [loaded, setLoaded] = useState(false),
+    [saving, setSaving] = useState(false),
+    [error, setError] = useState('')
+  useEffect(() => {
+    Promise.all([
+      purchaseOrderApi.getAll(),
+      editing ? shipmentApi.getById(id) : Promise.resolve(null),
+    ])
+      .then(([o, s]) => {
+        setOrders(o)
+        setLoaded(true)
+        if (s) setForm({ ...initial, ...s })
+      })
+      .catch((e) => setError(getApiErrorMessage(e)))
+      .finally(() => setLoading(false))
+  }, [editing, id])
+  const set = (k) => (e) => setForm((p) => ({ ...p, [k]: e.target.value }))
+  const submit = async (e) => {
+    e.preventDefault()
+    setSaving(true)
+    setError('')
+    const common = {
+      purchaseOrderId: form.purchaseOrderId,
+      carrierName: form.carrierName || null,
+      departureDate: form.departureDate || null,
+      expectedArrivalDate: form.expectedArrivalDate || null,
+
+      currentLocation: form.currentLocation || null,
+      notes: form.notes || null,
+    }
+    try {
+      const saved = editing
+        ? await shipmentApi.update(id, common)
+        : await shipmentApi.create({
+            shipmentCode: form.shipmentCode.trim(),
+            ...common,
+            status: form.status,
+          })
+      navigate(`/shipments/${saved.id}`)
+    } catch (e2) {
+      setError(getApiErrorMessage(e2, 'Không thể lưu vận chuyển.'))
+    } finally {
+      setSaving(false)
+    }
+  }
+  if (loading) return <LoadingState />
+  if (!loaded)
+    return (
+      <ErrorState message={error} onRetry={() => window.location.reload()} />
+    )
+  if (editing && ['ARRIVED', 'CANCELLED'].includes(form.status))
+    return <Navigate to={`/shipments/${id}`} replace />
+  const selectedOrder = orders.find(
+    (order) => order.id === form.purchaseOrderId,
+  )
+  return (
+    <>
+      <PageHeader
+        title={editing ? 'Cập nhật vận chuyển' : 'Tạo vận chuyển'}
+        description="Chọn đơn đã đặt để tạo lô hàng. Ngày đến thực tế được ghi nhận khi xác nhận đã đến."
+      />
+      <form className="panel form-panel" onSubmit={submit}>
+        {error && <div className="alert alert-danger">{error}</div>}
+        <div className="form-grid">
+          <FormField label="Mã vận chuyển" required>
+            <input
+              value={form.shipmentCode}
+              onChange={set('shipmentCode')}
+              disabled={editing}
+              required={!editing}
+            />
+          </FormField>
+          <FormField label="Đơn mua hàng" required>
+            <select
+              disabled={editing && form.status !== 'PENDING'}
+              value={form.purchaseOrderId}
+              onChange={set('purchaseOrderId')}
+              required
+            >
+              <option value="">Chọn đơn</option>
+              {orders
+                .filter(
+                  (order) =>
+                    ['ORDERED', 'IN_TRANSIT', 'DELAYED'].includes(
+                      order.status,
+                    ) || order.id === form.purchaseOrderId,
+                )
+                .map((o) => (
+                  <option value={o.id} key={o.id}>
+                    {o.orderCode} · {o.supplierName}
+                  </option>
+                ))}
+            </select>
+          </FormField>
+          <FormField label="Đơn vị vận chuyển">
+            <input
+              value={form.carrierName || ''}
+              onChange={set('carrierName')}
+            />
+          </FormField>
+          {!editing && (
+            <FormField label="Trạng thái">
+              <select value={form.status} onChange={set('status')}>
+                <option value="PENDING">Chờ khởi hành</option>
+              </select>
+            </FormField>
+          )}
+          <FormField label="Ngày khởi hành">
+            <input
+              type="date"
+              min={selectedOrder?.orderDate}
+              max={form.status === 'SHIPPING' ? localToday() : undefined}
+              value={form.departureDate || ''}
+              onChange={set('departureDate')}
+            />
+          </FormField>
+          <FormField label="Ngày đến dự kiến">
+            <input
+              type="date"
+              min={form.departureDate || selectedOrder?.orderDate}
+              value={form.expectedArrivalDate || ''}
+              onChange={set('expectedArrivalDate')}
+            />
+          </FormField>
+
+          <FormField label="Vị trí hiện tại">
+            <input
+              value={form.currentLocation || ''}
+              onChange={set('currentLocation')}
+            />
+          </FormField>
+          <FormField label="Ghi chú">
+            <textarea
+              rows="3"
+              value={form.notes || ''}
+              onChange={set('notes')}
+            />
+          </FormField>
+        </div>
+        <div className="form-actions">
+          <Link
+            className="btn btn-secondary"
+            to={editing ? `/shipments/${id}` : '/shipments'}
+          >
+            Hủy
+          </Link>
+          <button className="btn btn-primary" disabled={saving}>
+            {saving ? 'Đang lưu...' : 'Lưu vận chuyển'}
+          </button>
+        </div>
+      </form>
+    </>
+  )
+}

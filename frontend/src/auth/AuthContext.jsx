@@ -1,6 +1,82 @@
-import { createContext,useContext,useEffect,useMemo,useState } from 'react'
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react'
 import { authApi } from '../api/authApi'
+import { getApiErrorMessage } from '../api/apiClient'
 import { authStorage } from './authStorage'
-const AuthContext=createContext(null)
-export function AuthProvider({children}){const [user,setUser]=useState(null);const [loading,setLoading]=useState(true);useEffect(()=>{const token=authStorage.getToken();if(!token){setLoading(false);return}authApi.me().then(setUser).catch(()=>authStorage.clear()).finally(()=>setLoading(false))},[]);const value=useMemo(()=>({user,loading,login:async(credentials)=>{const data=await authApi.login(credentials);authStorage.setToken(data.accessToken);setUser(data.user);return data.user},logout:()=>{authStorage.clear();setUser(null)},hasRole:(...roles)=>roles.some(r=>user?.roles?.includes(r))}),[user,loading]);return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>}
-export function useAuth(){return useContext(AuthContext)}
+import { can } from './permissions'
+const AuthContext = createContext(null)
+export function AuthProvider({ children }) {
+  const [user, setUser] = useState(null)
+  const [loading, setLoading] = useState(true)
+  const [sessionError, setSessionError] = useState('')
+  const sequence = useRef(0)
+  const restoreSession = useCallback(async () => {
+    const request = ++sequence.current
+    setLoading(true)
+    setSessionError('')
+    try {
+      if (authStorage.getToken()) {
+        const currentUser = await authApi.me()
+        if (request === sequence.current) setUser(currentUser)
+      }
+    } catch (error) {
+      if (request !== sequence.current) return
+      if (error?.response?.status === 401) {
+        authStorage.clear()
+        setUser(null)
+      } else setSessionError(getApiErrorMessage(error))
+    } finally {
+      if (request === sequence.current) setLoading(false)
+    }
+  }, [])
+  useEffect(() => {
+    restoreSession()
+    const expire = () => {
+      sequence.current++
+      setUser(null)
+      setSessionError('')
+      setLoading(false)
+    }
+    window.addEventListener('auth:expired', expire)
+    return () => {
+      sequence.current++
+      window.removeEventListener('auth:expired', expire)
+    }
+  }, [restoreSession])
+  const value = useMemo(
+    () => ({
+      user,
+      loading,
+      sessionError,
+      retrySession: restoreSession,
+      login: async (credentials) => {
+        const data = await authApi.login(credentials)
+        sequence.current++
+        authStorage.setToken(data.accessToken)
+        setSessionError('')
+        setUser(data.user)
+        setLoading(false)
+        return data.user
+      },
+      logout: () => {
+        sequence.current++
+        authStorage.clear()
+        setUser(null)
+        setLoading(false)
+        setSessionError('')
+      },
+      hasRole: (...roles) => roles.some((role) => user?.roles?.includes(role)),
+      can: (permission) => can(user, permission),
+    }),
+    [user, loading, sessionError, restoreSession],
+  )
+  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
+}
+export const useAuth = () => useContext(AuthContext)
