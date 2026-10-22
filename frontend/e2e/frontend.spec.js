@@ -177,6 +177,7 @@ test('forecast chart and daily table render returned data accessibly', async ({
         productCode: 'SP-001',
         productId: 'p1',
         modelVersion: 'fixture-model',
+        historySource: 'DEMO_SYNTHETIC',
         historyDays: 56,
         currentInventory: 120,
         lowStockThreshold: 20,
@@ -193,6 +194,7 @@ test('forecast chart and daily table render returned data accessibly', async ({
   await expect(
     page.getByRole('img', { name: /Tồn kho dự kiến từ/ }),
   ).toBeVisible()
+  await expect(page.getByRole('note')).toContainText('Dữ liệu nhu cầu mô phỏng')
   await expect(
     page.locator('.ai-dashboard-grid article').last().locator('tbody tr'),
   ).toHaveCount(28)

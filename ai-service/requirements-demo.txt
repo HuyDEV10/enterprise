@@ -1,0 +1,3 @@
+-r requirements.txt
+# Match the checked-in scikit-learn model artifacts for a predictable local demo.
+scikit-learn==1.8.0

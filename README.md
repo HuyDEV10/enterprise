@@ -4,6 +4,10 @@ Backend REST API cho **Hệ thống Giám sát, Phân tích và Dự báo Rủi 
 
 Dự án bao gồm backend JWT/RBAC, frontend React và AI service FastAPI. Xem [hướng dẫn backend hiện tại](backend/README.md) về JWT key bắt buộc, bootstrap admin, quy tắc trạng thái, migration V6/V7 và kiểm thử. Xem [hướng dẫn frontend hiện tại](frontend/README.md) về giao diện, phân quyền, proxy API và kiểm thử. Phần Giai đoạn 2 bên dưới được giữ làm mô tả lịch sử API; tài khoản admin/mật khẩu mặc định không còn được backend tự tạo.
 
+## Chạy thử với dữ liệu demo trên Windows
+
+Xem [hướng dẫn pull main, nạp dữ liệu và chạy trên Windows/PowerShell](docs/LOCAL-DEMO-WINDOWS.md). Lệnh `.\scripts\start-demo.ps1` tạo database demo riêng và bộ dữ liệu vừa phải; không cần tải M5 nhiều GB.
+
 ## Giai đoạn 2
 
 Branch hoàn thiện: `phase2/complete-backend`.

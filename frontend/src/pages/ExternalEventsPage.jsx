@@ -292,7 +292,11 @@ export default function ExternalEventsPage() {
                 <div className="panel-heading">
                   <div>
                     <h2>Chi tiết sự kiện</h2>
-                    <p>Thông tin sự kiện từ nguồn dữ liệu GDELT.</p>
+                    <p>
+                      {selected.externalSource === 'DEMO_SYNTHETIC'
+                        ? 'Tình huống mô phỏng để thử chức năng; không phải tin tức thật.'
+                        : 'Thông tin sự kiện từ nguồn dữ liệu GDELT.'}
+                    </p>
                   </div>
                   <div className="button-row">
                     <Badge value={selected.sentiment} />
@@ -309,8 +313,16 @@ export default function ExternalEventsPage() {
                   </div>
                 </div>
                 <div className="detail-grid external-detail-grid">
+                  <div className="detail-span">
+                    <small>Nguồn dữ liệu</small>
+                    <strong>
+                      {selected.externalSource === 'DEMO_SYNTHETIC'
+                        ? 'Dữ liệu demo mô phỏng'
+                        : selected.externalSource || 'Chưa xác định'}
+                    </strong>
+                  </div>
                   <div>
-                    <small>GDELT Event ID</small>
+                    <small>ID nguồn sự kiện</small>
                     <strong className="mono">{selected.externalEventId}</strong>
                   </div>
                   <div>

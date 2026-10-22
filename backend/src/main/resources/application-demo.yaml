@@ -1,0 +1,13 @@
+# Activated explicitly by scripts/start-demo.ps1; default application startup never seeds data.
+app:
+  demo:
+    enabled: true
+    password: ${DEMO_PASSWORD:}
+  bootstrap-admin:
+    enabled: false
+  ai-service:
+    inventory-risk-cron: "-"
+  risk-monitoring:
+    enabled: false
+# Initial scan is run once by DemoDataRunner. Manual scans remain available.
+# Avoid automatic mutations while the user compares a repeatable demo snapshot.

@@ -110,7 +110,7 @@ export default function AiForecastPage() {
     <>
       <PageHeader
         title="Dự báo nhu cầu"
-        description="Dự báo nhu cầu từ M5 thật và đánh giá nguy cơ thiếu hàng trên tồn kho doanh nghiệp."
+        description="Dự báo nhu cầu từ lịch sử được cấu hình cho sản phẩm và đánh giá nguy cơ thiếu hàng."
         actions={
           <div className="button-row">
             <button
@@ -135,6 +135,12 @@ export default function AiForecastPage() {
 
       {error && <div className="alert alert-danger">{error}</div>}
       {notice && <div className="alert ai-notice">{notice}</div>}
+      {forecast?.historySource === 'DEMO_SYNTHETIC' && (
+        <div className="alert alert-info" role="note">
+          Dữ liệu nhu cầu mô phỏng để thử chức năng. Kết quả này không dùng để
+          đánh giá độ chính xác mô hình hay quyết định kinh doanh.
+        </div>
+      )}
 
       <section className="panel ai-control-panel">
         <div className="panel-heading">
@@ -329,6 +335,14 @@ export default function AiForecastPage() {
                 <div>
                   <small>Sản phẩm</small>
                   <strong>{forecast.productCode}</strong>
+                </div>
+                <div>
+                  <small>Nguồn lịch sử</small>
+                  <strong>
+                    {forecast.historySource === 'DEMO_SYNTHETIC'
+                      ? 'Dữ liệu demo mô phỏng'
+                      : forecast.historySource || 'Chưa xác định'}
+                  </strong>
                 </div>
                 <div>
                   <small>Lịch sử đầu vào</small>

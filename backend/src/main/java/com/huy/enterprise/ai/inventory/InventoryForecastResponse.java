@@ -19,7 +19,8 @@ public record InventoryForecastResponse(
         HorizonValues projectedInventory,
         ImpactLevel stockoutRisk,
         LocalDate projectedStockoutDate,
-        List<DailyProjection> dailyProjection) {
+        List<DailyProjection> dailyProjection,
+        String historySource) {
 
     public record HorizonValues(BigDecimal next7Days, BigDecimal next14Days, BigDecimal next28Days) {
     }

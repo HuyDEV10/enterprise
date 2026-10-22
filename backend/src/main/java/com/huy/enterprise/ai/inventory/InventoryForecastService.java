@@ -118,7 +118,8 @@ public class InventoryForecastService {
                 new InventoryForecastResponse.HorizonValues(projected7, projected14, projected28),
                 risk,
                 stockoutDate,
-                daily);
+                daily,
+                mapping.getSourceDataset());
     }
 
     private Map<LocalDate, BigDecimal> incomingSupplyByDate(UUID productId, LocalDate today, LocalDate horizonEnd) {

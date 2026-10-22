@@ -85,3 +85,9 @@ DB_PORT=5432 DB_NAME=enterprise_backend_tests sh ./mvnw -f backend/pom.xml clean
 The database must exist. Test resources supply an explicitly test-only JWT key, disable bootstrap and background schedulers, and are not packaged into the application. Tests cover JWT/bootstrap validation, role protection/audit, request error status, login throttling, order/shipment transitions, actual AI HTTP serialization/error handling, repeatable demand imports, mapping replacement and stock writers using independent database transactions.
 
 The Windows launcher requires PowerShell/Windows for runtime validation; Linux backend tests do not execute it. Real AI inference can be checked by starting FastAPI with the repository's trained artifacts and calling the forecast API through Spring Boot with an active mapping and contiguous history. API fixtures in tests are never used for model training or quality metrics.
+
+## Opt-in demo dataset
+
+See [Windows demo guide](../docs/LOCAL-DEMO-WINDOWS.md). Only the explicit `demo` profile enables the initializer. It requires an empty database whose actual name ends in `_demo`, refuses production profiles, uses a transaction and database lock, and writes a completion marker. Restarting preserves edits and passwords. The default profile never seeds demo data. Forecast responses now include `historySource` so the UI can identify `DEMO_SYNTHETIC` fixtures.
+
+The demo integration test creates and removes a uniquely named temporary database; the test PostgreSQL role needs CREATEDB permission. It does not clear the configured development database.

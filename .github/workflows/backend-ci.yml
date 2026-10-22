@@ -52,3 +52,11 @@ jobs:
           name: frontend-browser-results
           path: frontend/test-results
           retention-days: 7
+
+  demo-launcher-test:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check demo configuration and PowerShell syntax
+        shell: pwsh
+        run: ./scripts/tests/Start-DemoConfig.Tests.ps1
