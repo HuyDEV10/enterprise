@@ -13,7 +13,11 @@ vi.mock('../api/aiForecastApi', () => ({
 }))
 vi.mock('../api/productApi', () => ({ productApi: { getAll: vi.fn() } }))
 vi.mock('../api/externalEventApi', () => ({
-  externalEventApi: { getAll: vi.fn(), getImpacts: vi.fn() },
+  externalEventApi: {
+    getAll: vi.fn(),
+    getImpacts: vi.fn(),
+    getSentiments: vi.fn().mockResolvedValue([]),
+  },
 }))
 function deferred() {
   let resolve, reject
@@ -79,4 +83,29 @@ it('keeps exposure results keyed to the selected event and shows errors separate
   expect(
     screen.queryByText('Chưa có kết quả đánh giá ảnh hưởng'),
   ).not.toBeInTheDocument()
+})
+
+it.each(['DEMO_SYNTHETIC', 'DEMO_FIXTURE'])(
+  'clearly labels %s events as fictional and does not link them as GDELT articles',
+  async (externalSource) => {
+    externalEventApi.getAll.mockResolvedValue([
+      { id: 'demo', externalEventId: 'DEMO-EVT-01', externalSource, sourceUrl: 'https://example.invalid/demo/DEMO-EVT-01' },
+    ])
+    externalEventApi.getImpacts.mockResolvedValue([])
+    externalEventApi.getSentiments.mockResolvedValue([])
+    render(<ExternalEventsPage />)
+    expect(await screen.findByText('Tình huống mô phỏng để thử chức năng; không phải tin tức thật.')).toBeInTheDocument()
+    expect(screen.getByText('Dữ liệu demo mô phỏng')).toBeInTheDocument()
+    expect(screen.queryByRole('link', { name: 'Mở nguồn GDELT' })).not.toBeInTheDocument()
+  },
+)
+it('keeps the article source for real GDELT events', async () => {
+  externalEventApi.getAll.mockResolvedValue([
+    { id: 'gdelt', externalEventId: 'GDELT-01', externalSource: 'GDELT_2_EVENT', sourceUrl: 'https://news.example/article' },
+  ])
+  externalEventApi.getImpacts.mockResolvedValue([])
+  externalEventApi.getSentiments.mockResolvedValue([])
+  render(<ExternalEventsPage />)
+  expect(await screen.findByText('Thông tin sự kiện từ nguồn dữ liệu GDELT.')).toBeInTheDocument()
+  expect(screen.getByRole('link', { name: 'Mở nguồn GDELT' })).toHaveAttribute('href', 'https://news.example/article')
 })

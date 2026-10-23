@@ -5,6 +5,7 @@ import { useAuth } from '../auth/AuthContext'
 import PageHeader from '../components/PageHeader'
 import Badge from '../components/Badge'
 import StatCard from '../components/StatCard'
+import EntitySentimentPanel from '../components/EntitySentimentPanel'
 import { EmptyState, ErrorState, LoadingState } from '../components/States'
 import { formatDate, formatDateTime, formatNumber } from '../utils/formatters'
 
@@ -46,6 +47,10 @@ export default function ExternalEventsPage() {
   const selected = useMemo(
     () => events.find((event) => event.id === selectedId),
     [events, selectedId],
+  )
+
+  const isDemoEvent = ['DEMO_SYNTHETIC', 'DEMO_FIXTURE'].includes(
+    selected?.externalSource,
   )
 
   const load = async () => {
@@ -293,7 +298,7 @@ export default function ExternalEventsPage() {
                   <div>
                     <h2>Chi tiết sự kiện</h2>
                     <p>
-                      {selected.externalSource === 'DEMO_SYNTHETIC'
+                      {isDemoEvent
                         ? 'Tình huống mô phỏng để thử chức năng; không phải tin tức thật.'
                         : 'Thông tin sự kiện từ nguồn dữ liệu GDELT.'}
                     </p>
@@ -316,7 +321,7 @@ export default function ExternalEventsPage() {
                   <div className="detail-span">
                     <small>Nguồn dữ liệu</small>
                     <strong>
-                      {selected.externalSource === 'DEMO_SYNTHETIC'
+                      {isDemoEvent
                         ? 'Dữ liệu demo mô phỏng'
                         : selected.externalSource || 'Chưa xác định'}
                     </strong>
@@ -369,7 +374,7 @@ export default function ExternalEventsPage() {
                     </strong>
                   </div>
                   <div>
-                    <small>Độ tin cậy sắc thái</small>
+                    <small>Độ tin cậy phân tích gần nhất</small>
                     <strong>
                       {selected.sentimentConfidence == null
                         ? 'Chưa phân tích'
@@ -377,12 +382,12 @@ export default function ExternalEventsPage() {
                     </strong>
                   </div>
                   <div className="detail-span">
-                    <small>Mô hình sắc thái</small>
+                    <small>Mô hình phân tích gần nhất</small>
                     <strong className="mono">
                       {selected.sentimentModelVersion || 'NOT_ANALYZED'}
                     </strong>
                   </div>
-                  {selected.sourceUrl && (
+                  {selected.sourceUrl && !isDemoEvent && (
                     <div className="detail-span">
                       <small>Nguồn sự kiện</small>
                       <a
@@ -397,6 +402,24 @@ export default function ExternalEventsPage() {
                   )}
                 </div>
               </article>
+
+              <EntitySentimentPanel
+                key={selected.id}
+                eventId={selected.id}
+                canAnalyze={canWrite}
+                onBusyChange={setWorking}
+                onAnalyzed={(updated) => {
+                  if (selectedRef.current !== updated.id) return
+                  setEvents((items) =>
+                    items.map((item) =>
+                      item.id === updated.id ? updated : item,
+                    ),
+                  )
+                  setNotice(
+                    'Đã lưu sentiment theo thực thể. Tính mức ảnh hưởng để cập nhật đánh giá nhà cung cấp.',
+                  )
+                }}
+              />
 
               <article className="panel">
                 <div className="panel-heading">

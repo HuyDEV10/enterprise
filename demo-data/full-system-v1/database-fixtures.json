@@ -1,0 +1,36 @@
+{
+  "externalSource": "DEMO_FIXTURE",
+  "passwordsUpdated": 0,
+  "events": [
+    {
+      "externalEventId": "DEMO-EVT-01",
+      "id": "7fdb9214-3465-46f1-b48c-461402412e09",
+      "eventDate": "2026-10-23",
+      "externalSource": "DEMO_FIXTURE"
+    },
+    {
+      "externalEventId": "DEMO-EVT-02",
+      "id": "f3b23329-46c8-4e9b-ae89-f1e63fc93efb",
+      "eventDate": "2026-10-23",
+      "externalSource": "DEMO_FIXTURE"
+    },
+    {
+      "externalEventId": "DEMO-EVT-03",
+      "id": "e8cebea0-6735-4016-abd3-f9668d3630e3",
+      "eventDate": "2026-10-23",
+      "externalSource": "DEMO_FIXTURE"
+    },
+    {
+      "externalEventId": "DEMO-EVT-04",
+      "id": "48e35477-ad70-4f76-b086-603564b5704f",
+      "eventDate": "2026-10-23",
+      "externalSource": "DEMO_FIXTURE"
+    },
+    {
+      "externalEventId": "DEMO-EVT-05",
+      "id": "0cd8f67a-38ea-4dd0-8f94-1a72fedddb93",
+      "eventDate": "2026-10-23",
+      "externalSource": "DEMO_FIXTURE"
+    }
+  ]
+}

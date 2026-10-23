@@ -1,0 +1,196 @@
+{
+  "productId": "7a4f68f5-eb96-45b9-8f43-62f74574458b",
+  "productCode": "DEMO-AI-01",
+  "historyDays": 365,
+  "modelVersion": "m5-ca_1-foods_3-20260816T112231Z",
+  "currentInventory": 10000.0,
+  "lowStockThreshold": 20.0,
+  "forecastDemand": {
+    "next7Days": 5.1411,
+    "next14Days": 10.7898,
+    "next28Days": 21.5156
+  },
+  "incomingSupply": {
+    "next7Days": 0,
+    "next14Days": 0,
+    "next28Days": 0
+  },
+  "projectedInventory": {
+    "next7Days": 9994.8589,
+    "next14Days": 9989.2102,
+    "next28Days": 9978.4844
+  },
+  "stockoutRisk": "LOW",
+  "projectedStockoutDate": null,
+  "dailyProjection": [
+    {
+      "date": "2026-10-24",
+      "forecastDemand": 0.7081,
+      "incomingSupply": 0,
+      "projectedInventory": 9999.2919
+    },
+    {
+      "date": "2026-10-25",
+      "forecastDemand": 0.9892,
+      "incomingSupply": 0,
+      "projectedInventory": 9998.3027
+    },
+    {
+      "date": "2026-10-26",
+      "forecastDemand": 0.6838,
+      "incomingSupply": 0,
+      "projectedInventory": 9997.6189
+    },
+    {
+      "date": "2026-10-27",
+      "forecastDemand": 0.7021,
+      "incomingSupply": 0,
+      "projectedInventory": 9996.9168
+    },
+    {
+      "date": "2026-10-28",
+      "forecastDemand": 0.6596,
+      "incomingSupply": 0,
+      "projectedInventory": 9996.2572
+    },
+    {
+      "date": "2026-10-29",
+      "forecastDemand": 0.6413,
+      "incomingSupply": 0,
+      "projectedInventory": 9995.6159
+    },
+    {
+      "date": "2026-10-30",
+      "forecastDemand": 0.757,
+      "incomingSupply": 0,
+      "projectedInventory": 9994.8589
+    },
+    {
+      "date": "2026-10-31",
+      "forecastDemand": 0.86,
+      "incomingSupply": 0,
+      "projectedInventory": 9993.9989
+    },
+    {
+      "date": "2026-11-01",
+      "forecastDemand": 0.9592,
+      "incomingSupply": 0,
+      "projectedInventory": 9993.0397
+    },
+    {
+      "date": "2026-11-02",
+      "forecastDemand": 0.7911,
+      "incomingSupply": 0,
+      "projectedInventory": 9992.2486
+    },
+    {
+      "date": "2026-11-03",
+      "forecastDemand": 0.7527,
+      "incomingSupply": 0,
+      "projectedInventory": 9991.4959
+    },
+    {
+      "date": "2026-11-04",
+      "forecastDemand": 0.731,
+      "incomingSupply": 0,
+      "projectedInventory": 9990.7649
+    },
+    {
+      "date": "2026-11-05",
+      "forecastDemand": 0.7285,
+      "incomingSupply": 0,
+      "projectedInventory": 9990.0364
+    },
+    {
+      "date": "2026-11-06",
+      "forecastDemand": 0.8262,
+      "incomingSupply": 0,
+      "projectedInventory": 9989.2102
+    },
+    {
+      "date": "2026-11-07",
+      "forecastDemand": 0.9602,
+      "incomingSupply": 0,
+      "projectedInventory": 9988.25
+    },
+    {
+      "date": "2026-11-08",
+      "forecastDemand": 0.9752,
+      "incomingSupply": 0,
+      "projectedInventory": 9987.2748
+    },
+    {
+      "date": "2026-11-09",
+      "forecastDemand": 0.7873,
+      "incomingSupply": 0,
+      "projectedInventory": 9986.4875
+    },
+    {
+      "date": "2026-11-10",
+      "forecastDemand": 0.7488,
+      "incomingSupply": 0,
+      "projectedInventory": 9985.7387
+    },
+    {
+      "date": "2026-11-11",
+      "forecastDemand": 0.6815,
+      "incomingSupply": 0,
+      "projectedInventory": 9985.0572
+    },
+    {
+      "date": "2026-11-12",
+      "forecastDemand": 0.6452,
+      "incomingSupply": 0,
+      "projectedInventory": 9984.412
+    },
+    {
+      "date": "2026-11-13",
+      "forecastDemand": 0.7606,
+      "incomingSupply": 0,
+      "projectedInventory": 9983.6514
+    },
+    {
+      "date": "2026-11-14",
+      "forecastDemand": 0.8786,
+      "incomingSupply": 0,
+      "projectedInventory": 9982.7728
+    },
+    {
+      "date": "2026-11-15",
+      "forecastDemand": 0.8786,
+      "incomingSupply": 0,
+      "projectedInventory": 9981.8942
+    },
+    {
+      "date": "2026-11-16",
+      "forecastDemand": 0.6836,
+      "incomingSupply": 0,
+      "projectedInventory": 9981.2106
+    },
+    {
+      "date": "2026-11-17",
+      "forecastDemand": 0.6602,
+      "incomingSupply": 0,
+      "projectedInventory": 9980.5504
+    },
+    {
+      "date": "2026-11-18",
+      "forecastDemand": 0.6602,
+      "incomingSupply": 0,
+      "projectedInventory": 9979.8902
+    },
+    {
+      "date": "2026-11-19",
+      "forecastDemand": 0.6452,
+      "incomingSupply": 0,
+      "projectedInventory": 9979.245
+    },
+    {
+      "date": "2026-11-20",
+      "forecastDemand": 0.7606,
+      "incomingSupply": 0,
+      "projectedInventory": 9978.4844
+    }
+  ],
+  "historySource": "M5"
+}

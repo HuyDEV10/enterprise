@@ -1,0 +1,1406 @@
+{
+  "dataset": "FULL-SYSTEM-DEMO-V1",
+  "seedDate": "2026-10-23",
+  "baseUrl": "http://127.0.0.1:5173/api",
+  "startedAt": "2026-10-23T15:09:51.568479+00:00",
+  "completedAt": "2026-10-23T15:09:56.959337+00:00",
+  "passed": true,
+  "technicalChecksPassed": true,
+  "status": "PASS_WITH_KNOWN_LIMITATIONS",
+  "completeWithoutLimitations": false,
+  "checkCount": 113,
+  "passedChecks": 112,
+  "failedChecks": 0,
+  "knownLimitationCount": 1,
+  "knownLimitations": [
+    {
+      "name": "sentiment.catalogCase.2",
+      "status": "KNOWN_LIMITATION",
+      "passed": null,
+      "detail": {
+        "eventId": "7fdb9214-3465-46f1-b48c-461402412e09",
+        "entity": "Pacific Supply",
+        "matchingRows": 1,
+        "expectedSentiment": "POSITIVE",
+        "actualSentiment": "NEGATIVE",
+        "contractValid": true,
+        "semanticLabelMatches": false,
+        "knownModelLimitation": true,
+        "language": "en",
+        "supplierCode": "DEMO-NCC-02",
+        "confidence": 0.582438,
+        "needsReview": false,
+        "reviewReason": null,
+        "modelVersion": "bilingual-entity-v2-20261023T133850Z",
+        "note": "Expected label is preserved. The current model predicts a different label; this is not a passed semantic check."
+      }
+    }
+  ],
+  "activity": {
+    "validDataWrites": false,
+    "authenticationRequests": true,
+    "invalidInventoryPutEnabled": true,
+    "invalidPayloadAuthorizationProbes": true,
+    "note": "No reseed, delete, valid update, AI refresh, ingestion or integration test."
+  },
+  "resourceCounts": {
+    "companies": 1,
+    "departments": 5,
+    "employees": 28,
+    "suppliers": 30,
+    "product-categories": 7,
+    "products": 27,
+    "warehouses": 6,
+    "inventory": 57,
+    "purchase-orders": 32,
+    "shipments": 30,
+    "risk-events": 65,
+    "alerts": 65,
+    "users": 24
+  },
+  "checks": [
+    {
+      "name": "auth.admin.login",
+      "status": "PASS",
+      "passed": true,
+      "detail": {
+        "status": 200,
+        "code": null
+      }
+    },
+    {
+      "name": "auth.admin.me",
+      "status": "PASS",
+      "passed": true,
+      "detail": {
+        "status": 200,
+        "username": "admin",
+        "roles": [
+          "ADMIN"
+        ]
+      }
+    },
+    {
+      "name": "auth.manager_test.login",
+      "status": "PASS",
+      "passed": true,
+      "detail": {
+        "status": 200,
+        "code": null
+      }
+    },
+    {
+      "name": "auth.manager_test.me",
+      "status": "PASS",
+      "passed": true,
+      "detail": {
+        "status": 200,
+        "username": "manager_test",
+        "roles": [
+          "MANAGER"
+        ]
+      }
+    },
+    {
+      "name": "auth.analyst_test.login",
+      "status": "PASS",
+      "passed": true,
+      "detail": {
+        "status": 200,
+        "code": null
+      }
+    },
+    {
+      "name": "auth.analyst_test.me",
+      "status": "PASS",
+      "passed": true,
+      "detail": {
+        "status": 200,
+        "username": "analyst_test",
+        "roles": [
+          "ANALYST"
+        ]
+      }
+    },
+    {
+      "name": "auth.staff_test.login",
+      "status": "PASS",
+      "passed": true,
+      "detail": {
+        "status": 200,
+        "code": null
+      }
+    },
+    {
+      "name": "auth.staff_test.me",
+      "status": "PASS",
+      "passed": true,
+      "detail": {
+        "status": 200,
+        "username": "staff_test",
+        "roles": [
+          "STAFF"
+        ]
+      }
+    },
+    {
+      "name": "rbac.admin.users",
+      "status": "PASS",
+      "passed": true,
+      "detail": {
+        "status": 200,
+        "expectedStatus": 200
+      }
+    },
+    {
+      "name": "rbac.manager_test.users",
+      "status": "PASS",
+      "passed": true,
+      "detail": {
+        "status": 403,
+        "expectedStatus": 403
+      }
+    },
+    {
+      "name": "rbac.analyst_test.users",
+      "status": "PASS",
+      "passed": true,
+      "detail": {
+        "status": 403,
+        "expectedStatus": 403
+      }
+    },
+    {
+      "name": "rbac.staff_test.users",
+      "status": "PASS",
+      "passed": true,
+      "detail": {
+        "status": 403,
+        "expectedStatus": 403
+      }
+    },
+    {
+      "name": "rbac.staff_test.risk-events",
+      "status": "PASS",
+      "passed": true,
+      "detail": {
+        "status": 403,
+        "expectedStatus": 403
+      }
+    },
+    {
+      "name": "rbac.staff_test.alerts",
+      "status": "PASS",
+      "passed": true,
+      "detail": {
+        "status": 403,
+        "expectedStatus": 403
+      }
+    },
+    {
+      "name": "rbac.staff_test.companies",
+      "status": "PASS",
+      "passed": true,
+      "detail": {
+        "status": 403,
+        "expectedStatus": 403
+      }
+    },
+    {
+      "name": "resources.companies",
+      "status": "PASS",
+      "passed": true,
+      "detail": {
+        "status": 200,
+        "count": 1,
+        "fixtureCount": 1,
+        "missingFixtureIds": []
+      }
+    },
+    {
+      "name": "resources.departments",
+      "status": "PASS",
+      "passed": true,
+      "detail": {
+        "status": 200,
+        "count": 5,
+        "fixtureCount": 1,
+        "missingFixtureIds": []
+      }
+    },
+    {
+      "name": "resources.employees",
+      "status": "PASS",
+      "passed": true,
+      "detail": {
+        "status": 200,
+        "count": 28,
+        "fixtureCount": 20,
+        "missingFixtureIds": []
+      }
+    },
+    {
+      "name": "resources.suppliers",
+      "status": "PASS",
+      "passed": true,
+      "detail": {
+        "status": 200,
+        "count": 30,
+        "fixtureCount": 4,
+        "missingFixtureIds": []
+      }
+    },
+    {
+      "name": "resources.product-categories",
+      "status": "PASS",
+      "passed": true,
+      "detail": {
+        "status": 200,
+        "count": 7,
+        "fixtureCount": 1,
+        "missingFixtureIds": []
+      }
+    },
+    {
+      "name": "resources.products",
+      "status": "PASS",
+      "passed": true,
+      "detail": {
+        "status": 200,
+        "count": 27,
+        "fixtureCount": 7,
+        "missingFixtureIds": []
+      }
+    },
+    {
+      "name": "resources.warehouses",
+      "status": "PASS",
+      "passed": true,
+      "detail": {
+        "status": 200,
+        "count": 6,
+        "fixtureCount": 1,
+        "missingFixtureIds": []
+      }
+    },
+    {
+      "name": "resources.inventory",
+      "status": "PASS",
+      "passed": true,
+      "detail": {
+        "status": 200,
+        "count": 57,
+        "fixtureCount": 7,
+        "missingFixtureIds": []
+      }
+    },
+    {
+      "name": "resources.purchase-orders",
+      "status": "PASS",
+      "passed": true,
+      "detail": {
+        "status": 200,
+        "count": 32,
+        "fixtureCount": 7,
+        "missingFixtureIds": []
+      }
+    },
+    {
+      "name": "resources.shipments",
+      "status": "PASS",
+      "passed": true,
+      "detail": {
+        "status": 200,
+        "count": 30,
+        "fixtureCount": 7,
+        "missingFixtureIds": []
+      }
+    },
+    {
+      "name": "resources.risk-events",
+      "status": "PASS",
+      "passed": true,
+      "detail": {
+        "status": 200,
+        "count": 65,
+        "fixtureCount": 0,
+        "missingFixtureIds": []
+      }
+    },
+    {
+      "name": "resources.alerts",
+      "status": "PASS",
+      "passed": true,
+      "detail": {
+        "status": 200,
+        "count": 65,
+        "fixtureCount": 0,
+        "missingFixtureIds": []
+      }
+    },
+    {
+      "name": "resources.users",
+      "status": "PASS",
+      "passed": true,
+      "detail": {
+        "status": 200,
+        "count": 24,
+        "fixtureCount": 20,
+        "missingFixtureIds": []
+      }
+    },
+    {
+      "name": "auth.demo_member_17.login",
+      "status": "PASS",
+      "passed": true,
+      "detail": {
+        "status": 200,
+        "code": null
+      }
+    },
+    {
+      "name": "auth.demo_member_17.me",
+      "status": "PASS",
+      "passed": true,
+      "detail": {
+        "status": 200,
+        "username": "demo_member_17",
+        "roles": [
+          "MANAGER"
+        ]
+      }
+    },
+    {
+      "name": "auth.demo_member_14.login",
+      "status": "PASS",
+      "passed": true,
+      "detail": {
+        "status": 200,
+        "code": null
+      }
+    },
+    {
+      "name": "auth.demo_member_14.me",
+      "status": "PASS",
+      "passed": true,
+      "detail": {
+        "status": 200,
+        "username": "demo_member_14",
+        "roles": [
+          "MANAGER"
+        ]
+      }
+    },
+    {
+      "name": "auth.demo_member_11.login",
+      "status": "PASS",
+      "passed": true,
+      "detail": {
+        "status": 200,
+        "code": null
+      }
+    },
+    {
+      "name": "auth.demo_member_11.me",
+      "status": "PASS",
+      "passed": true,
+      "detail": {
+        "status": 200,
+        "username": "demo_member_11",
+        "roles": [
+          "MANAGER"
+        ]
+      }
+    },
+    {
+      "name": "auth.demo_member_08.login",
+      "status": "PASS",
+      "passed": true,
+      "detail": {
+        "status": 200,
+        "code": null
+      }
+    },
+    {
+      "name": "auth.demo_member_08.me",
+      "status": "PASS",
+      "passed": true,
+      "detail": {
+        "status": 200,
+        "username": "demo_member_08",
+        "roles": [
+          "MANAGER"
+        ]
+      }
+    },
+    {
+      "name": "auth.demo_member_05.login",
+      "status": "PASS",
+      "passed": true,
+      "detail": {
+        "status": 200,
+        "code": null
+      }
+    },
+    {
+      "name": "auth.demo_member_05.me",
+      "status": "PASS",
+      "passed": true,
+      "detail": {
+        "status": 200,
+        "username": "demo_member_05",
+        "roles": [
+          "MANAGER"
+        ]
+      }
+    },
+    {
+      "name": "auth.demo_member_02.login",
+      "status": "PASS",
+      "passed": true,
+      "detail": {
+        "status": 200,
+        "code": null
+      }
+    },
+    {
+      "name": "auth.demo_member_02.me",
+      "status": "PASS",
+      "passed": true,
+      "detail": {
+        "status": 200,
+        "username": "demo_member_02",
+        "roles": [
+          "MANAGER"
+        ]
+      }
+    },
+    {
+      "name": "auth.demo_member_19.login",
+      "status": "PASS",
+      "passed": true,
+      "detail": {
+        "status": 200,
+        "code": null
+      }
+    },
+    {
+      "name": "auth.demo_member_19.me",
+      "status": "PASS",
+      "passed": true,
+      "detail": {
+        "status": 200,
+        "username": "demo_member_19",
+        "roles": [
+          "STAFF"
+        ]
+      }
+    },
+    {
+      "name": "auth.demo_member_16.login",
+      "status": "PASS",
+      "passed": true,
+      "detail": {
+        "status": 200,
+        "code": null
+      }
+    },
+    {
+      "name": "auth.demo_member_16.me",
+      "status": "PASS",
+      "passed": true,
+      "detail": {
+        "status": 200,
+        "username": "demo_member_16",
+        "roles": [
+          "STAFF"
+        ]
+      }
+    },
+    {
+      "name": "auth.demo_member_13.login",
+      "status": "PASS",
+      "passed": true,
+      "detail": {
+        "status": 200,
+        "code": null
+      }
+    },
+    {
+      "name": "auth.demo_member_13.me",
+      "status": "PASS",
+      "passed": true,
+      "detail": {
+        "status": 200,
+        "username": "demo_member_13",
+        "roles": [
+          "STAFF"
+        ]
+      }
+    },
+    {
+      "name": "auth.demo_member_10.login",
+      "status": "PASS",
+      "passed": true,
+      "detail": {
+        "status": 200,
+        "code": null
+      }
+    },
+    {
+      "name": "auth.demo_member_10.me",
+      "status": "PASS",
+      "passed": true,
+      "detail": {
+        "status": 200,
+        "username": "demo_member_10",
+        "roles": [
+          "STAFF"
+        ]
+      }
+    },
+    {
+      "name": "auth.demo_member_07.login",
+      "status": "PASS",
+      "passed": true,
+      "detail": {
+        "status": 200,
+        "code": null
+      }
+    },
+    {
+      "name": "auth.demo_member_07.me",
+      "status": "PASS",
+      "passed": true,
+      "detail": {
+        "status": 200,
+        "username": "demo_member_07",
+        "roles": [
+          "STAFF"
+        ]
+      }
+    },
+    {
+      "name": "auth.demo_member_04.login",
+      "status": "PASS",
+      "passed": true,
+      "detail": {
+        "status": 200,
+        "code": null
+      }
+    },
+    {
+      "name": "auth.demo_member_04.me",
+      "status": "PASS",
+      "passed": true,
+      "detail": {
+        "status": 200,
+        "username": "demo_member_04",
+        "roles": [
+          "STAFF"
+        ]
+      }
+    },
+    {
+      "name": "auth.demo_member_01.login",
+      "status": "PASS",
+      "passed": true,
+      "detail": {
+        "status": 200,
+        "code": null
+      }
+    },
+    {
+      "name": "auth.demo_member_01.me",
+      "status": "PASS",
+      "passed": true,
+      "detail": {
+        "status": 200,
+        "username": "demo_member_01",
+        "roles": [
+          "STAFF"
+        ]
+      }
+    },
+    {
+      "name": "auth.demo_member_18.login",
+      "status": "PASS",
+      "passed": true,
+      "detail": {
+        "status": 200,
+        "code": null
+      }
+    },
+    {
+      "name": "auth.demo_member_18.me",
+      "status": "PASS",
+      "passed": true,
+      "detail": {
+        "status": 200,
+        "username": "demo_member_18",
+        "roles": [
+          "ANALYST"
+        ]
+      }
+    },
+    {
+      "name": "auth.demo_member_15.login",
+      "status": "PASS",
+      "passed": true,
+      "detail": {
+        "status": 200,
+        "code": null
+      }
+    },
+    {
+      "name": "auth.demo_member_15.me",
+      "status": "PASS",
+      "passed": true,
+      "detail": {
+        "status": 200,
+        "username": "demo_member_15",
+        "roles": [
+          "ANALYST"
+        ]
+      }
+    },
+    {
+      "name": "auth.demo_member_12.login",
+      "status": "PASS",
+      "passed": true,
+      "detail": {
+        "status": 200,
+        "code": null
+      }
+    },
+    {
+      "name": "auth.demo_member_12.me",
+      "status": "PASS",
+      "passed": true,
+      "detail": {
+        "status": 200,
+        "username": "demo_member_12",
+        "roles": [
+          "ANALYST"
+        ]
+      }
+    },
+    {
+      "name": "auth.demo_member_09.login",
+      "status": "PASS",
+      "passed": true,
+      "detail": {
+        "status": 200,
+        "code": null
+      }
+    },
+    {
+      "name": "auth.demo_member_09.me",
+      "status": "PASS",
+      "passed": true,
+      "detail": {
+        "status": 200,
+        "username": "demo_member_09",
+        "roles": [
+          "ANALYST"
+        ]
+      }
+    },
+    {
+      "name": "auth.demo_member_06.login",
+      "status": "PASS",
+      "passed": true,
+      "detail": {
+        "status": 200,
+        "code": null
+      }
+    },
+    {
+      "name": "auth.demo_member_06.me",
+      "status": "PASS",
+      "passed": true,
+      "detail": {
+        "status": 200,
+        "username": "demo_member_06",
+        "roles": [
+          "ANALYST"
+        ]
+      }
+    },
+    {
+      "name": "auth.demo_member_03.login",
+      "status": "PASS",
+      "passed": true,
+      "detail": {
+        "status": 200,
+        "code": null
+      }
+    },
+    {
+      "name": "auth.demo_member_03.me",
+      "status": "PASS",
+      "passed": true,
+      "detail": {
+        "status": 200,
+        "username": "demo_member_03",
+        "roles": [
+          "ANALYST"
+        ]
+      }
+    },
+    {
+      "name": "rbac.invalidPayload.admin.products",
+      "status": "PASS",
+      "passed": true,
+      "detail": {
+        "status": 400,
+        "expectedStatus": 400,
+        "note": "Empty required fields prevent creation even when authorized."
+      }
+    },
+    {
+      "name": "rbac.invalidPayload.admin.alerts",
+      "status": "PASS",
+      "passed": true,
+      "detail": {
+        "status": 400,
+        "expectedStatus": 400,
+        "note": "Empty required fields prevent creation even when authorized."
+      }
+    },
+    {
+      "name": "rbac.invalidPayload.admin.companies",
+      "status": "PASS",
+      "passed": true,
+      "detail": {
+        "status": 400,
+        "expectedStatus": 400,
+        "note": "Empty required fields prevent creation even when authorized."
+      }
+    },
+    {
+      "name": "rbac.invalidPayload.manager_test.products",
+      "status": "PASS",
+      "passed": true,
+      "detail": {
+        "status": 400,
+        "expectedStatus": 400,
+        "note": "Empty required fields prevent creation even when authorized."
+      }
+    },
+    {
+      "name": "rbac.invalidPayload.manager_test.alerts",
+      "status": "PASS",
+      "passed": true,
+      "detail": {
+        "status": 400,
+        "expectedStatus": 400,
+        "note": "Empty required fields prevent creation even when authorized."
+      }
+    },
+    {
+      "name": "rbac.invalidPayload.manager_test.companies",
+      "status": "PASS",
+      "passed": true,
+      "detail": {
+        "status": 403,
+        "expectedStatus": 403,
+        "note": "Empty required fields prevent creation even when authorized."
+      }
+    },
+    {
+      "name": "rbac.invalidPayload.analyst_test.products",
+      "status": "PASS",
+      "passed": true,
+      "detail": {
+        "status": 403,
+        "expectedStatus": 403,
+        "note": "Empty required fields prevent creation even when authorized."
+      }
+    },
+    {
+      "name": "rbac.invalidPayload.analyst_test.alerts",
+      "status": "PASS",
+      "passed": true,
+      "detail": {
+        "status": 403,
+        "expectedStatus": 403,
+        "note": "Empty required fields prevent creation even when authorized."
+      }
+    },
+    {
+      "name": "rbac.invalidPayload.analyst_test.companies",
+      "status": "PASS",
+      "passed": true,
+      "detail": {
+        "status": 403,
+        "expectedStatus": 403,
+        "note": "Empty required fields prevent creation even when authorized."
+      }
+    },
+    {
+      "name": "rbac.invalidPayload.staff_test.products",
+      "status": "PASS",
+      "passed": true,
+      "detail": {
+        "status": 400,
+        "expectedStatus": 400,
+        "note": "Empty required fields prevent creation even when authorized."
+      }
+    },
+    {
+      "name": "rbac.invalidPayload.staff_test.alerts",
+      "status": "PASS",
+      "passed": true,
+      "detail": {
+        "status": 403,
+        "expectedStatus": 403,
+        "note": "Empty required fields prevent creation even when authorized."
+      }
+    },
+    {
+      "name": "rbac.invalidPayload.staff_test.companies",
+      "status": "PASS",
+      "passed": true,
+      "detail": {
+        "status": 403,
+        "expectedStatus": 403,
+        "note": "Empty required fields prevent creation even when authorized."
+      }
+    },
+    {
+      "name": "pagination.users.page1",
+      "status": "PASS",
+      "passed": true,
+      "detail": {
+        "status": 200,
+        "page": 1,
+        "rows": 5,
+        "totalElements": 24,
+        "totalPages": 5
+      }
+    },
+    {
+      "name": "pagination.suppliers.page1",
+      "status": "PASS",
+      "passed": true,
+      "detail": {
+        "status": 200,
+        "page": 1,
+        "rows": 5,
+        "totalElements": 30,
+        "totalPages": 6
+      }
+    },
+    {
+      "name": "consistency.products.uniqueCodes",
+      "status": "PASS",
+      "passed": true,
+      "detail": {
+        "count": 27,
+        "duplicates": 0
+      }
+    },
+    {
+      "name": "consistency.warehouses.uniqueCodes",
+      "status": "PASS",
+      "passed": true,
+      "detail": {
+        "count": 6,
+        "duplicates": 0
+      }
+    },
+    {
+      "name": "consistency.inventory.uniqueWarehouseProduct",
+      "status": "PASS",
+      "passed": true,
+      "detail": {
+        "rows": 57,
+        "duplicatePairs": []
+      }
+    },
+    {
+      "name": "consistency.purchaseOrders.money",
+      "status": "PASS",
+      "passed": true,
+      "detail": {
+        "orders": 32,
+        "errors": []
+      }
+    },
+    {
+      "name": "forecast.caseCount",
+      "status": "PASS",
+      "passed": true,
+      "detail": {
+        "count": 6,
+        "expected": 6
+      }
+    },
+    {
+      "name": "forecast.DEMO-AI-01",
+      "status": "PASS",
+      "passed": true,
+      "detail": {
+        "productCode": "DEMO-AI-01",
+        "historyDays": 365,
+        "historySource": "M5",
+        "stockoutRisk": "LOW",
+        "projectedStockoutDate": null,
+        "forecastDemand": {
+          "next7Days": 5.1411,
+          "next14Days": 10.7898,
+          "next28Days": 21.5156
+        },
+        "incomingSupply": {
+          "next7Days": 0,
+          "next14Days": 0,
+          "next28Days": 0
+        },
+        "projectedInventory": {
+          "next7Days": 9994.8589,
+          "next14Days": 9989.2102,
+          "next28Days": 9978.4844
+        },
+        "modelVersion": "m5-ca_1-foods_3-20260816T112231Z",
+        "status": 200,
+        "dailyRows": 28,
+        "expectedRisk": "LOW",
+        "code": null,
+        "contiguousDates": true,
+        "dailyArithmeticValid": true,
+        "horizonTotalsValid": true
+      }
+    },
+    {
+      "name": "forecast.DEMO-AI-02",
+      "status": "PASS",
+      "passed": true,
+      "detail": {
+        "productCode": "DEMO-AI-02",
+        "historyDays": 365,
+        "historySource": "M5",
+        "stockoutRisk": "HIGH",
+        "projectedStockoutDate": "2026-11-08",
+        "forecastDemand": {
+          "next7Days": 13.5806,
+          "next14Days": 27.4343,
+          "next28Days": 54.5898
+        },
+        "incomingSupply": {
+          "next7Days": 0,
+          "next14Days": 0,
+          "next28Days": 0
+        },
+        "projectedInventory": {
+          "next7Days": 16.4194,
+          "next14Days": 2.5657,
+          "next28Days": -24.5898
+        },
+        "modelVersion": "m5-ca_1-foods_3-20260816T112231Z",
+        "status": 200,
+        "dailyRows": 28,
+        "expectedRisk": "HIGH",
+        "code": null,
+        "contiguousDates": true,
+        "dailyArithmeticValid": true,
+        "horizonTotalsValid": true
+      }
+    },
+    {
+      "name": "forecast.DEMO-AI-03",
+      "status": "PASS",
+      "passed": true,
+      "detail": {
+        "productCode": "DEMO-AI-03",
+        "historyDays": 365,
+        "historySource": "M5",
+        "stockoutRisk": "MEDIUM",
+        "projectedStockoutDate": null,
+        "forecastDemand": {
+          "next7Days": 10.0251,
+          "next14Days": 21.6031,
+          "next28Days": 41.3919
+        },
+        "incomingSupply": {
+          "next7Days": 0,
+          "next14Days": 0,
+          "next28Days": 0
+        },
+        "projectedInventory": {
+          "next7Days": 39.9749,
+          "next14Days": 28.3969,
+          "next28Days": 8.6081
+        },
+        "modelVersion": "m5-ca_1-foods_3-20260816T112231Z",
+        "status": 200,
+        "dailyRows": 28,
+        "expectedRisk": "MEDIUM",
+        "code": null,
+        "contiguousDates": true,
+        "dailyArithmeticValid": true,
+        "horizonTotalsValid": true
+      }
+    },
+    {
+      "name": "forecast.DEMO-AI-04",
+      "status": "PASS",
+      "passed": true,
+      "detail": {
+        "productCode": "DEMO-AI-04",
+        "historyDays": 365,
+        "historySource": "M5",
+        "stockoutRisk": "CRITICAL",
+        "projectedStockoutDate": "2026-10-25",
+        "forecastDemand": {
+          "next7Days": 27.8189,
+          "next14Days": 56.4319,
+          "next28Days": 112.241
+        },
+        "incomingSupply": {
+          "next7Days": 0,
+          "next14Days": 0,
+          "next28Days": 0
+        },
+        "projectedInventory": {
+          "next7Days": -17.8189,
+          "next14Days": -46.4319,
+          "next28Days": -102.241
+        },
+        "modelVersion": "m5-ca_1-foods_3-20260816T112231Z",
+        "status": 200,
+        "dailyRows": 28,
+        "expectedRisk": "CRITICAL",
+        "code": null,
+        "contiguousDates": true,
+        "dailyArithmeticValid": true,
+        "horizonTotalsValid": true
+      }
+    },
+    {
+      "name": "forecast.DEMO-AI-05",
+      "status": "PASS",
+      "passed": true,
+      "detail": {
+        "productCode": "DEMO-AI-05",
+        "historyDays": 365,
+        "historySource": "M5",
+        "stockoutRisk": "LOW",
+        "projectedStockoutDate": null,
+        "forecastDemand": {
+          "next7Days": 5.121,
+          "next14Days": 10.8103,
+          "next28Days": 21.5061
+        },
+        "incomingSupply": {
+          "next7Days": 50.0,
+          "next14Days": 50.0,
+          "next28Days": 50.0
+        },
+        "projectedInventory": {
+          "next7Days": 52.879,
+          "next14Days": 47.1897,
+          "next28Days": 36.4939
+        },
+        "modelVersion": "m5-ca_1-foods_3-20260816T112231Z",
+        "status": 200,
+        "dailyRows": 28,
+        "expectedRisk": "LOW",
+        "code": null,
+        "contiguousDates": true,
+        "dailyArithmeticValid": true,
+        "horizonTotalsValid": true
+      }
+    },
+    {
+      "name": "forecast.DEMO-AI-06",
+      "status": "PASS",
+      "passed": true,
+      "detail": {
+        "productCode": "DEMO-AI-06",
+        "historyDays": 365,
+        "historySource": "M5",
+        "stockoutRisk": "CRITICAL",
+        "projectedStockoutDate": "2026-10-26",
+        "forecastDemand": {
+          "next7Days": 5.8364,
+          "next14Days": 11.6774,
+          "next28Days": 22.5716
+        },
+        "incomingSupply": {
+          "next7Days": 0,
+          "next14Days": 100.0,
+          "next28Days": 100.0
+        },
+        "projectedInventory": {
+          "next7Days": -3.8364,
+          "next14Days": 90.3226,
+          "next28Days": 79.4284
+        },
+        "modelVersion": "m5-ca_1-foods_3-20260816T112231Z",
+        "status": 200,
+        "dailyRows": 28,
+        "expectedRisk": "CRITICAL",
+        "code": null,
+        "contiguousDates": true,
+        "dailyArithmeticValid": true,
+        "horizonTotalsValid": true
+      }
+    },
+    {
+      "name": "forecast.noHistoryRejected",
+      "status": "PASS",
+      "passed": true,
+      "detail": {
+        "status": 400,
+        "expectedStatus": 400,
+        "code": "INVALID_ARGUMENT"
+      }
+    },
+    {
+      "name": "events.catalogAvailable",
+      "status": "PASS",
+      "passed": true,
+      "detail": {
+        "count": 5
+      }
+    },
+    {
+      "name": "events.DEMO-EVT-04.sentiments.read",
+      "status": "PASS",
+      "passed": true,
+      "detail": {
+        "status": 200,
+        "rows": 0
+      }
+    },
+    {
+      "name": "events.DEMO-EVT-04.impacts.read",
+      "status": "PASS",
+      "passed": true,
+      "detail": {
+        "status": 200,
+        "rows": 0
+      }
+    },
+    {
+      "name": "events.DEMO-EVT-05.sentiments.read",
+      "status": "PASS",
+      "passed": true,
+      "detail": {
+        "status": 200,
+        "rows": 0
+      }
+    },
+    {
+      "name": "events.DEMO-EVT-05.impacts.read",
+      "status": "PASS",
+      "passed": true,
+      "detail": {
+        "status": 200,
+        "rows": 0
+      }
+    },
+    {
+      "name": "events.DEMO-EVT-02.sentiments.read",
+      "status": "PASS",
+      "passed": true,
+      "detail": {
+        "status": 200,
+        "rows": 1
+      }
+    },
+    {
+      "name": "events.DEMO-EVT-02.impacts.read",
+      "status": "PASS",
+      "passed": true,
+      "detail": {
+        "status": 200,
+        "rows": 2
+      }
+    },
+    {
+      "name": "events.DEMO-EVT-01.sentiments.read",
+      "status": "PASS",
+      "passed": true,
+      "detail": {
+        "status": 200,
+        "rows": 2
+      }
+    },
+    {
+      "name": "events.DEMO-EVT-01.impacts.read",
+      "status": "PASS",
+      "passed": true,
+      "detail": {
+        "status": 200,
+        "rows": 2
+      }
+    },
+    {
+      "name": "events.DEMO-EVT-03.sentiments.read",
+      "status": "PASS",
+      "passed": true,
+      "detail": {
+        "status": 200,
+        "rows": 1
+      }
+    },
+    {
+      "name": "events.DEMO-EVT-03.impacts.read",
+      "status": "PASS",
+      "passed": true,
+      "detail": {
+        "status": 200,
+        "rows": 12
+      }
+    },
+    {
+      "name": "sentiment.englishTargetsIsolated",
+      "status": "PASS",
+      "passed": true,
+      "detail": {
+        "englishRows": 3,
+        "distinctTargets": 2,
+        "distinctLinkedSuppliers": 2,
+        "malformed": []
+      }
+    },
+    {
+      "name": "sentiment.vietnameseNewsNeedsReview",
+      "status": "PASS",
+      "passed": true,
+      "detail": {
+        "vietnameseRows": 1,
+        "invalidRows": []
+      }
+    },
+    {
+      "name": "sentiment.catalogCase.1",
+      "status": "PASS",
+      "passed": true,
+      "detail": {
+        "eventId": "7fdb9214-3465-46f1-b48c-461402412e09",
+        "entity": "Atlas Components",
+        "matchingRows": 1,
+        "expectedSentiment": "NEGATIVE",
+        "actualSentiment": "NEGATIVE",
+        "contractValid": true,
+        "semanticLabelMatches": true,
+        "knownModelLimitation": false,
+        "language": "en",
+        "supplierCode": "DEMO-NCC-01",
+        "confidence": 0.892298,
+        "needsReview": false,
+        "reviewReason": null,
+        "modelVersion": "bilingual-entity-v2-20261023T133850Z"
+      }
+    },
+    {
+      "name": "sentiment.catalogCase.2",
+      "status": "KNOWN_LIMITATION",
+      "passed": null,
+      "detail": {
+        "eventId": "7fdb9214-3465-46f1-b48c-461402412e09",
+        "entity": "Pacific Supply",
+        "matchingRows": 1,
+        "expectedSentiment": "POSITIVE",
+        "actualSentiment": "NEGATIVE",
+        "contractValid": true,
+        "semanticLabelMatches": false,
+        "knownModelLimitation": true,
+        "language": "en",
+        "supplierCode": "DEMO-NCC-02",
+        "confidence": 0.582438,
+        "needsReview": false,
+        "reviewReason": null,
+        "modelVersion": "bilingual-entity-v2-20261023T133850Z",
+        "note": "Expected label is preserved. The current model predicts a different label; this is not a passed semantic check."
+      }
+    },
+    {
+      "name": "sentiment.catalogCase.3",
+      "status": "PASS",
+      "passed": true,
+      "detail": {
+        "eventId": "f3b23329-46c8-4e9b-ae89-f1e63fc93efb",
+        "entity": "Pacific Supply",
+        "matchingRows": 1,
+        "expectedSentiment": "POSITIVE",
+        "actualSentiment": "POSITIVE",
+        "contractValid": true,
+        "semanticLabelMatches": true,
+        "knownModelLimitation": false,
+        "language": "en",
+        "supplierCode": "DEMO-NCC-02",
+        "confidence": 0.625102,
+        "needsReview": false,
+        "reviewReason": null,
+        "modelVersion": "bilingual-entity-v2-20261023T133850Z"
+      }
+    },
+    {
+      "name": "sentiment.catalogCase.4",
+      "status": "PASS",
+      "passed": true,
+      "detail": {
+        "eventId": "e8cebea0-6735-4016-abd3-f9668d3630e3",
+        "entity": "Minh Phat",
+        "matchingRows": 1,
+        "expectedSentiment": "NEGATIVE",
+        "actualSentiment": "NEGATIVE",
+        "contractValid": true,
+        "semanticLabelMatches": true,
+        "knownModelLimitation": false,
+        "language": "vi",
+        "supplierCode": "DEMO-NCC-03",
+        "confidence": 0.957517,
+        "needsReview": true,
+        "reviewReason": "DOMAIN_NOT_VALIDATED",
+        "modelVersion": "bilingual-entity-v2-20261023T133850Z"
+      }
+    },
+    {
+      "name": "impacts.scoresFinite0To100",
+      "status": "PASS",
+      "passed": true,
+      "detail": {
+        "rows": 16,
+        "invalidRows": []
+      }
+    },
+    {
+      "name": "impacts.unrelatedEventDoesNotAffectDemoSuppliers",
+      "status": "PASS",
+      "passed": true,
+      "detail": {
+        "unrelatedEvents": 1,
+        "unexpectedSuppliers": []
+      }
+    },
+    {
+      "name": "auth.inactiveUserRejected",
+      "status": "PASS",
+      "passed": true,
+      "detail": {
+        "username": "demo_member_20",
+        "status": 401,
+        "expectedStatus": 401,
+        "code": "UNAUTHORIZED"
+      }
+    },
+    {
+      "name": "validation.negativeInventoryRejectedUnchanged",
+      "status": "PASS",
+      "passed": true,
+      "detail": {
+        "inventoryId": "9b83afa9-c2ec-4b2f-8479-d5057ba39213",
+        "status": 400,
+        "expectedStatus": 400,
+        "afterStatus": 200,
+        "unchanged": true,
+        "code": "VALIDATION_ERROR"
+      }
+    }
+  ]
+}

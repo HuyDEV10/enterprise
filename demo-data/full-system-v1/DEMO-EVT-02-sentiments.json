@@ -1,0 +1,25 @@
+[
+  {
+    "id": "dc93cdb9-a14d-4003-97df-0ad54a124be2",
+    "externalEventId": "f3b23329-46c8-4e9b-ae89-f1e63fc93efb",
+    "entity": "Pacific Supply",
+    "supplierId": "39382768-d444-41c3-8d1b-9df9d4d90bae",
+    "supplierCode": "DEMO-NCC-02",
+    "supplierName": "[DEMO] Pacific Supply",
+    "sentiment": "POSITIVE",
+    "confidence": 0.625102,
+    "probabilities": {
+      "NEUTRAL": 0.289779,
+      "NEGATIVE": 0.085118,
+      "POSITIVE": 0.625102
+    },
+    "language": "en",
+    "needsReview": false,
+    "reviewReason": null,
+    "modelVersion": "bilingual-entity-v2-20261023T133850Z",
+    "inputTruncated": false,
+    "sourceTextSha256": "b2d2fb13e6572e243d1e91ea6dc2071a71fed1730dbd98bdf15bdbb2a65c43d3",
+    "matchMethod": "EXPLICIT_SUPPLIER_SELECTION",
+    "analyzedAt": "2026-10-23T15:04:32.703508Z"
+  }
+]

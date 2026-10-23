@@ -1,0 +1,25 @@
+[
+  {
+    "id": "8dc1c440-77d5-4214-964d-d3715c02caf2",
+    "externalEventId": "e8cebea0-6735-4016-abd3-f9668d3630e3",
+    "entity": "Minh Phat",
+    "supplierId": "4a0e4844-6774-4a53-814b-3f7324d20f1f",
+    "supplierCode": "DEMO-NCC-03",
+    "supplierName": "[DEMO] Minh Phat",
+    "sentiment": "NEGATIVE",
+    "confidence": 0.957517,
+    "probabilities": {
+      "NEUTRAL": 0.020026,
+      "NEGATIVE": 0.957517,
+      "POSITIVE": 0.022457
+    },
+    "language": "vi",
+    "needsReview": true,
+    "reviewReason": "DOMAIN_NOT_VALIDATED",
+    "modelVersion": "bilingual-entity-v2-20261023T133850Z",
+    "inputTruncated": false,
+    "sourceTextSha256": "6944cb0cfdfe14ee4922dfe5d2f77ca6cdd8ce8aea50c21b35250185d48aa62c",
+    "matchMethod": "EXPLICIT_SUPPLIER_SELECTION",
+    "analyzedAt": "2026-10-23T15:04:32.812228Z"
+  }
+]

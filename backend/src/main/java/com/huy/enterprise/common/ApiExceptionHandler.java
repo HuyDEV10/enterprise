@@ -1,6 +1,7 @@
 package com.huy.enterprise.common;
 
 import com.huy.enterprise.ai.*;
+import com.huy.enterprise.ai.external.GdeltUnavailableException;
 import com.huy.enterprise.auth.LoginRateLimitException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.ConstraintViolationException;
@@ -24,6 +25,11 @@ import java.util.stream.Collectors;
 @Slf4j
 @RestControllerAdvice
 public class ApiExceptionHandler {
+    @ExceptionHandler(GdeltUnavailableException.class)
+    ResponseEntity<ApiErrorResponse> gdeltUnavailable(GdeltUnavailableException ex, HttpServletRequest request) {
+        return build(HttpStatus.SERVICE_UNAVAILABLE, "GDELT_UNAVAILABLE", ex.getMessage(), request);
+    }
+
     @ExceptionHandler(LoginRateLimitException.class)
     ResponseEntity<ApiErrorResponse> rateLimited(LoginRateLimitException ex, HttpServletRequest request) {
         var result = build(HttpStatus.TOO_MANY_REQUESTS, "AUTH_RATE_LIMITED", ex.getMessage(), request);

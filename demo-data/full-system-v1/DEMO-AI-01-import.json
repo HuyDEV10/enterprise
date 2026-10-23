@@ -1,0 +1,12 @@
+{
+  "mappingId": "2989232c-9c07-4663-afdc-21057c8c3b4f",
+  "productId": "7a4f68f5-eb96-45b9-8f43-62f74574458b",
+  "productCode": "DEMO-AI-01",
+  "sourceDataset": "M5",
+  "sourceItemId": "FOODS_3_003",
+  "sourceLocationId": "CA_1",
+  "departmentCode": "FOODS_3",
+  "historyRows": 1941,
+  "dateStart": "2011-01-29",
+  "dateEnd": "2016-05-22"
+}

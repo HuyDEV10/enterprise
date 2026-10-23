@@ -1,0 +1,28 @@
+{
+  "seedDate": "2026-10-23",
+  "completedOrders": [
+    "DEMO-PO-001",
+    "DEMO-PO-002",
+    "DEMO-PO-003",
+    "DEMO-PO-005",
+    "DEMO-PO-006",
+    "DEMO-PO-007",
+    "DEMO-PO-008"
+  ],
+  "completedForecastSetup": [
+    "DEMO-AI-01",
+    "DEMO-AI-02",
+    "DEMO-AI-03",
+    "DEMO-AI-04",
+    "DEMO-AI-05",
+    "DEMO-AI-06"
+  ],
+  "pendingPasswordUsers": [],
+  "completedSentiments": [
+    "DEMO-EVT-01:Atlas Components",
+    "DEMO-EVT-01:Pacific Supply",
+    "DEMO-EVT-02:Pacific Supply",
+    "DEMO-EVT-03:Minh Phat"
+  ],
+  "completed": true
+}

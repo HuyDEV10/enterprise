@@ -1,0 +1,153 @@
+{
+  "dataset": "LOCAL-QA-V1",
+  "seedDate": "2026-10-23",
+  "baseUrl": "http://127.0.0.1:5173/api",
+  "counts": {
+    "companies": {
+      "fixture": 1,
+      "addedThisRun": 0,
+      "totalInDatabase": 1
+    },
+    "departments": {
+      "fixture": 4,
+      "addedThisRun": 0,
+      "totalInDatabase": 5
+    },
+    "employees": {
+      "fixture": 8,
+      "addedThisRun": 0,
+      "totalInDatabase": 28
+    },
+    "suppliers": {
+      "fixture": 24,
+      "addedThisRun": 0,
+      "totalInDatabase": 30
+    },
+    "product-categories": {
+      "fixture": 6,
+      "addedThisRun": 0,
+      "totalInDatabase": 7
+    },
+    "products": {
+      "fixture": 18,
+      "addedThisRun": 0,
+      "totalInDatabase": 27
+    },
+    "warehouses": {
+      "fixture": 3,
+      "addedThisRun": 0,
+      "totalInDatabase": 6
+    },
+    "inventory": {
+      "fixture": 48,
+      "addedThisRun": 0,
+      "totalInDatabase": 57
+    },
+    "purchase-orders": {
+      "fixture": 24,
+      "addedThisRun": 0,
+      "totalInDatabase": 32
+    },
+    "shipments": {
+      "fixture": 22,
+      "addedThisRun": 0,
+      "totalInDatabase": 30
+    },
+    "risk-events": {
+      "fixture": 12,
+      "addedThisRun": 0,
+      "totalInDatabase": 56
+    },
+    "alerts": {
+      "fixture": 12,
+      "addedThisRun": 0,
+      "totalInDatabase": 56
+    }
+  },
+  "beforeThisRun": {
+    "companies": 1,
+    "departments": 5,
+    "employees": 28,
+    "suppliers": 30,
+    "product-categories": 7,
+    "products": 27,
+    "warehouses": 6,
+    "inventory": 57,
+    "purchase-orders": 32,
+    "shipments": 30,
+    "risk-events": 48,
+    "alerts": 48
+  },
+  "dashboard": {
+    "totalSuppliers": 30,
+    "highRiskSuppliers": 11,
+    "totalPurchaseOrders": 32,
+    "delayedPurchaseOrders": 8,
+    "openRiskEvents": 46,
+    "unresolvedAlerts": 49,
+    "lowStockItems": 15
+  },
+  "monitoringFirst": {
+    "evaluatedAt": "2026-10-23T22:04:06.0184492+07:00",
+    "lowStockDetected": 15,
+    "delayedPurchaseOrders": 8,
+    "delayedShipments": 8,
+    "highRiskSuppliers": 11,
+    "riskEventsCreated": 8,
+    "riskEventsUpdated": 0,
+    "riskEventsResolved": 0,
+    "alertsCreated": 8,
+    "alertsResolved": 0
+  },
+  "monitoringSecond": {
+    "evaluatedAt": "2026-10-23T22:04:06.2575883+07:00",
+    "lowStockDetected": 15,
+    "delayedPurchaseOrders": 8,
+    "delayedShipments": 8,
+    "highRiskSuppliers": 11,
+    "riskEventsCreated": 0,
+    "riskEventsUpdated": 0,
+    "riskEventsResolved": 0,
+    "alertsCreated": 0,
+    "alertsResolved": 0
+  },
+  "monitoringSummary": {
+    "enabled": true,
+    "lastScan": "2026-10-23T22:04:06.2575883+07:00",
+    "automaticActiveRisks": 43,
+    "criticalRisks": 16,
+    "highRisks": 19,
+    "lowStockRisks": 15,
+    "delayedOrderRisks": 8,
+    "delayedShipmentRisks": 8,
+    "highRiskSupplierRisks": 11
+  },
+  "statusDistributions": {
+    "purchase-orders": {
+      "DRAFT": 4,
+      "ORDERED": 4,
+      "IN_TRANSIT": 4,
+      "DELAYED": 4,
+      "DELIVERED": 4,
+      "CANCELLED": 4
+    },
+    "shipments": {
+      "PENDING": 6,
+      "SHIPPING": 4,
+      "DELAYED": 4,
+      "ARRIVED": 4,
+      "CANCELLED": 4
+    },
+    "risk-events": {
+      "OPEN": 3,
+      "INVESTIGATING": 3,
+      "RESOLVED": 3,
+      "CLOSED": 3
+    },
+    "alerts": {
+      "NEW": 3,
+      "READ": 3,
+      "RESOLVED": 6
+    }
+  }
+}

@@ -10,6 +10,8 @@ export const externalEventApi = {
       .data,
   analyzeSentiment: async (id, payload) =>
     (await apiClient.post(`/ai/external-events/${id}/sentiment`, payload)).data,
+  getSentiments: async (id, config) =>
+    (await apiClient.get(`/ai/external-events/${id}/sentiments`, config)).data,
   calculateImpacts: async (id) =>
     (await apiClient.post(`/ai/external-events/${id}/impacts/calculate`)).data,
   getImpacts: async (id, config) =>

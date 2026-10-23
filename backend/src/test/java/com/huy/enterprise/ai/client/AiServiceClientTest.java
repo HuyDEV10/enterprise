@@ -140,4 +140,22 @@ class AiServiceClientTest {
         response.set(invalid.toString());
         assertThatThrownBy(() -> client.forecastDemand(history, start)).isInstanceOf(AiServiceProtocolException.class);
     }
+
+    @Test void sentimentCarriesLanguageCalibrationAndReviewMetadata() throws Exception {
+        response.set("{\"entity\":\"Acme\",\"sentiment\":\"NEGATIVE\",\"confidence\":0.9,\"modelVersion\":\"bilingual-test\",\"language\":\"vi\",\"needsReview\":false,\"probabilities\":{\"NEGATIVE\":0.9,\"NEUTRAL\":0.07,\"POSITIVE\":0.03}}");
+        var result=client.analyzeEntitySentiment("Acme","Acme stopped production.","vi");
+        assertThat(result.requiresReview()).isFalse();
+        assertThat(mapper.readTree(request.get()).path("language").asText()).isEqualTo("vi");
+        assertThat(mapper.readTree(request.get()).path("domain").asText()).isEqualTo("supply_chain_news");
+    }
+
+    @Test void legacyMissingReviewCannotBecomeAcceptedEvidence() {
+        response.set("{\"entity\":\"Acme\",\"sentiment\":\"NEGATIVE\",\"confidence\":0.9,\"modelVersion\":\"legacy\"}");
+        assertThat(client.analyzeEntitySentiment("Acme","Acme stopped production.").requiresReview()).isTrue();
+    }
+
+    @Test void inconsistentSentimentProbabilitiesAreRejected() {
+        response.set("{\"entity\":\"Acme\",\"sentiment\":\"NEGATIVE\",\"confidence\":0.9,\"modelVersion\":\"test\",\"probabilities\":{\"NEGATIVE\":0.1,\"NEUTRAL\":0.1,\"POSITIVE\":0.8}}");
+        assertThatThrownBy(()->client.analyzeEntitySentiment("Acme","Acme stopped production.")).isInstanceOf(AiServiceProtocolException.class);
+    }
 }

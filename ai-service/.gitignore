@@ -2,6 +2,9 @@
 __pycache__/
 .pytest_cache/
 *.pyc
+.cache/
+models/entity_sentiment_model/releases/
+models/entity_sentiment_model/active*.json
 
 data/raw/*
 !data/raw/.gitkeep

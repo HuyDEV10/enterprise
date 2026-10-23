@@ -1,0 +1,25 @@
+{
+  "schemaVersion": 1,
+  "files": [
+    {"dataset":"FinEntity","language":"en","path":"data/raw/finentity/FinEntity.json","url":"https://raw.githubusercontent.com/yixuantt/FinEntity/3b6cedc5485b669c2ed168f1d949f517636eb7b8/data/FinEntity.json","sha256":"3208667de69383120b0380aebeaabe360669eda72269c33e1c8b09d63df55463","license":"ODC-BY","scope":"human entity-level financial news"},
+    {"dataset":"SEntFiN","language":"en","path":"data/raw/sentfin/SEntFiN.csv","url":"https://raw.githubusercontent.com/pyRis/SEntFiN/eba43610fe3cb57a3e5773cd6c037da1f8992ad5/SEntFiN.csv","sha256":"570af7ba58f724f3fcc414dd5ba80da5b1a3b342134d76c6ebdf53a32c54a92f","license":"MIT (upstream repository)","scope":"human entity-level financial headlines"},
+    {"dataset":"ViTASA-mobile","language":"vi","path":"data/raw/vitasa/mobile.jsonl","url":"https://raw.githubusercontent.com/kh4nh12/ViTASA/cda6a4525bfdf7a7632a7d7c7ccdbe00af5b3094/mobile.jsonl","sha256":"6364e5a1326b84a0b012795e9de2e98d7d2ca180bd093aae35f4b55ff3042aab","license":"MIT (upstream repository)","scope":"human target/aspect sentiment; consumer domain, not financial-news gold"},
+    {"dataset":"ViTASA-hotel","language":"vi","path":"data/raw/vitasa/hotel.jsonl","url":"https://raw.githubusercontent.com/kh4nh12/ViTASA/cda6a4525bfdf7a7632a7d7c7ccdbe00af5b3094/hotel.jsonl","sha256":"8bd2d53c0f9a47fd634bd4b3bdeec573c4f4b4bc9d942191d5c4ea771d1a299e","license":"MIT (upstream repository)","scope":"human target/aspect sentiment; hospitality domain"},
+    {"dataset":"ViTASA-restaurant","language":"vi","path":"data/raw/vitasa/restaurant.jsonl","url":"https://raw.githubusercontent.com/kh4nh12/ViTASA/cda6a4525bfdf7a7632a7d7c7ccdbe00af5b3094/restaurant.jsonl","sha256":"07ba4669addb57bb45b6dfa759138577a1c9262486936087d584a3dc0ab25db0","license":"MIT (upstream repository)","scope":"human target/aspect sentiment; hospitality domain"},
+    {"dataset":"UTS2017Bank-brand","language":"vi","path":"data/raw/utsbank/train.jsonl","url":"https://huggingface.co/datasets/undertheseanlp/UTS2017_Bank/resolve/4d1319fa229720d392c1dc0e323d10b40eeacbd0/data/aspect_sentiment/train.jsonl","sha256":"ff734031e74534b84569ca6c474a81ad923dbf41538b696a0a888e61e50e22c2","license":"Apache-2.0 (publisher card)","scope":"TRADEMARK labels only when one bank is explicitly named","officialSplit":"train"},
+    {"dataset":"UTS2017Bank-brand","language":"vi","path":"data/raw/utsbank/test.jsonl","url":"https://huggingface.co/datasets/undertheseanlp/UTS2017_Bank/resolve/4d1319fa229720d392c1dc0e323d10b40eeacbd0/data/aspect_sentiment/test.jsonl","sha256":"bbd40a7a0ffb4f1e8aa59d064be74cc103cd5fa15f3aaf0dab30a2890a033ee9","license":"Apache-2.0 (publisher card)","scope":"TRADEMARK labels only when one bank is explicitly named","officialSplit":"test"}
+  ],
+  "pretrainedModel": {
+    "repository":"distilbert/distilbert-base-multilingual-cased",
+    "revision":"45c032ab32cc946ad88a166f7cb282f58c753c2e",
+    "license":"Apache-2.0",
+    "localPath":".cache/pretrained/distilmbert",
+    "files":["config.json","tokenizer.json","tokenizer_config.json","vocab.txt","model.safetensors","README.md"]
+  },
+  "excludedSources":[
+    "QA business fixtures: never training/evaluation data",
+    "GDELT AvgTone and model-generated sentiment: not human ground truth",
+    "duong2110/finance-sentiment-vietnamese: no dataset card/provenance/license supplied",
+    "CafeF 1000 headline corpus: useful future external benchmark, but target-level labels and dataset license are not documented"
+  ]
+}

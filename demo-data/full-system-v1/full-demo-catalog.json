@@ -1,0 +1,1715 @@
+{
+  "dataset": "FULL-SYSTEM-DEMO-V1",
+  "seedDate": "2026-10-23",
+  "fixtureData": {
+    "companies": [
+      {
+        "id": "54727297-274f-496d-8338-0bfa5230483c",
+        "name": "[TEST] Công ty Cung ứng An Việt",
+        "taxCode": "QA-COMPANY-001",
+        "email": "office@anviet.example",
+        "phone": null,
+        "address": "Khu công nghiệp mô phỏng, Hà Nội",
+        "status": "ACTIVE"
+      }
+    ],
+    "departments": [
+      {
+        "id": "20c5ea74-1529-41cb-85fe-783356f0b920",
+        "companyId": "54727297-274f-496d-8338-0bfa5230483c",
+        "companyName": "[TEST] Công ty Cung ứng An Việt",
+        "name": "[DEMO] Trung tam van hanh va phan tich",
+        "code": "DEMO-PB-01",
+        "description": "[DEMO] FULL-SYSTEM-DEMO-V1 | Du lieu mo phong nghiep vu; khong phai giao dich/tin tuc that.",
+        "status": "ACTIVE"
+      }
+    ],
+    "employees": [
+      {
+        "id": "31fb8613-7e85-40f6-aa56-17f807daad0e",
+        "companyId": "54727297-274f-496d-8338-0bfa5230483c",
+        "departmentId": "20c5ea74-1529-41cb-85fe-783356f0b920",
+        "userId": "9a5604e9-4c72-4589-b2e1-3a80f185d1df",
+        "employeeCode": "DEMO-NV-01",
+        "fullName": "[DEMO] Nhan vien 01",
+        "email": "demo_member_01@demo.example",
+        "phone": null,
+        "jobTitle": "Nhan vien kho",
+        "status": "ACTIVE"
+      },
+      {
+        "id": "8b8b87b2-363c-44a9-8548-0b4ec18e56ce",
+        "companyId": "54727297-274f-496d-8338-0bfa5230483c",
+        "departmentId": "20c5ea74-1529-41cb-85fe-783356f0b920",
+        "userId": "4c4be254-c546-4922-af16-cbf3d737adc8",
+        "employeeCode": "DEMO-NV-02",
+        "fullName": "[DEMO] Nhan vien 02",
+        "email": "demo_member_02@demo.example",
+        "phone": null,
+        "jobTitle": "Quan ly cung ung",
+        "status": "ACTIVE"
+      },
+      {
+        "id": "73e6e6c1-b9ac-4066-b2bb-b43ce8ebc65e",
+        "companyId": "54727297-274f-496d-8338-0bfa5230483c",
+        "departmentId": "20c5ea74-1529-41cb-85fe-783356f0b920",
+        "userId": "de3179f5-9433-4979-a772-bf80ef4d7ca3",
+        "employeeCode": "DEMO-NV-03",
+        "fullName": "[DEMO] Nhan vien 03",
+        "email": "demo_member_03@demo.example",
+        "phone": null,
+        "jobTitle": "Chuyen vien phan tich",
+        "status": "ACTIVE"
+      },
+      {
+        "id": "8877b1b1-306a-4587-af51-fc0a151bcf1b",
+        "companyId": "54727297-274f-496d-8338-0bfa5230483c",
+        "departmentId": "20c5ea74-1529-41cb-85fe-783356f0b920",
+        "userId": "1996d49e-3a95-4615-ad11-0dd1df28d145",
+        "employeeCode": "DEMO-NV-04",
+        "fullName": "[DEMO] Nhan vien 04",
+        "email": "demo_member_04@demo.example",
+        "phone": null,
+        "jobTitle": "Nhan vien kho",
+        "status": "ACTIVE"
+      },
+      {
+        "id": "dce02adb-476d-4f84-b65a-c95996258792",
+        "companyId": "54727297-274f-496d-8338-0bfa5230483c",
+        "departmentId": "20c5ea74-1529-41cb-85fe-783356f0b920",
+        "userId": "ef70c5d3-4a89-4f9a-bacf-ec5e501edd78",
+        "employeeCode": "DEMO-NV-05",
+        "fullName": "[DEMO] Nhan vien 05",
+        "email": "demo_member_05@demo.example",
+        "phone": null,
+        "jobTitle": "Quan ly cung ung",
+        "status": "ACTIVE"
+      },
+      {
+        "id": "03aca2de-275d-47a3-8805-fa9d191c0326",
+        "companyId": "54727297-274f-496d-8338-0bfa5230483c",
+        "departmentId": "20c5ea74-1529-41cb-85fe-783356f0b920",
+        "userId": "eaabb748-d34f-4e3a-9a3a-db79aa13b552",
+        "employeeCode": "DEMO-NV-06",
+        "fullName": "[DEMO] Nhan vien 06",
+        "email": "demo_member_06@demo.example",
+        "phone": null,
+        "jobTitle": "Chuyen vien phan tich",
+        "status": "ACTIVE"
+      },
+      {
+        "id": "90422fd3-22ad-404e-8cbc-04fff156d3ba",
+        "companyId": "54727297-274f-496d-8338-0bfa5230483c",
+        "departmentId": "20c5ea74-1529-41cb-85fe-783356f0b920",
+        "userId": "4bd39326-5ef0-445e-9dc0-0e06a57cf22a",
+        "employeeCode": "DEMO-NV-07",
+        "fullName": "[DEMO] Nhan vien 07",
+        "email": "demo_member_07@demo.example",
+        "phone": null,
+        "jobTitle": "Nhan vien kho",
+        "status": "ACTIVE"
+      },
+      {
+        "id": "a48bdd7d-dc56-4c38-88f5-0828c94c2569",
+        "companyId": "54727297-274f-496d-8338-0bfa5230483c",
+        "departmentId": "20c5ea74-1529-41cb-85fe-783356f0b920",
+        "userId": "3c8c30a0-ffdc-4b02-9286-89c22e799b9a",
+        "employeeCode": "DEMO-NV-08",
+        "fullName": "[DEMO] Nhan vien 08",
+        "email": "demo_member_08@demo.example",
+        "phone": null,
+        "jobTitle": "Quan ly cung ung",
+        "status": "ACTIVE"
+      },
+      {
+        "id": "c418e529-1871-49e1-a8ef-e5a34117e7e9",
+        "companyId": "54727297-274f-496d-8338-0bfa5230483c",
+        "departmentId": "20c5ea74-1529-41cb-85fe-783356f0b920",
+        "userId": "298a9121-f25a-4e0d-a6b2-4ca2b4b1653c",
+        "employeeCode": "DEMO-NV-09",
+        "fullName": "[DEMO] Nhan vien 09",
+        "email": "demo_member_09@demo.example",
+        "phone": null,
+        "jobTitle": "Chuyen vien phan tich",
+        "status": "ACTIVE"
+      },
+      {
+        "id": "a1fed6fd-4bfd-4b56-a73e-24feafde0b4d",
+        "companyId": "54727297-274f-496d-8338-0bfa5230483c",
+        "departmentId": "20c5ea74-1529-41cb-85fe-783356f0b920",
+        "userId": "1d053f84-b1d0-4375-a3c5-4b1449ab9f7b",
+        "employeeCode": "DEMO-NV-10",
+        "fullName": "[DEMO] Nhan vien 10",
+        "email": "demo_member_10@demo.example",
+        "phone": null,
+        "jobTitle": "Nhan vien kho",
+        "status": "ACTIVE"
+      },
+      {
+        "id": "27e3e024-c25b-47b2-a49b-b099e7427b4e",
+        "companyId": "54727297-274f-496d-8338-0bfa5230483c",
+        "departmentId": "20c5ea74-1529-41cb-85fe-783356f0b920",
+        "userId": "e0ce57cc-4179-4133-84f3-62796902701c",
+        "employeeCode": "DEMO-NV-11",
+        "fullName": "[DEMO] Nhan vien 11",
+        "email": "demo_member_11@demo.example",
+        "phone": null,
+        "jobTitle": "Quan ly cung ung",
+        "status": "ACTIVE"
+      },
+      {
+        "id": "f4b6ebc7-da5a-4e95-87b7-29eda801178e",
+        "companyId": "54727297-274f-496d-8338-0bfa5230483c",
+        "departmentId": "20c5ea74-1529-41cb-85fe-783356f0b920",
+        "userId": "1800e718-f1c4-42e6-95d8-a2679458ba14",
+        "employeeCode": "DEMO-NV-12",
+        "fullName": "[DEMO] Nhan vien 12",
+        "email": "demo_member_12@demo.example",
+        "phone": null,
+        "jobTitle": "Chuyen vien phan tich",
+        "status": "ACTIVE"
+      },
+      {
+        "id": "d1d36f00-49ea-4bbf-8362-2a9bbbcbb471",
+        "companyId": "54727297-274f-496d-8338-0bfa5230483c",
+        "departmentId": "20c5ea74-1529-41cb-85fe-783356f0b920",
+        "userId": "5da7583f-a5fc-43fb-9f9a-44cc39ae1503",
+        "employeeCode": "DEMO-NV-13",
+        "fullName": "[DEMO] Nhan vien 13",
+        "email": "demo_member_13@demo.example",
+        "phone": null,
+        "jobTitle": "Nhan vien kho",
+        "status": "ACTIVE"
+      },
+      {
+        "id": "2d29d1c1-ff11-4088-bf7d-7af0e4f06a0a",
+        "companyId": "54727297-274f-496d-8338-0bfa5230483c",
+        "departmentId": "20c5ea74-1529-41cb-85fe-783356f0b920",
+        "userId": "c6a903c1-3c82-4b93-b7e5-afbb55ffdb18",
+        "employeeCode": "DEMO-NV-14",
+        "fullName": "[DEMO] Nhan vien 14",
+        "email": "demo_member_14@demo.example",
+        "phone": null,
+        "jobTitle": "Quan ly cung ung",
+        "status": "ACTIVE"
+      },
+      {
+        "id": "3d621ff2-9c69-4665-8676-98bd92c5d08f",
+        "companyId": "54727297-274f-496d-8338-0bfa5230483c",
+        "departmentId": "20c5ea74-1529-41cb-85fe-783356f0b920",
+        "userId": "a8d68883-d979-4573-bb3f-200d19a58341",
+        "employeeCode": "DEMO-NV-15",
+        "fullName": "[DEMO] Nhan vien 15",
+        "email": "demo_member_15@demo.example",
+        "phone": null,
+        "jobTitle": "Chuyen vien phan tich",
+        "status": "ACTIVE"
+      },
+      {
+        "id": "663df6e0-f22b-4e95-8efa-422ef8453dca",
+        "companyId": "54727297-274f-496d-8338-0bfa5230483c",
+        "departmentId": "20c5ea74-1529-41cb-85fe-783356f0b920",
+        "userId": "5f9457fc-cf96-4933-a4e5-a3c3618aafb7",
+        "employeeCode": "DEMO-NV-16",
+        "fullName": "[DEMO] Nhan vien 16",
+        "email": "demo_member_16@demo.example",
+        "phone": null,
+        "jobTitle": "Nhan vien kho",
+        "status": "ACTIVE"
+      },
+      {
+        "id": "ffa5f298-4553-408b-9869-5183937802b5",
+        "companyId": "54727297-274f-496d-8338-0bfa5230483c",
+        "departmentId": "20c5ea74-1529-41cb-85fe-783356f0b920",
+        "userId": "49d25224-7ecd-4e3e-a1ce-c42fee34b08c",
+        "employeeCode": "DEMO-NV-17",
+        "fullName": "[DEMO] Nhan vien 17",
+        "email": "demo_member_17@demo.example",
+        "phone": null,
+        "jobTitle": "Quan ly cung ung",
+        "status": "ACTIVE"
+      },
+      {
+        "id": "1d8ed45f-52ab-4955-bcdb-e2cb97e492d6",
+        "companyId": "54727297-274f-496d-8338-0bfa5230483c",
+        "departmentId": "20c5ea74-1529-41cb-85fe-783356f0b920",
+        "userId": "6f03e329-97d9-44f3-aa43-731c5bbabe23",
+        "employeeCode": "DEMO-NV-18",
+        "fullName": "[DEMO] Nhan vien 18",
+        "email": "demo_member_18@demo.example",
+        "phone": null,
+        "jobTitle": "Chuyen vien phan tich",
+        "status": "ACTIVE"
+      },
+      {
+        "id": "9bd703e7-7107-433f-8b27-e7362f82f600",
+        "companyId": "54727297-274f-496d-8338-0bfa5230483c",
+        "departmentId": "20c5ea74-1529-41cb-85fe-783356f0b920",
+        "userId": "4e120b50-3e2f-456b-9b0c-37d24652650a",
+        "employeeCode": "DEMO-NV-19",
+        "fullName": "[DEMO] Nhan vien 19",
+        "email": "demo_member_19@demo.example",
+        "phone": null,
+        "jobTitle": "Nhan vien kho",
+        "status": "ACTIVE"
+      },
+      {
+        "id": "fc48dc2c-8f6b-4e57-a7e3-a38efda2a28b",
+        "companyId": "54727297-274f-496d-8338-0bfa5230483c",
+        "departmentId": "20c5ea74-1529-41cb-85fe-783356f0b920",
+        "userId": "0fb35bd4-da47-4c8b-833b-183361cccc11",
+        "employeeCode": "DEMO-NV-20",
+        "fullName": "[DEMO] Nhan vien 20",
+        "email": "demo_member_20@demo.example",
+        "phone": null,
+        "jobTitle": "Quan ly cung ung",
+        "status": "INACTIVE"
+      }
+    ],
+    "suppliers": [
+      {
+        "id": "b0557843-2209-4cc6-adea-35287aea7a1e",
+        "supplierCode": "DEMO-NCC-01",
+        "name": "[DEMO] Atlas Components",
+        "email": "demo-supplier-1@demo.example",
+        "phone": null,
+        "address": "[DEMO] Texas",
+        "country": "USA",
+        "region": "Texas",
+        "status": "ACTIVE",
+        "riskLevel": "HIGH",
+        "notes": "[DEMO] FULL-SYSTEM-DEMO-V1 | Du lieu mo phong nghiep vu; khong phai giao dich/tin tuc that.",
+        "createdAt": "2026-10-23T15:02:37.784955Z",
+        "updatedAt": "2026-10-23T15:02:37.784955Z"
+      },
+      {
+        "id": "39382768-d444-41c3-8d1b-9df9d4d90bae",
+        "supplierCode": "DEMO-NCC-02",
+        "name": "[DEMO] Pacific Supply",
+        "email": "demo-supplier-2@demo.example",
+        "phone": null,
+        "address": "[DEMO] California",
+        "country": "USA",
+        "region": "California",
+        "status": "ACTIVE",
+        "riskLevel": "LOW",
+        "notes": "[DEMO] FULL-SYSTEM-DEMO-V1 | Du lieu mo phong nghiep vu; khong phai giao dich/tin tuc that.",
+        "createdAt": "2026-10-23T15:02:37.806291Z",
+        "updatedAt": "2026-10-23T15:02:37.806291Z"
+      },
+      {
+        "id": "4a0e4844-6774-4a53-814b-3f7324d20f1f",
+        "supplierCode": "DEMO-NCC-03",
+        "name": "[DEMO] Minh Phat",
+        "email": "demo-supplier-3@demo.example",
+        "phone": null,
+        "address": "[DEMO] Dong Nam A",
+        "country": "Vietnam",
+        "region": "Dong Nam A",
+        "status": "ACTIVE",
+        "riskLevel": "MEDIUM",
+        "notes": "[DEMO] FULL-SYSTEM-DEMO-V1 | Du lieu mo phong nghiep vu; khong phai giao dich/tin tuc that.",
+        "createdAt": "2026-10-23T15:02:37.825955Z",
+        "updatedAt": "2026-10-23T15:02:37.825955Z"
+      },
+      {
+        "id": "f9b39ddf-3f6f-45a6-a225-25ce5066fbae",
+        "supplierCode": "DEMO-NCC-04",
+        "name": "[DEMO] Unrelated Alpine Goods",
+        "email": "demo-supplier-4@demo.example",
+        "phone": null,
+        "address": "[DEMO] Europe",
+        "country": "Switzerland",
+        "region": "Europe",
+        "status": "ACTIVE",
+        "riskLevel": "LOW",
+        "notes": "[DEMO] FULL-SYSTEM-DEMO-V1 | Du lieu mo phong nghiep vu; khong phai giao dich/tin tuc that.",
+        "createdAt": "2026-10-23T15:02:37.844329Z",
+        "updatedAt": "2026-10-23T15:02:37.844329Z"
+      }
+    ],
+    "product-categories": [
+      {
+        "id": "1170fd87-4796-4737-a7b1-69bf5f8aec4c",
+        "name": "[DEMO] San pham du bao va chuoi cung ung",
+        "code": "DEMO-NHOM-AI",
+        "description": "[DEMO] FULL-SYSTEM-DEMO-V1 | Du lieu mo phong nghiep vu; khong phai giao dich/tin tuc that.",
+        "status": "ACTIVE"
+      }
+    ],
+    "products": [
+      {
+        "id": "0806661d-1048-4b11-8734-2b49a283c514",
+        "productCode": "DEMO-AI-04",
+        "name": "[DEMO] Thieu som - CRITICAL",
+        "unit": "don vi",
+        "referencePrice": 45000.0,
+        "description": "[DEMO] FULL-SYSTEM-DEMO-V1 | Du lieu mo phong nghiep vu; khong phai giao dich/tin tuc that. M5 la du lieu ban le cong khai 2011-2016; anh xa san pham la mo phong.",
+        "status": "ACTIVE",
+        "categoryId": "1170fd87-4796-4737-a7b1-69bf5f8aec4c",
+        "categoryName": "[DEMO] San pham du bao va chuoi cung ung",
+        "createdAt": "2026-10-23T15:02:38.160969Z",
+        "updatedAt": "2026-10-23T15:02:38.160969Z"
+      },
+      {
+        "id": "76987838-1297-433d-905c-742ff20c7b70",
+        "productCode": "DEMO-AI-05",
+        "name": "[DEMO] Hang ve kip - LOW",
+        "unit": "don vi",
+        "referencePrice": 50000.0,
+        "description": "[DEMO] FULL-SYSTEM-DEMO-V1 | Du lieu mo phong nghiep vu; khong phai giao dich/tin tuc that. M5 la du lieu ban le cong khai 2011-2016; anh xa san pham la mo phong.",
+        "status": "ACTIVE",
+        "categoryId": "1170fd87-4796-4737-a7b1-69bf5f8aec4c",
+        "categoryName": "[DEMO] San pham du bao va chuoi cung ung",
+        "createdAt": "2026-10-23T15:02:38.267912Z",
+        "updatedAt": "2026-10-23T15:02:38.267912Z"
+      },
+      {
+        "id": "f0cf1a0f-8374-48c3-851e-06d7bebf537b",
+        "productCode": "DEMO-AI-06",
+        "name": "[DEMO] Hang ve muon - CRITICAL",
+        "unit": "don vi",
+        "referencePrice": 55000.0,
+        "description": "[DEMO] FULL-SYSTEM-DEMO-V1 | Du lieu mo phong nghiep vu; khong phai giao dich/tin tuc that. M5 la du lieu ban le cong khai 2011-2016; anh xa san pham la mo phong.",
+        "status": "ACTIVE",
+        "categoryId": "1170fd87-4796-4737-a7b1-69bf5f8aec4c",
+        "categoryName": "[DEMO] San pham du bao va chuoi cung ung",
+        "createdAt": "2026-10-23T15:02:38.422296Z",
+        "updatedAt": "2026-10-23T15:02:38.422296Z"
+      },
+      {
+        "id": "96b8518b-aa09-4696-b38c-3c12b1043335",
+        "productCode": "DEMO-AI-07",
+        "name": "[DEMO] Chua co lich su - loi co kiem soat",
+        "unit": "don vi",
+        "referencePrice": 60000.0,
+        "description": "[DEMO] FULL-SYSTEM-DEMO-V1 | Du lieu mo phong nghiep vu; khong phai giao dich/tin tuc that. M5 la du lieu ban le cong khai 2011-2016; anh xa san pham la mo phong.",
+        "status": "ACTIVE",
+        "categoryId": "1170fd87-4796-4737-a7b1-69bf5f8aec4c",
+        "categoryName": "[DEMO] San pham du bao va chuoi cung ung",
+        "createdAt": "2026-10-23T15:02:38.521247Z",
+        "updatedAt": "2026-10-23T15:02:38.521247Z"
+      },
+      {
+        "id": "7a4f68f5-eb96-45b9-8f43-62f74574458b",
+        "productCode": "DEMO-AI-01",
+        "name": "[DEMO] Ton du - LOW",
+        "unit": "don vi",
+        "referencePrice": 30000.0,
+        "description": "[DEMO] FULL-SYSTEM-DEMO-V1 | Du lieu mo phong nghiep vu; khong phai giao dich/tin tuc that. M5 la du lieu ban le cong khai 2011-2016; anh xa san pham la mo phong.",
+        "status": "ACTIVE",
+        "categoryId": "1170fd87-4796-4737-a7b1-69bf5f8aec4c",
+        "categoryName": "[DEMO] San pham du bao va chuoi cung ung",
+        "createdAt": "2026-10-23T15:02:37.974042Z",
+        "updatedAt": "2026-10-23T15:02:37.974042Z"
+      },
+      {
+        "id": "7b0bd231-cb85-4794-9c90-df762e479b8d",
+        "productCode": "DEMO-AI-02",
+        "name": "[DEMO] Thieu sau 7 ngay - HIGH",
+        "unit": "don vi",
+        "referencePrice": 35000.0,
+        "description": "[DEMO] FULL-SYSTEM-DEMO-V1 | Du lieu mo phong nghiep vu; khong phai giao dich/tin tuc that. M5 la du lieu ban le cong khai 2011-2016; anh xa san pham la mo phong.",
+        "status": "ACTIVE",
+        "categoryId": "1170fd87-4796-4737-a7b1-69bf5f8aec4c",
+        "categoryName": "[DEMO] San pham du bao va chuoi cung ung",
+        "createdAt": "2026-10-23T15:02:38.069569Z",
+        "updatedAt": "2026-10-23T15:02:38.069569Z"
+      },
+      {
+        "id": "583d608d-0eee-48ee-88dd-e8b518d0dfe0",
+        "productCode": "DEMO-AI-03",
+        "name": "[DEMO] Can nguong - MEDIUM",
+        "unit": "don vi",
+        "referencePrice": 40000.0,
+        "description": "[DEMO] FULL-SYSTEM-DEMO-V1 | Du lieu mo phong nghiep vu; khong phai giao dich/tin tuc that. M5 la du lieu ban le cong khai 2011-2016; anh xa san pham la mo phong.",
+        "status": "ACTIVE",
+        "categoryId": "1170fd87-4796-4737-a7b1-69bf5f8aec4c",
+        "categoryName": "[DEMO] San pham du bao va chuoi cung ung",
+        "createdAt": "2026-10-23T15:02:38.115931Z",
+        "updatedAt": "2026-10-23T15:02:38.115931Z"
+      }
+    ],
+    "warehouses": [
+      {
+        "id": "473c3383-f402-4f84-9754-b4c09036e7dc",
+        "warehouseCode": "DEMO-KHO-01",
+        "name": "[DEMO] Kho AI va chuoi cung ung",
+        "address": "Khu logistics mo phong, TP Ho Chi Minh",
+        "status": "ACTIVE"
+      }
+    ],
+    "inventory": [
+      {
+        "id": "9b83afa9-c2ec-4b2f-8479-d5057ba39213",
+        "warehouseId": "473c3383-f402-4f84-9754-b4c09036e7dc",
+        "warehouseName": "[DEMO] Kho AI va chuoi cung ung",
+        "productId": "7a4f68f5-eb96-45b9-8f43-62f74574458b",
+        "productName": "[DEMO] Ton du - LOW",
+        "quantity": 10000.0,
+        "lowStockThreshold": 20.0,
+        "lastUpdatedAt": "2026-10-23T15:02:38.042615Z"
+      },
+      {
+        "id": "e78d595f-afa6-4cdf-9f99-a0e45b93ed14",
+        "warehouseId": "473c3383-f402-4f84-9754-b4c09036e7dc",
+        "warehouseName": "[DEMO] Kho AI va chuoi cung ung",
+        "productId": "7b0bd231-cb85-4794-9c90-df762e479b8d",
+        "productName": "[DEMO] Thieu sau 7 ngay - HIGH",
+        "quantity": 30.0,
+        "lowStockThreshold": 10.0,
+        "lastUpdatedAt": "2026-10-23T15:02:38.091339Z"
+      },
+      {
+        "id": "4517d11a-2e68-49d3-b928-4ad539cc1982",
+        "warehouseId": "473c3383-f402-4f84-9754-b4c09036e7dc",
+        "warehouseName": "[DEMO] Kho AI va chuoi cung ung",
+        "productId": "583d608d-0eee-48ee-88dd-e8b518d0dfe0",
+        "productName": "[DEMO] Can nguong - MEDIUM",
+        "quantity": 50.0,
+        "lowStockThreshold": 15.0,
+        "lastUpdatedAt": "2026-10-23T15:02:38.136597Z"
+      },
+      {
+        "id": "7afec8cb-7803-4f98-9924-1ec587c4d0a2",
+        "warehouseId": "473c3383-f402-4f84-9754-b4c09036e7dc",
+        "warehouseName": "[DEMO] Kho AI va chuoi cung ung",
+        "productId": "0806661d-1048-4b11-8734-2b49a283c514",
+        "productName": "[DEMO] Thieu som - CRITICAL",
+        "quantity": 10.0,
+        "lowStockThreshold": 5.0,
+        "lastUpdatedAt": "2026-10-23T15:02:38.184673Z"
+      },
+      {
+        "id": "ba141216-22f3-47c5-b2a3-b88203d3c2c8",
+        "warehouseId": "473c3383-f402-4f84-9754-b4c09036e7dc",
+        "warehouseName": "[DEMO] Kho AI va chuoi cung ung",
+        "productId": "76987838-1297-433d-905c-742ff20c7b70",
+        "productName": "[DEMO] Hang ve kip - LOW",
+        "quantity": 8.0,
+        "lowStockThreshold": 5.0,
+        "lastUpdatedAt": "2026-10-23T15:02:38.294122Z"
+      },
+      {
+        "id": "cf124133-96ad-4d75-8c0d-cfbe6dcf8af7",
+        "warehouseId": "473c3383-f402-4f84-9754-b4c09036e7dc",
+        "warehouseName": "[DEMO] Kho AI va chuoi cung ung",
+        "productId": "f0cf1a0f-8374-48c3-851e-06d7bebf537b",
+        "productName": "[DEMO] Hang ve muon - CRITICAL",
+        "quantity": 2.0,
+        "lowStockThreshold": 5.0,
+        "lastUpdatedAt": "2026-10-23T15:02:38.485508Z"
+      },
+      {
+        "id": "86102715-792a-48f4-a17c-3986f8a15fe7",
+        "warehouseId": "473c3383-f402-4f84-9754-b4c09036e7dc",
+        "warehouseName": "[DEMO] Kho AI va chuoi cung ung",
+        "productId": "96b8518b-aa09-4696-b38c-3c12b1043335",
+        "productName": "[DEMO] Chua co lich su - loi co kiem soat",
+        "quantity": 100.0,
+        "lowStockThreshold": 10.0,
+        "lastUpdatedAt": "2026-10-23T15:02:38.546588Z"
+      }
+    ],
+    "purchase-orders": [
+      {
+        "id": "5b5c4bb1-6c8c-4d55-b8c4-e36e35c18452",
+        "orderCode": "DEMO-PO-005",
+        "supplierId": "39382768-d444-41c3-8d1b-9df9d4d90bae",
+        "supplierName": "[DEMO] Pacific Supply",
+        "orderDate": "2026-10-08",
+        "expectedDeliveryDate": "2026-10-25",
+        "status": "ORDERED",
+        "totalAmount": 2500000.0,
+        "notes": "[DEMO] FULL-SYSTEM-DEMO-V1 | Du lieu mo phong nghiep vu; khong phai giao dich/tin tuc that.",
+        "items": [
+          {
+            "id": "a5686c9f-ad08-4c25-8a3d-8e07a12677d3",
+            "productId": "76987838-1297-433d-905c-742ff20c7b70",
+            "productName": "[DEMO] Hang ve kip - LOW",
+            "quantity": 50.0,
+            "unitPrice": 50000.0,
+            "lineTotal": 2500000.0
+          }
+        ],
+        "createdAt": "2026-10-23T15:02:39.149817Z",
+        "updatedAt": "2026-10-23T15:02:39.175529Z"
+      },
+      {
+        "id": "0ec4b966-8af9-4013-9e6c-e388ec5b5957",
+        "orderCode": "DEMO-PO-006",
+        "supplierId": "39382768-d444-41c3-8d1b-9df9d4d90bae",
+        "supplierName": "[DEMO] Pacific Supply",
+        "orderDate": "2026-10-08",
+        "expectedDeliveryDate": "2026-11-02",
+        "status": "ORDERED",
+        "totalAmount": 5500000.0,
+        "notes": "[DEMO] FULL-SYSTEM-DEMO-V1 | Du lieu mo phong nghiep vu; khong phai giao dich/tin tuc that.",
+        "items": [
+          {
+            "id": "0fe80365-72cd-47ba-ac21-9eeda69024bf",
+            "productId": "f0cf1a0f-8374-48c3-851e-06d7bebf537b",
+            "productName": "[DEMO] Hang ve muon - CRITICAL",
+            "quantity": 100.0,
+            "unitPrice": 55000.0,
+            "lineTotal": 5500000.0
+          }
+        ],
+        "createdAt": "2026-10-23T15:02:39.221741Z",
+        "updatedAt": "2026-10-23T15:02:39.246024Z"
+      },
+      {
+        "id": "81a74d57-ef69-47da-b998-cc6167cea7b3",
+        "orderCode": "DEMO-PO-007",
+        "supplierId": "4a0e4844-6774-4a53-814b-3f7324d20f1f",
+        "supplierName": "[DEMO] Minh Phat",
+        "orderDate": "2026-10-08",
+        "expectedDeliveryDate": "2026-10-30",
+        "status": "DRAFT",
+        "totalAmount": 450000.0,
+        "notes": "[DEMO] FULL-SYSTEM-DEMO-V1 | Du lieu mo phong nghiep vu; khong phai giao dich/tin tuc that.",
+        "items": [
+          {
+            "id": "6ed3d857-46dc-4bbf-926d-0f5d2f8148fb",
+            "productId": "3d3be19e-7e25-4e74-8681-4ee4989361a4",
+            "productName": "[TEST] Bột mì đa dụng",
+            "quantity": 25.0,
+            "unitPrice": 18000.0,
+            "lineTotal": 450000.0
+          }
+        ],
+        "createdAt": "2026-10-23T15:02:39.291624Z",
+        "updatedAt": "2026-10-23T15:02:39.291624Z"
+      },
+      {
+        "id": "6e51a54b-da6f-4203-ab3d-cb325b17f0a9",
+        "orderCode": "DEMO-PO-008",
+        "supplierId": "4a0e4844-6774-4a53-814b-3f7324d20f1f",
+        "supplierName": "[DEMO] Minh Phat",
+        "orderDate": "2026-10-08",
+        "expectedDeliveryDate": "2026-10-30",
+        "status": "ORDERED",
+        "totalAmount": 1320000.0,
+        "notes": "[DEMO] FULL-SYSTEM-DEMO-V1 | Du lieu mo phong nghiep vu; khong phai giao dich/tin tuc that.",
+        "items": [
+          {
+            "id": "f3d38831-6a31-4958-b64b-342c7f3551f5",
+            "productId": "0895f849-6316-4168-aa02-f7fd4523ea0f",
+            "productName": "[TEST] Đường tinh luyện",
+            "quantity": 60.0,
+            "unitPrice": 22000.0,
+            "lineTotal": 1320000.0
+          }
+        ],
+        "createdAt": "2026-10-23T15:02:39.331823Z",
+        "updatedAt": "2026-10-23T15:02:39.359609Z"
+      },
+      {
+        "id": "7168e1d1-c85a-43d7-9f91-869d52c0cba0",
+        "orderCode": "DEMO-PO-003",
+        "supplierId": "b0557843-2209-4cc6-adea-35287aea7a1e",
+        "supplierName": "[DEMO] Atlas Components",
+        "orderDate": "2026-10-08",
+        "expectedDeliveryDate": "2026-10-15",
+        "status": "DELAYED",
+        "totalAmount": 2500000.0,
+        "notes": "[DEMO] FULL-SYSTEM-DEMO-V1 | Du lieu mo phong nghiep vu; khong phai giao dich/tin tuc that.",
+        "items": [
+          {
+            "id": "5a4e84a9-f8c9-4b85-a4ed-5f1522aed0d1",
+            "productId": "7b7c9674-c876-41cd-b413-e1eb05cc47cf",
+            "productName": "[TEST] Gạo thơm Jasmine",
+            "quantity": 100.0,
+            "unitPrice": 25000.0,
+            "lineTotal": 2500000.0
+          }
+        ],
+        "createdAt": "2026-10-23T15:02:39.052445Z",
+        "updatedAt": "2026-10-23T15:04:06.123302Z"
+      },
+      {
+        "id": "6febc555-4c46-43c3-87a3-d2a966513f68",
+        "orderCode": "DEMO-PO-002",
+        "supplierId": "b0557843-2209-4cc6-adea-35287aea7a1e",
+        "supplierName": "[DEMO] Atlas Components",
+        "orderDate": "2026-10-08",
+        "expectedDeliveryDate": "2026-10-15",
+        "status": "DELAYED",
+        "totalAmount": 2500000.0,
+        "notes": "[DEMO] FULL-SYSTEM-DEMO-V1 | Du lieu mo phong nghiep vu; khong phai giao dich/tin tuc that.",
+        "items": [
+          {
+            "id": "c190b8b7-4068-4a84-a9c2-34b8bf5f644d",
+            "productId": "7b7c9674-c876-41cd-b413-e1eb05cc47cf",
+            "productName": "[TEST] Gạo thơm Jasmine",
+            "quantity": 100.0,
+            "unitPrice": 25000.0,
+            "lineTotal": 2500000.0
+          }
+        ],
+        "createdAt": "2026-10-23T15:02:38.944343Z",
+        "updatedAt": "2026-10-23T15:04:06.129722Z"
+      },
+      {
+        "id": "51ea307c-3ce7-4b23-b34f-f1596ae600a8",
+        "orderCode": "DEMO-PO-001",
+        "supplierId": "b0557843-2209-4cc6-adea-35287aea7a1e",
+        "supplierName": "[DEMO] Atlas Components",
+        "orderDate": "2026-10-08",
+        "expectedDeliveryDate": "2026-10-15",
+        "status": "DELAYED",
+        "totalAmount": 2500000.0,
+        "notes": "[DEMO] FULL-SYSTEM-DEMO-V1 | Du lieu mo phong nghiep vu; khong phai giao dich/tin tuc that.",
+        "items": [
+          {
+            "id": "9f4453b2-18bf-404c-969a-8e421f18aec1",
+            "productId": "7b7c9674-c876-41cd-b413-e1eb05cc47cf",
+            "productName": "[TEST] Gạo thơm Jasmine",
+            "quantity": 100.0,
+            "unitPrice": 25000.0,
+            "lineTotal": 2500000.0
+          }
+        ],
+        "createdAt": "2026-10-23T15:02:38.746639Z",
+        "updatedAt": "2026-10-23T15:04:06.137045Z"
+      }
+    ],
+    "shipments": [
+      {
+        "id": "dd0bd559-5bd3-47a7-a5e8-93da4ed629a5",
+        "shipmentCode": "DEMO-SH-005",
+        "purchaseOrderId": "5b5c4bb1-6c8c-4d55-b8c4-e36e35c18452",
+        "orderCode": "DEMO-PO-005",
+        "carrierName": "[DEMO] Logistics Viet",
+        "departureDate": null,
+        "expectedArrivalDate": "2026-10-25",
+        "actualArrivalDate": null,
+        "status": "PENDING",
+        "currentLocation": "[DEMO] Trung tam trung chuyen",
+        "notes": "[DEMO] FULL-SYSTEM-DEMO-V1 | Du lieu mo phong nghiep vu; khong phai giao dich/tin tuc that."
+      },
+      {
+        "id": "779646ab-bd85-4384-a6d7-31f6ba7d8d70",
+        "shipmentCode": "DEMO-SH-006",
+        "purchaseOrderId": "0ec4b966-8af9-4013-9e6c-e388ec5b5957",
+        "orderCode": "DEMO-PO-006",
+        "carrierName": "[DEMO] Logistics Viet",
+        "departureDate": null,
+        "expectedArrivalDate": "2026-11-02",
+        "actualArrivalDate": null,
+        "status": "PENDING",
+        "currentLocation": "[DEMO] Trung tam trung chuyen",
+        "notes": "[DEMO] FULL-SYSTEM-DEMO-V1 | Du lieu mo phong nghiep vu; khong phai giao dich/tin tuc that."
+      },
+      {
+        "id": "0ed35ebc-5ae5-4da1-ba27-eaa5ea437c6c",
+        "shipmentCode": "DEMO-SH-003",
+        "purchaseOrderId": "7168e1d1-c85a-43d7-9f91-869d52c0cba0",
+        "orderCode": "DEMO-PO-003",
+        "carrierName": "[DEMO] Logistics Viet",
+        "departureDate": "2026-10-11",
+        "expectedArrivalDate": "2026-10-15",
+        "actualArrivalDate": null,
+        "status": "DELAYED",
+        "currentLocation": "[DEMO] Trung tam trung chuyen",
+        "notes": "[DEMO] FULL-SYSTEM-DEMO-V1 | Du lieu mo phong nghiep vu; khong phai giao dich/tin tuc that."
+      },
+      {
+        "id": "f2e07fcd-9afd-4d5a-9886-6412bc3198ec",
+        "shipmentCode": "DEMO-SH-002",
+        "purchaseOrderId": "6febc555-4c46-43c3-87a3-d2a966513f68",
+        "orderCode": "DEMO-PO-002",
+        "carrierName": "[DEMO] Logistics Viet",
+        "departureDate": "2026-10-11",
+        "expectedArrivalDate": "2026-10-15",
+        "actualArrivalDate": null,
+        "status": "DELAYED",
+        "currentLocation": "[DEMO] Trung tam trung chuyen",
+        "notes": "[DEMO] FULL-SYSTEM-DEMO-V1 | Du lieu mo phong nghiep vu; khong phai giao dich/tin tuc that."
+      },
+      {
+        "id": "6425b395-e16a-42e1-bcde-af3b838aa72c",
+        "shipmentCode": "DEMO-SH-008A",
+        "purchaseOrderId": "6e51a54b-da6f-4203-ab3d-cb325b17f0a9",
+        "orderCode": "DEMO-PO-008",
+        "carrierName": "[DEMO] Logistics Viet",
+        "departureDate": null,
+        "expectedArrivalDate": "2026-10-30",
+        "actualArrivalDate": null,
+        "status": "PENDING",
+        "currentLocation": "[DEMO] Trung tam trung chuyen",
+        "notes": "[DEMO] FULL-SYSTEM-DEMO-V1 | Du lieu mo phong nghiep vu; khong phai giao dich/tin tuc that."
+      },
+      {
+        "id": "f89e9de5-64f7-4fda-9db0-5103a6bb4d11",
+        "shipmentCode": "DEMO-SH-008B",
+        "purchaseOrderId": "6e51a54b-da6f-4203-ab3d-cb325b17f0a9",
+        "orderCode": "DEMO-PO-008",
+        "carrierName": "[DEMO] Logistics Viet",
+        "departureDate": null,
+        "expectedArrivalDate": "2026-10-30",
+        "actualArrivalDate": null,
+        "status": "PENDING",
+        "currentLocation": "[DEMO] Trung tam trung chuyen",
+        "notes": "[DEMO] FULL-SYSTEM-DEMO-V1 | Du lieu mo phong nghiep vu; khong phai giao dich/tin tuc that."
+      },
+      {
+        "id": "4675578b-e83a-40c1-97ab-5ea8aca54c87",
+        "shipmentCode": "DEMO-SH-001",
+        "purchaseOrderId": "51ea307c-3ce7-4b23-b34f-f1596ae600a8",
+        "orderCode": "DEMO-PO-001",
+        "carrierName": "[DEMO] Logistics Viet",
+        "departureDate": "2026-10-11",
+        "expectedArrivalDate": "2026-10-15",
+        "actualArrivalDate": null,
+        "status": "DELAYED",
+        "currentLocation": "[DEMO] Trung tam trung chuyen",
+        "notes": "[DEMO] FULL-SYSTEM-DEMO-V1 | Du lieu mo phong nghiep vu; khong phai giao dich/tin tuc that."
+      }
+    ],
+    "risk-events": [],
+    "alerts": [],
+    "users": [
+      {
+        "id": "0fb35bd4-da47-4c8b-833b-183361cccc11",
+        "username": "demo_member_20",
+        "email": "demo_member_20@demo.example",
+        "fullName": "[DEMO] Nhan vien 20",
+        "status": "INACTIVE",
+        "roles": [
+          "MANAGER"
+        ]
+      },
+      {
+        "id": "49d25224-7ecd-4e3e-a1ce-c42fee34b08c",
+        "username": "demo_member_17",
+        "email": "demo_member_17@demo.example",
+        "fullName": "[DEMO] Nhan vien 17",
+        "status": "ACTIVE",
+        "roles": [
+          "MANAGER"
+        ]
+      },
+      {
+        "id": "c6a903c1-3c82-4b93-b7e5-afbb55ffdb18",
+        "username": "demo_member_14",
+        "email": "demo_member_14@demo.example",
+        "fullName": "[DEMO] Nhan vien 14",
+        "status": "ACTIVE",
+        "roles": [
+          "MANAGER"
+        ]
+      },
+      {
+        "id": "e0ce57cc-4179-4133-84f3-62796902701c",
+        "username": "demo_member_11",
+        "email": "demo_member_11@demo.example",
+        "fullName": "[DEMO] Nhan vien 11",
+        "status": "ACTIVE",
+        "roles": [
+          "MANAGER"
+        ]
+      },
+      {
+        "id": "3c8c30a0-ffdc-4b02-9286-89c22e799b9a",
+        "username": "demo_member_08",
+        "email": "demo_member_08@demo.example",
+        "fullName": "[DEMO] Nhan vien 08",
+        "status": "ACTIVE",
+        "roles": [
+          "MANAGER"
+        ]
+      },
+      {
+        "id": "ef70c5d3-4a89-4f9a-bacf-ec5e501edd78",
+        "username": "demo_member_05",
+        "email": "demo_member_05@demo.example",
+        "fullName": "[DEMO] Nhan vien 05",
+        "status": "ACTIVE",
+        "roles": [
+          "MANAGER"
+        ]
+      },
+      {
+        "id": "4c4be254-c546-4922-af16-cbf3d737adc8",
+        "username": "demo_member_02",
+        "email": "demo_member_02@demo.example",
+        "fullName": "[DEMO] Nhan vien 02",
+        "status": "ACTIVE",
+        "roles": [
+          "MANAGER"
+        ]
+      },
+      {
+        "id": "4e120b50-3e2f-456b-9b0c-37d24652650a",
+        "username": "demo_member_19",
+        "email": "demo_member_19@demo.example",
+        "fullName": "[DEMO] Nhan vien 19",
+        "status": "ACTIVE",
+        "roles": [
+          "STAFF"
+        ]
+      },
+      {
+        "id": "5f9457fc-cf96-4933-a4e5-a3c3618aafb7",
+        "username": "demo_member_16",
+        "email": "demo_member_16@demo.example",
+        "fullName": "[DEMO] Nhan vien 16",
+        "status": "ACTIVE",
+        "roles": [
+          "STAFF"
+        ]
+      },
+      {
+        "id": "5da7583f-a5fc-43fb-9f9a-44cc39ae1503",
+        "username": "demo_member_13",
+        "email": "demo_member_13@demo.example",
+        "fullName": "[DEMO] Nhan vien 13",
+        "status": "ACTIVE",
+        "roles": [
+          "STAFF"
+        ]
+      },
+      {
+        "id": "1d053f84-b1d0-4375-a3c5-4b1449ab9f7b",
+        "username": "demo_member_10",
+        "email": "demo_member_10@demo.example",
+        "fullName": "[DEMO] Nhan vien 10",
+        "status": "ACTIVE",
+        "roles": [
+          "STAFF"
+        ]
+      },
+      {
+        "id": "4bd39326-5ef0-445e-9dc0-0e06a57cf22a",
+        "username": "demo_member_07",
+        "email": "demo_member_07@demo.example",
+        "fullName": "[DEMO] Nhan vien 07",
+        "status": "ACTIVE",
+        "roles": [
+          "STAFF"
+        ]
+      },
+      {
+        "id": "1996d49e-3a95-4615-ad11-0dd1df28d145",
+        "username": "demo_member_04",
+        "email": "demo_member_04@demo.example",
+        "fullName": "[DEMO] Nhan vien 04",
+        "status": "ACTIVE",
+        "roles": [
+          "STAFF"
+        ]
+      },
+      {
+        "id": "9a5604e9-4c72-4589-b2e1-3a80f185d1df",
+        "username": "demo_member_01",
+        "email": "demo_member_01@demo.example",
+        "fullName": "[DEMO] Nhan vien 01",
+        "status": "ACTIVE",
+        "roles": [
+          "STAFF"
+        ]
+      },
+      {
+        "id": "6f03e329-97d9-44f3-aa43-731c5bbabe23",
+        "username": "demo_member_18",
+        "email": "demo_member_18@demo.example",
+        "fullName": "[DEMO] Nhan vien 18",
+        "status": "ACTIVE",
+        "roles": [
+          "ANALYST"
+        ]
+      },
+      {
+        "id": "a8d68883-d979-4573-bb3f-200d19a58341",
+        "username": "demo_member_15",
+        "email": "demo_member_15@demo.example",
+        "fullName": "[DEMO] Nhan vien 15",
+        "status": "ACTIVE",
+        "roles": [
+          "ANALYST"
+        ]
+      },
+      {
+        "id": "1800e718-f1c4-42e6-95d8-a2679458ba14",
+        "username": "demo_member_12",
+        "email": "demo_member_12@demo.example",
+        "fullName": "[DEMO] Nhan vien 12",
+        "status": "ACTIVE",
+        "roles": [
+          "ANALYST"
+        ]
+      },
+      {
+        "id": "298a9121-f25a-4e0d-a6b2-4ca2b4b1653c",
+        "username": "demo_member_09",
+        "email": "demo_member_09@demo.example",
+        "fullName": "[DEMO] Nhan vien 09",
+        "status": "ACTIVE",
+        "roles": [
+          "ANALYST"
+        ]
+      },
+      {
+        "id": "eaabb748-d34f-4e3a-9a3a-db79aa13b552",
+        "username": "demo_member_06",
+        "email": "demo_member_06@demo.example",
+        "fullName": "[DEMO] Nhan vien 06",
+        "status": "ACTIVE",
+        "roles": [
+          "ANALYST"
+        ]
+      },
+      {
+        "id": "de3179f5-9433-4979-a772-bf80ef4d7ca3",
+        "username": "demo_member_03",
+        "email": "demo_member_03@demo.example",
+        "fullName": "[DEMO] Nhan vien 03",
+        "status": "ACTIVE",
+        "roles": [
+          "ANALYST"
+        ]
+      }
+    ],
+    "events": [
+      {
+        "id": "48e35477-ad70-4f76-b086-603564b5704f",
+        "externalSource": "DEMO_FIXTURE",
+        "externalEventId": "DEMO-EVT-04",
+        "eventDate": "2026-10-23",
+        "eventType": "[DEMO] Unrelated harbor disruption",
+        "eventCode": null,
+        "eventBaseCode": null,
+        "eventRootCode": "14",
+        "actor1Name": "Northhaven Port Authority",
+        "actor2Name": null,
+        "countryCode": "IS",
+        "country": "Iceland",
+        "location": "Reykjavik",
+        "latitude": null,
+        "longitude": null,
+        "goldsteinScore": -4.0,
+        "avgTone": -3.0,
+        "numMentions": null,
+        "numSources": null,
+        "numArticles": null,
+        "sourceUrl": "https://example.invalid/demo/DEMO-EVT-04",
+        "sentiment": "NOT_ANALYZED",
+        "sentimentConfidence": null,
+        "sentimentModelVersion": null,
+        "signal": "NEUTRAL"
+      },
+      {
+        "id": "0cd8f67a-38ea-4dd0-8f94-1a72fedddb93",
+        "externalSource": "DEMO_FIXTURE",
+        "externalEventId": "DEMO-EVT-05",
+        "eventDate": "2026-10-23",
+        "eventType": "[DEMO] Chua phan tich - thao tac truc tiep",
+        "eventCode": null,
+        "eventBaseCode": null,
+        "eventRootCode": "17",
+        "actor1Name": "Atlas Components",
+        "actor2Name": "Pacific Supply",
+        "countryCode": "US",
+        "country": "USA",
+        "location": "Texas",
+        "latitude": null,
+        "longitude": null,
+        "goldsteinScore": -6.0,
+        "avgTone": -3.0,
+        "numMentions": null,
+        "numSources": null,
+        "numArticles": null,
+        "sourceUrl": "https://example.invalid/demo/DEMO-EVT-05",
+        "sentiment": "NOT_ANALYZED",
+        "sentimentConfidence": null,
+        "sentimentModelVersion": null,
+        "signal": "NEUTRAL"
+      },
+      {
+        "id": "f3b23329-46c8-4e9b-ae89-f1e63fc93efb",
+        "externalSource": "DEMO_FIXTURE",
+        "externalEventId": "DEMO-EVT-02",
+        "eventDate": "2026-10-23",
+        "eventType": "[DEMO] Expansion and new contract - EN",
+        "eventCode": null,
+        "eventBaseCode": null,
+        "eventRootCode": "01",
+        "actor1Name": "Atlas Components",
+        "actor2Name": "Pacific Supply",
+        "countryCode": "US",
+        "country": "USA",
+        "location": "Texas",
+        "latitude": null,
+        "longitude": null,
+        "goldsteinScore": 5.0,
+        "avgTone": 4.0,
+        "numMentions": null,
+        "numSources": null,
+        "numArticles": null,
+        "sourceUrl": "https://example.invalid/demo/DEMO-EVT-02",
+        "sentiment": "POSITIVE",
+        "sentimentConfidence": 0.6251,
+        "sentimentModelVersion": "bilingual-entity-v2-20261023T133850Z",
+        "signal": "OPPORTUNITY_SIGNAL"
+      },
+      {
+        "id": "7fdb9214-3465-46f1-b48c-461402412e09",
+        "externalSource": "DEMO_FIXTURE",
+        "externalEventId": "DEMO-EVT-01",
+        "eventDate": "2026-10-23",
+        "eventType": "[DEMO] Production shutdown - EN",
+        "eventCode": null,
+        "eventBaseCode": null,
+        "eventRootCode": "20",
+        "actor1Name": "Atlas Components",
+        "actor2Name": "Pacific Supply",
+        "countryCode": "US",
+        "country": "USA",
+        "location": "Texas",
+        "latitude": null,
+        "longitude": null,
+        "goldsteinScore": -10.0,
+        "avgTone": -8.0,
+        "numMentions": null,
+        "numSources": null,
+        "numArticles": null,
+        "sourceUrl": "https://example.invalid/demo/DEMO-EVT-01",
+        "sentiment": "NEGATIVE",
+        "sentimentConfidence": 0.5824,
+        "sentimentModelVersion": "bilingual-entity-v2-20261023T133850Z",
+        "signal": "RISK"
+      },
+      {
+        "id": "e8cebea0-6735-4016-abd3-f9668d3630e3",
+        "externalSource": "DEMO_FIXTURE",
+        "externalEventId": "DEMO-EVT-03",
+        "eventDate": "2026-10-23",
+        "eventType": "[DEMO] Gian doan san xuat - VI",
+        "eventCode": null,
+        "eventBaseCode": null,
+        "eventRootCode": "19",
+        "actor1Name": "Minh Phat",
+        "actor2Name": null,
+        "countryCode": "VN",
+        "country": "Vietnam",
+        "location": "Binh Duong",
+        "latitude": null,
+        "longitude": null,
+        "goldsteinScore": -8.0,
+        "avgTone": -6.0,
+        "numMentions": null,
+        "numSources": null,
+        "numArticles": null,
+        "sourceUrl": "https://example.invalid/demo/DEMO-EVT-03",
+        "sentiment": "NEGATIVE",
+        "sentimentConfidence": 0.9575,
+        "sentimentModelVersion": "bilingual-entity-v2-20261023T133850Z",
+        "signal": "RISK"
+      }
+    ]
+  },
+  "forecastCases": [
+    {
+      "productId": "7a4f68f5-eb96-45b9-8f43-62f74574458b",
+      "productCode": "DEMO-AI-01",
+      "sourceItemId": "FOODS_3_003",
+      "sourceLocationId": "CA_1",
+      "expectedRisk": "LOW",
+      "observedRisk": "LOW",
+      "currentInventory": 10000.0,
+      "lowStockThreshold": 20.0,
+      "forecastDemand": {
+        "next7Days": 5.1411,
+        "next14Days": 10.7898,
+        "next28Days": 21.5156
+      },
+      "incomingSupply": {
+        "next7Days": 0,
+        "next14Days": 0,
+        "next28Days": 0
+      },
+      "projectedInventory": {
+        "next7Days": 9994.8589,
+        "next14Days": 9989.2102,
+        "next28Days": 9978.4844
+      },
+      "projectedStockoutDate": null,
+      "historyDays": 365,
+      "historySource": "M5"
+    },
+    {
+      "productId": "7b0bd231-cb85-4794-9c90-df762e479b8d",
+      "productCode": "DEMO-AI-02",
+      "sourceItemId": "FOODS_3_007",
+      "sourceLocationId": "CA_1",
+      "expectedRisk": "HIGH",
+      "observedRisk": "HIGH",
+      "currentInventory": 30.0,
+      "lowStockThreshold": 10.0,
+      "forecastDemand": {
+        "next7Days": 13.5806,
+        "next14Days": 27.4343,
+        "next28Days": 54.5898
+      },
+      "incomingSupply": {
+        "next7Days": 0,
+        "next14Days": 0,
+        "next28Days": 0
+      },
+      "projectedInventory": {
+        "next7Days": 16.4194,
+        "next14Days": 2.5657,
+        "next28Days": -24.5898
+      },
+      "projectedStockoutDate": "2026-11-08",
+      "historyDays": 365,
+      "historySource": "M5"
+    },
+    {
+      "productId": "583d608d-0eee-48ee-88dd-e8b518d0dfe0",
+      "productCode": "DEMO-AI-03",
+      "sourceItemId": "FOODS_3_002",
+      "sourceLocationId": "CA_1",
+      "expectedRisk": "MEDIUM",
+      "observedRisk": "MEDIUM",
+      "currentInventory": 50.0,
+      "lowStockThreshold": 15.0,
+      "forecastDemand": {
+        "next7Days": 10.0251,
+        "next14Days": 21.6031,
+        "next28Days": 41.3919
+      },
+      "incomingSupply": {
+        "next7Days": 0,
+        "next14Days": 0,
+        "next28Days": 0
+      },
+      "projectedInventory": {
+        "next7Days": 39.9749,
+        "next14Days": 28.3969,
+        "next28Days": 8.6081
+      },
+      "projectedStockoutDate": null,
+      "historyDays": 365,
+      "historySource": "M5"
+    },
+    {
+      "productId": "0806661d-1048-4b11-8734-2b49a283c514",
+      "productCode": "DEMO-AI-04",
+      "sourceItemId": "FOODS_3_008",
+      "sourceLocationId": "CA_1",
+      "expectedRisk": "CRITICAL",
+      "observedRisk": "CRITICAL",
+      "currentInventory": 10.0,
+      "lowStockThreshold": 5.0,
+      "forecastDemand": {
+        "next7Days": 27.8189,
+        "next14Days": 56.4319,
+        "next28Days": 112.241
+      },
+      "incomingSupply": {
+        "next7Days": 0,
+        "next14Days": 0,
+        "next28Days": 0
+      },
+      "projectedInventory": {
+        "next7Days": -17.8189,
+        "next14Days": -46.4319,
+        "next28Days": -102.241
+      },
+      "projectedStockoutDate": "2026-10-25",
+      "historyDays": 365,
+      "historySource": "M5"
+    },
+    {
+      "productId": "76987838-1297-433d-905c-742ff20c7b70",
+      "productCode": "DEMO-AI-05",
+      "sourceItemId": "FOODS_3_009",
+      "sourceLocationId": "CA_1",
+      "expectedRisk": "LOW",
+      "observedRisk": "LOW",
+      "currentInventory": 8.0,
+      "lowStockThreshold": 5.0,
+      "forecastDemand": {
+        "next7Days": 5.121,
+        "next14Days": 10.8103,
+        "next28Days": 21.5061
+      },
+      "incomingSupply": {
+        "next7Days": 50.0,
+        "next14Days": 50.0,
+        "next28Days": 50.0
+      },
+      "projectedInventory": {
+        "next7Days": 52.879,
+        "next14Days": 47.1897,
+        "next28Days": 36.4939
+      },
+      "projectedStockoutDate": null,
+      "historyDays": 365,
+      "historySource": "M5"
+    },
+    {
+      "productId": "f0cf1a0f-8374-48c3-851e-06d7bebf537b",
+      "productCode": "DEMO-AI-06",
+      "sourceItemId": "FOODS_3_010",
+      "sourceLocationId": "CA_1",
+      "expectedRisk": "CRITICAL",
+      "observedRisk": "CRITICAL",
+      "currentInventory": 2.0,
+      "lowStockThreshold": 5.0,
+      "forecastDemand": {
+        "next7Days": 5.8364,
+        "next14Days": 11.6774,
+        "next28Days": 22.5716
+      },
+      "incomingSupply": {
+        "next7Days": 0,
+        "next14Days": 100.0,
+        "next28Days": 100.0
+      },
+      "projectedInventory": {
+        "next7Days": -3.8364,
+        "next14Days": 90.3226,
+        "next28Days": 79.4284
+      },
+      "projectedStockoutDate": "2026-10-26",
+      "historyDays": 365,
+      "historySource": "M5"
+    }
+  ],
+  "sentimentCases": [
+    {
+      "eventId": "7fdb9214-3465-46f1-b48c-461402412e09",
+      "eventCode": "DEMO-EVT-01",
+      "entity": "Atlas Components",
+      "language": "en",
+      "supplierCode": "DEMO-NCC-01",
+      "supplierId": "b0557843-2209-4cc6-adea-35287aea7a1e",
+      "text": "Atlas Components reported heavy losses after closing its factory, while Pacific Supply reported record profits.",
+      "expectedSentiment": "NEGATIVE",
+      "expectedNeedsReview": false,
+      "syntheticDemoText": true
+    },
+    {
+      "eventId": "7fdb9214-3465-46f1-b48c-461402412e09",
+      "eventCode": "DEMO-EVT-01",
+      "entity": "Pacific Supply",
+      "language": "en",
+      "supplierCode": "DEMO-NCC-02",
+      "supplierId": "39382768-d444-41c3-8d1b-9df9d4d90bae",
+      "text": "Atlas Components reported heavy losses after closing its factory, while Pacific Supply reported record profits.",
+      "expectedSentiment": "POSITIVE",
+      "expectedNeedsReview": false,
+      "syntheticDemoText": true,
+      "knownModelLimitation": true,
+      "limitationReason": "Mixed-company English news: model returned NEGATIVE although this target reports record profits; expected POSITIVE is retained."
+    },
+    {
+      "eventId": "f3b23329-46c8-4e9b-ae89-f1e63fc93efb",
+      "eventCode": "DEMO-EVT-02",
+      "entity": "Pacific Supply",
+      "language": "en",
+      "supplierCode": "DEMO-NCC-02",
+      "supplierId": "39382768-d444-41c3-8d1b-9df9d4d90bae",
+      "text": "Pacific Supply reported record profits and won a major new contract after expanding production.",
+      "expectedSentiment": "POSITIVE",
+      "expectedNeedsReview": false,
+      "syntheticDemoText": true
+    },
+    {
+      "eventId": "e8cebea0-6735-4016-abd3-f9668d3630e3",
+      "eventCode": "DEMO-EVT-03",
+      "entity": "Minh Phat",
+      "language": "vi",
+      "supplierCode": "DEMO-NCC-03",
+      "supplierId": "4a0e4844-6774-4a53-814b-3f7324d20f1f",
+      "text": "Minh Phat thua lỗ nặng và buộc phải đóng cửa nhà máy. Hoạt động sản xuất của Minh Phat bị gián đoạn.",
+      "expectedSentiment": "NEGATIVE",
+      "expectedNeedsReview": true,
+      "syntheticDemoText": true
+    }
+  ],
+  "events": [
+    {
+      "id": "48e35477-ad70-4f76-b086-603564b5704f",
+      "externalSource": "DEMO_FIXTURE",
+      "externalEventId": "DEMO-EVT-04",
+      "eventDate": "2026-10-23",
+      "eventType": "[DEMO] Unrelated harbor disruption",
+      "eventCode": null,
+      "eventBaseCode": null,
+      "eventRootCode": "14",
+      "actor1Name": "Northhaven Port Authority",
+      "actor2Name": null,
+      "countryCode": "IS",
+      "country": "Iceland",
+      "location": "Reykjavik",
+      "latitude": null,
+      "longitude": null,
+      "goldsteinScore": -4.0,
+      "avgTone": -3.0,
+      "numMentions": null,
+      "numSources": null,
+      "numArticles": null,
+      "sourceUrl": "https://example.invalid/demo/DEMO-EVT-04",
+      "sentiment": "NOT_ANALYZED",
+      "sentimentConfidence": null,
+      "sentimentModelVersion": null,
+      "signal": "NEUTRAL"
+    },
+    {
+      "id": "0cd8f67a-38ea-4dd0-8f94-1a72fedddb93",
+      "externalSource": "DEMO_FIXTURE",
+      "externalEventId": "DEMO-EVT-05",
+      "eventDate": "2026-10-23",
+      "eventType": "[DEMO] Chua phan tich - thao tac truc tiep",
+      "eventCode": null,
+      "eventBaseCode": null,
+      "eventRootCode": "17",
+      "actor1Name": "Atlas Components",
+      "actor2Name": "Pacific Supply",
+      "countryCode": "US",
+      "country": "USA",
+      "location": "Texas",
+      "latitude": null,
+      "longitude": null,
+      "goldsteinScore": -6.0,
+      "avgTone": -3.0,
+      "numMentions": null,
+      "numSources": null,
+      "numArticles": null,
+      "sourceUrl": "https://example.invalid/demo/DEMO-EVT-05",
+      "sentiment": "NOT_ANALYZED",
+      "sentimentConfidence": null,
+      "sentimentModelVersion": null,
+      "signal": "NEUTRAL"
+    },
+    {
+      "id": "f3b23329-46c8-4e9b-ae89-f1e63fc93efb",
+      "externalSource": "DEMO_FIXTURE",
+      "externalEventId": "DEMO-EVT-02",
+      "eventDate": "2026-10-23",
+      "eventType": "[DEMO] Expansion and new contract - EN",
+      "eventCode": null,
+      "eventBaseCode": null,
+      "eventRootCode": "01",
+      "actor1Name": "Atlas Components",
+      "actor2Name": "Pacific Supply",
+      "countryCode": "US",
+      "country": "USA",
+      "location": "Texas",
+      "latitude": null,
+      "longitude": null,
+      "goldsteinScore": 5.0,
+      "avgTone": 4.0,
+      "numMentions": null,
+      "numSources": null,
+      "numArticles": null,
+      "sourceUrl": "https://example.invalid/demo/DEMO-EVT-02",
+      "sentiment": "POSITIVE",
+      "sentimentConfidence": 0.6251,
+      "sentimentModelVersion": "bilingual-entity-v2-20261023T133850Z",
+      "signal": "OPPORTUNITY_SIGNAL"
+    },
+    {
+      "id": "7fdb9214-3465-46f1-b48c-461402412e09",
+      "externalSource": "DEMO_FIXTURE",
+      "externalEventId": "DEMO-EVT-01",
+      "eventDate": "2026-10-23",
+      "eventType": "[DEMO] Production shutdown - EN",
+      "eventCode": null,
+      "eventBaseCode": null,
+      "eventRootCode": "20",
+      "actor1Name": "Atlas Components",
+      "actor2Name": "Pacific Supply",
+      "countryCode": "US",
+      "country": "USA",
+      "location": "Texas",
+      "latitude": null,
+      "longitude": null,
+      "goldsteinScore": -10.0,
+      "avgTone": -8.0,
+      "numMentions": null,
+      "numSources": null,
+      "numArticles": null,
+      "sourceUrl": "https://example.invalid/demo/DEMO-EVT-01",
+      "sentiment": "NEGATIVE",
+      "sentimentConfidence": 0.5824,
+      "sentimentModelVersion": "bilingual-entity-v2-20261023T133850Z",
+      "signal": "RISK"
+    },
+    {
+      "id": "e8cebea0-6735-4016-abd3-f9668d3630e3",
+      "externalSource": "DEMO_FIXTURE",
+      "externalEventId": "DEMO-EVT-03",
+      "eventDate": "2026-10-23",
+      "eventType": "[DEMO] Gian doan san xuat - VI",
+      "eventCode": null,
+      "eventBaseCode": null,
+      "eventRootCode": "19",
+      "actor1Name": "Minh Phat",
+      "actor2Name": null,
+      "countryCode": "VN",
+      "country": "Vietnam",
+      "location": "Binh Duong",
+      "latitude": null,
+      "longitude": null,
+      "goldsteinScore": -8.0,
+      "avgTone": -6.0,
+      "numMentions": null,
+      "numSources": null,
+      "numArticles": null,
+      "sourceUrl": "https://example.invalid/demo/DEMO-EVT-03",
+      "sentiment": "NEGATIVE",
+      "sentimentConfidence": 0.9575,
+      "sentimentModelVersion": "bilingual-entity-v2-20261023T133850Z",
+      "signal": "RISK"
+    }
+  ],
+  "accounts": [
+    {
+      "id": "862b6221-ee0d-4a2a-9c4c-e53b25d1838a",
+      "username": "admin",
+      "email": "admin@enterprise.local",
+      "fullName": "System Administrator",
+      "status": "ACTIVE",
+      "roles": [
+        "ADMIN"
+      ]
+    },
+    {
+      "id": "0fb35bd4-da47-4c8b-833b-183361cccc11",
+      "username": "demo_member_20",
+      "email": "demo_member_20@demo.example",
+      "fullName": "[DEMO] Nhan vien 20",
+      "status": "INACTIVE",
+      "roles": [
+        "MANAGER"
+      ]
+    },
+    {
+      "id": "49d25224-7ecd-4e3e-a1ce-c42fee34b08c",
+      "username": "demo_member_17",
+      "email": "demo_member_17@demo.example",
+      "fullName": "[DEMO] Nhan vien 17",
+      "status": "ACTIVE",
+      "roles": [
+        "MANAGER"
+      ]
+    },
+    {
+      "id": "c6a903c1-3c82-4b93-b7e5-afbb55ffdb18",
+      "username": "demo_member_14",
+      "email": "demo_member_14@demo.example",
+      "fullName": "[DEMO] Nhan vien 14",
+      "status": "ACTIVE",
+      "roles": [
+        "MANAGER"
+      ]
+    },
+    {
+      "id": "e0ce57cc-4179-4133-84f3-62796902701c",
+      "username": "demo_member_11",
+      "email": "demo_member_11@demo.example",
+      "fullName": "[DEMO] Nhan vien 11",
+      "status": "ACTIVE",
+      "roles": [
+        "MANAGER"
+      ]
+    },
+    {
+      "id": "3c8c30a0-ffdc-4b02-9286-89c22e799b9a",
+      "username": "demo_member_08",
+      "email": "demo_member_08@demo.example",
+      "fullName": "[DEMO] Nhan vien 08",
+      "status": "ACTIVE",
+      "roles": [
+        "MANAGER"
+      ]
+    },
+    {
+      "id": "ef70c5d3-4a89-4f9a-bacf-ec5e501edd78",
+      "username": "demo_member_05",
+      "email": "demo_member_05@demo.example",
+      "fullName": "[DEMO] Nhan vien 05",
+      "status": "ACTIVE",
+      "roles": [
+        "MANAGER"
+      ]
+    },
+    {
+      "id": "4c4be254-c546-4922-af16-cbf3d737adc8",
+      "username": "demo_member_02",
+      "email": "demo_member_02@demo.example",
+      "fullName": "[DEMO] Nhan vien 02",
+      "status": "ACTIVE",
+      "roles": [
+        "MANAGER"
+      ]
+    },
+    {
+      "id": "f0842dbc-eaf5-46ca-92ea-9e878788a186",
+      "username": "manager_test",
+      "email": "manager@test.com",
+      "fullName": "MANAGER 1",
+      "status": "ACTIVE",
+      "roles": [
+        "MANAGER"
+      ]
+    },
+    {
+      "id": "4e120b50-3e2f-456b-9b0c-37d24652650a",
+      "username": "demo_member_19",
+      "email": "demo_member_19@demo.example",
+      "fullName": "[DEMO] Nhan vien 19",
+      "status": "ACTIVE",
+      "roles": [
+        "STAFF"
+      ]
+    },
+    {
+      "id": "5f9457fc-cf96-4933-a4e5-a3c3618aafb7",
+      "username": "demo_member_16",
+      "email": "demo_member_16@demo.example",
+      "fullName": "[DEMO] Nhan vien 16",
+      "status": "ACTIVE",
+      "roles": [
+        "STAFF"
+      ]
+    },
+    {
+      "id": "5da7583f-a5fc-43fb-9f9a-44cc39ae1503",
+      "username": "demo_member_13",
+      "email": "demo_member_13@demo.example",
+      "fullName": "[DEMO] Nhan vien 13",
+      "status": "ACTIVE",
+      "roles": [
+        "STAFF"
+      ]
+    },
+    {
+      "id": "1d053f84-b1d0-4375-a3c5-4b1449ab9f7b",
+      "username": "demo_member_10",
+      "email": "demo_member_10@demo.example",
+      "fullName": "[DEMO] Nhan vien 10",
+      "status": "ACTIVE",
+      "roles": [
+        "STAFF"
+      ]
+    },
+    {
+      "id": "4bd39326-5ef0-445e-9dc0-0e06a57cf22a",
+      "username": "demo_member_07",
+      "email": "demo_member_07@demo.example",
+      "fullName": "[DEMO] Nhan vien 07",
+      "status": "ACTIVE",
+      "roles": [
+        "STAFF"
+      ]
+    },
+    {
+      "id": "1996d49e-3a95-4615-ad11-0dd1df28d145",
+      "username": "demo_member_04",
+      "email": "demo_member_04@demo.example",
+      "fullName": "[DEMO] Nhan vien 04",
+      "status": "ACTIVE",
+      "roles": [
+        "STAFF"
+      ]
+    },
+    {
+      "id": "9a5604e9-4c72-4589-b2e1-3a80f185d1df",
+      "username": "demo_member_01",
+      "email": "demo_member_01@demo.example",
+      "fullName": "[DEMO] Nhan vien 01",
+      "status": "ACTIVE",
+      "roles": [
+        "STAFF"
+      ]
+    },
+    {
+      "id": "a70aa22d-78e5-4504-93f7-977634dd6856",
+      "username": "staff_test",
+      "email": "staff@test.com",
+      "fullName": "staff 1",
+      "status": "ACTIVE",
+      "roles": [
+        "STAFF"
+      ]
+    },
+    {
+      "id": "6f03e329-97d9-44f3-aa43-731c5bbabe23",
+      "username": "demo_member_18",
+      "email": "demo_member_18@demo.example",
+      "fullName": "[DEMO] Nhan vien 18",
+      "status": "ACTIVE",
+      "roles": [
+        "ANALYST"
+      ]
+    },
+    {
+      "id": "a8d68883-d979-4573-bb3f-200d19a58341",
+      "username": "demo_member_15",
+      "email": "demo_member_15@demo.example",
+      "fullName": "[DEMO] Nhan vien 15",
+      "status": "ACTIVE",
+      "roles": [
+        "ANALYST"
+      ]
+    },
+    {
+      "id": "1800e718-f1c4-42e6-95d8-a2679458ba14",
+      "username": "demo_member_12",
+      "email": "demo_member_12@demo.example",
+      "fullName": "[DEMO] Nhan vien 12",
+      "status": "ACTIVE",
+      "roles": [
+        "ANALYST"
+      ]
+    },
+    {
+      "id": "298a9121-f25a-4e0d-a6b2-4ca2b4b1653c",
+      "username": "demo_member_09",
+      "email": "demo_member_09@demo.example",
+      "fullName": "[DEMO] Nhan vien 09",
+      "status": "ACTIVE",
+      "roles": [
+        "ANALYST"
+      ]
+    },
+    {
+      "id": "eaabb748-d34f-4e3a-9a3a-db79aa13b552",
+      "username": "demo_member_06",
+      "email": "demo_member_06@demo.example",
+      "fullName": "[DEMO] Nhan vien 06",
+      "status": "ACTIVE",
+      "roles": [
+        "ANALYST"
+      ]
+    },
+    {
+      "id": "de3179f5-9433-4979-a772-bf80ef4d7ca3",
+      "username": "demo_member_03",
+      "email": "demo_member_03@demo.example",
+      "fullName": "[DEMO] Nhan vien 03",
+      "status": "ACTIVE",
+      "roles": [
+        "ANALYST"
+      ]
+    },
+    {
+      "id": "370cbef5-1f71-4997-93b0-2589c14a0af7",
+      "username": "analyst_test",
+      "email": "analyst@test.com",
+      "fullName": "ANALYST 1",
+      "status": "ACTIVE",
+      "roles": [
+        "ANALYST"
+      ]
+    }
+  ],
+  "noHistoryProductId": "96b8518b-aa09-4696-b38c-3c12b1043335",
+  "noHistoryProductCode": "DEMO-AI-07"
+}

@@ -1,0 +1,48 @@
+[
+  {
+    "id": "5d09b35e-415b-41be-a337-9e6a751d6089",
+    "externalEventId": "7fdb9214-3465-46f1-b48c-461402412e09",
+    "entity": "Pacific Supply",
+    "supplierId": "39382768-d444-41c3-8d1b-9df9d4d90bae",
+    "supplierCode": "DEMO-NCC-02",
+    "supplierName": "[DEMO] Pacific Supply",
+    "sentiment": "NEGATIVE",
+    "confidence": 0.582438,
+    "probabilities": {
+      "NEUTRAL": 0.14849,
+      "NEGATIVE": 0.582438,
+      "POSITIVE": 0.269072
+    },
+    "language": "en",
+    "needsReview": false,
+    "reviewReason": null,
+    "modelVersion": "bilingual-entity-v2-20261023T133850Z",
+    "inputTruncated": false,
+    "sourceTextSha256": "c38f69790e71bbc2c4dbea1f30c548d134e27a1a0578e08f373bd0f7adcbab27",
+    "matchMethod": "EXPLICIT_SUPPLIER_SELECTION",
+    "analyzedAt": "2026-10-23T15:04:32.578693Z"
+  },
+  {
+    "id": "604aeb01-cf14-4dd4-b78b-1eff4904cc16",
+    "externalEventId": "7fdb9214-3465-46f1-b48c-461402412e09",
+    "entity": "Atlas Components",
+    "supplierId": "b0557843-2209-4cc6-adea-35287aea7a1e",
+    "supplierCode": "DEMO-NCC-01",
+    "supplierName": "[DEMO] Atlas Components",
+    "sentiment": "NEGATIVE",
+    "confidence": 0.892298,
+    "probabilities": {
+      "NEUTRAL": 0.072544,
+      "NEGATIVE": 0.892298,
+      "POSITIVE": 0.035158
+    },
+    "language": "en",
+    "needsReview": false,
+    "reviewReason": null,
+    "modelVersion": "bilingual-entity-v2-20261023T133850Z",
+    "inputTruncated": false,
+    "sourceTextSha256": "c38f69790e71bbc2c4dbea1f30c548d134e27a1a0578e08f373bd0f7adcbab27",
+    "matchMethod": "EXPLICIT_SUPPLIER_SELECTION",
+    "analyzedAt": "2026-10-23T15:04:32.358323Z"
+  }
+]

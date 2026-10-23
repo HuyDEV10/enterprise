@@ -35,6 +35,12 @@ const messages = {
   M5_DATASET_UNAVAILABLE:
     'Bộ dữ liệu M5 chưa sẵn sàng. Vui lòng liên hệ quản trị viên.',
   MODEL_UNAVAILABLE: 'Mô hình dự báo chưa sẵn sàng. Vui lòng thử lại sau.',
+  TARGET_NOT_MENTIONED:
+    'Tên thực thể phải xuất hiện trong nội dung tin. Hãy dùng đúng tên hoặc mã có trong bài.',
+  TARGET_TRUNCATED:
+    'Tên thực thể quá dài trong ngữ cảnh. Hãy rút gọn tên hoặc đoạn tin.',
+  ENTITY_TOO_LONG:
+    'Tên thực thể vượt giới hạn của mô hình. Hãy dùng tên công ty hoặc mã ngắn hơn.',
 }
 export function getApiErrorMessage(
   error,

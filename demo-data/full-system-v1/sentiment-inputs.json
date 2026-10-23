@@ -1,0 +1,60 @@
+{
+  "notice": "FICTIONAL DEMO SCENARIOS; not source articles, training data or evaluation metrics.",
+  "texts": {
+    "mixedEn": "Atlas Components reported heavy losses after closing its factory, while Pacific Supply reported record profits.",
+    "positiveEn": "Pacific Supply reported record profits and won a major new contract after expanding production.",
+    "negativeVi": "Minh Phat thua lỗ nặng và buộc phải đóng cửa nhà máy. Hoạt động sản xuất của Minh Phat bị gián đoạn."
+  },
+  "cases": [
+    {
+      "eventId": "7fdb9214-3465-46f1-b48c-461402412e09",
+      "eventCode": "DEMO-EVT-01",
+      "entity": "Atlas Components",
+      "language": "en",
+      "supplierCode": "DEMO-NCC-01",
+      "supplierId": "b0557843-2209-4cc6-adea-35287aea7a1e",
+      "text": "Atlas Components reported heavy losses after closing its factory, while Pacific Supply reported record profits.",
+      "expectedSentiment": "NEGATIVE",
+      "expectedNeedsReview": false,
+      "syntheticDemoText": true
+    },
+    {
+      "eventId": "7fdb9214-3465-46f1-b48c-461402412e09",
+      "eventCode": "DEMO-EVT-01",
+      "entity": "Pacific Supply",
+      "language": "en",
+      "supplierCode": "DEMO-NCC-02",
+      "supplierId": "39382768-d444-41c3-8d1b-9df9d4d90bae",
+      "text": "Atlas Components reported heavy losses after closing its factory, while Pacific Supply reported record profits.",
+      "expectedSentiment": "POSITIVE",
+      "expectedNeedsReview": false,
+      "syntheticDemoText": true,
+      "knownModelLimitation": true,
+      "limitationReason": "Mixed-company English news: model returned NEGATIVE although this target reports record profits; expected POSITIVE is retained."
+    },
+    {
+      "eventId": "f3b23329-46c8-4e9b-ae89-f1e63fc93efb",
+      "eventCode": "DEMO-EVT-02",
+      "entity": "Pacific Supply",
+      "language": "en",
+      "supplierCode": "DEMO-NCC-02",
+      "supplierId": "39382768-d444-41c3-8d1b-9df9d4d90bae",
+      "text": "Pacific Supply reported record profits and won a major new contract after expanding production.",
+      "expectedSentiment": "POSITIVE",
+      "expectedNeedsReview": false,
+      "syntheticDemoText": true
+    },
+    {
+      "eventId": "e8cebea0-6735-4016-abd3-f9668d3630e3",
+      "eventCode": "DEMO-EVT-03",
+      "entity": "Minh Phat",
+      "language": "vi",
+      "supplierCode": "DEMO-NCC-03",
+      "supplierId": "4a0e4844-6774-4a53-814b-3f7324d20f1f",
+      "text": "Minh Phat thua lỗ nặng và buộc phải đóng cửa nhà máy. Hoạt động sản xuất của Minh Phat bị gián đoạn.",
+      "expectedSentiment": "NEGATIVE",
+      "expectedNeedsReview": true,
+      "syntheticDemoText": true
+    }
+  ]
+}

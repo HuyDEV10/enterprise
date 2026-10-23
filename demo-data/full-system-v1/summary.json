@@ -1,0 +1,277 @@
+{
+  "dataset": "FULL-SYSTEM-DEMO-V1",
+  "seedDate": "2026-10-23",
+  "preparedAt": "2026-10-23T22:07:43.883314+07:00",
+  "baseUrl": "http://127.0.0.1:5173/api",
+  "addedThisRun": {},
+  "totalCounts": {
+    "companies": 1,
+    "departments": 5,
+    "employees": 28,
+    "suppliers": 30,
+    "product-categories": 7,
+    "products": 27,
+    "warehouses": 6,
+    "inventory": 57,
+    "purchase-orders": 32,
+    "shipments": 30,
+    "risk-events": 65,
+    "alerts": 65,
+    "users": 24
+  },
+  "supplementCounts": {
+    "companies": 1,
+    "departments": 1,
+    "employees": 20,
+    "suppliers": 4,
+    "product-categories": 1,
+    "products": 7,
+    "warehouses": 1,
+    "inventory": 7,
+    "purchase-orders": 7,
+    "shipments": 7,
+    "risk-events": 0,
+    "alerts": 0,
+    "users": 20,
+    "events": 5
+  },
+  "dashboard": {
+    "totalSuppliers": 30,
+    "highRiskSuppliers": 11,
+    "totalPurchaseOrders": 32,
+    "delayedPurchaseOrders": 8,
+    "openRiskEvents": 55,
+    "unresolvedAlerts": 58,
+    "lowStockItems": 15
+  },
+  "monitoringFirst": {
+    "evaluatedAt": "2026-10-23T22:07:42.6610805+07:00",
+    "lowStockDetected": 15,
+    "delayedPurchaseOrders": 8,
+    "delayedShipments": 8,
+    "highRiskSuppliers": 11,
+    "riskEventsCreated": 0,
+    "riskEventsUpdated": 0,
+    "riskEventsResolved": 0,
+    "alertsCreated": 0,
+    "alertsResolved": 0
+  },
+  "monitoringSecond": {
+    "evaluatedAt": "2026-10-23T22:07:42.820781+07:00",
+    "lowStockDetected": 15,
+    "delayedPurchaseOrders": 8,
+    "delayedShipments": 8,
+    "highRiskSuppliers": 11,
+    "riskEventsCreated": 0,
+    "riskEventsUpdated": 0,
+    "riskEventsResolved": 0,
+    "alertsCreated": 0,
+    "alertsResolved": 0
+  },
+  "statusDistributions": {
+    "purchase-orders": {
+      "ORDERED": 7,
+      "DRAFT": 5,
+      "DELAYED": 8,
+      "IN_TRANSIT": 4,
+      "DELIVERED": 4,
+      "CANCELLED": 4
+    },
+    "shipments": {
+      "DELAYED": 8,
+      "PENDING": 10,
+      "SHIPPING": 4,
+      "ARRIVED": 4,
+      "CANCELLED": 4
+    },
+    "risk-events": {
+      "INVESTIGATING": 4,
+      "OPEN": 55,
+      "RESOLVED": 3,
+      "CLOSED": 3
+    },
+    "alerts": {
+      "RESOLVED": 7,
+      "NEW": 55,
+      "READ": 3
+    },
+    "users": {
+      "ACTIVE": 23,
+      "INACTIVE": 1
+    }
+  },
+  "eventSources": {
+    "DEMO_FIXTURE": 5,
+    "GDELT_2_EVENT": 103
+  },
+  "forecastCases": [
+    {
+      "productId": "7a4f68f5-eb96-45b9-8f43-62f74574458b",
+      "productCode": "DEMO-AI-01",
+      "sourceItemId": "FOODS_3_003",
+      "sourceLocationId": "CA_1",
+      "expectedRisk": "LOW",
+      "observedRisk": "LOW",
+      "currentInventory": 10000.0,
+      "lowStockThreshold": 20.0,
+      "forecastDemand": {
+        "next7Days": 5.1411,
+        "next14Days": 10.7898,
+        "next28Days": 21.5156
+      },
+      "incomingSupply": {
+        "next7Days": 0,
+        "next14Days": 0,
+        "next28Days": 0
+      },
+      "projectedInventory": {
+        "next7Days": 9994.8589,
+        "next14Days": 9989.2102,
+        "next28Days": 9978.4844
+      },
+      "projectedStockoutDate": null,
+      "historyDays": 365,
+      "historySource": "M5"
+    },
+    {
+      "productId": "7b0bd231-cb85-4794-9c90-df762e479b8d",
+      "productCode": "DEMO-AI-02",
+      "sourceItemId": "FOODS_3_007",
+      "sourceLocationId": "CA_1",
+      "expectedRisk": "HIGH",
+      "observedRisk": "HIGH",
+      "currentInventory": 30.0,
+      "lowStockThreshold": 10.0,
+      "forecastDemand": {
+        "next7Days": 13.5806,
+        "next14Days": 27.4343,
+        "next28Days": 54.5898
+      },
+      "incomingSupply": {
+        "next7Days": 0,
+        "next14Days": 0,
+        "next28Days": 0
+      },
+      "projectedInventory": {
+        "next7Days": 16.4194,
+        "next14Days": 2.5657,
+        "next28Days": -24.5898
+      },
+      "projectedStockoutDate": "2026-11-08",
+      "historyDays": 365,
+      "historySource": "M5"
+    },
+    {
+      "productId": "583d608d-0eee-48ee-88dd-e8b518d0dfe0",
+      "productCode": "DEMO-AI-03",
+      "sourceItemId": "FOODS_3_002",
+      "sourceLocationId": "CA_1",
+      "expectedRisk": "MEDIUM",
+      "observedRisk": "MEDIUM",
+      "currentInventory": 50.0,
+      "lowStockThreshold": 15.0,
+      "forecastDemand": {
+        "next7Days": 10.0251,
+        "next14Days": 21.6031,
+        "next28Days": 41.3919
+      },
+      "incomingSupply": {
+        "next7Days": 0,
+        "next14Days": 0,
+        "next28Days": 0
+      },
+      "projectedInventory": {
+        "next7Days": 39.9749,
+        "next14Days": 28.3969,
+        "next28Days": 8.6081
+      },
+      "projectedStockoutDate": null,
+      "historyDays": 365,
+      "historySource": "M5"
+    },
+    {
+      "productId": "0806661d-1048-4b11-8734-2b49a283c514",
+      "productCode": "DEMO-AI-04",
+      "sourceItemId": "FOODS_3_008",
+      "sourceLocationId": "CA_1",
+      "expectedRisk": "CRITICAL",
+      "observedRisk": "CRITICAL",
+      "currentInventory": 10.0,
+      "lowStockThreshold": 5.0,
+      "forecastDemand": {
+        "next7Days": 27.8189,
+        "next14Days": 56.4319,
+        "next28Days": 112.241
+      },
+      "incomingSupply": {
+        "next7Days": 0,
+        "next14Days": 0,
+        "next28Days": 0
+      },
+      "projectedInventory": {
+        "next7Days": -17.8189,
+        "next14Days": -46.4319,
+        "next28Days": -102.241
+      },
+      "projectedStockoutDate": "2026-10-25",
+      "historyDays": 365,
+      "historySource": "M5"
+    },
+    {
+      "productId": "76987838-1297-433d-905c-742ff20c7b70",
+      "productCode": "DEMO-AI-05",
+      "sourceItemId": "FOODS_3_009",
+      "sourceLocationId": "CA_1",
+      "expectedRisk": "LOW",
+      "observedRisk": "LOW",
+      "currentInventory": 8.0,
+      "lowStockThreshold": 5.0,
+      "forecastDemand": {
+        "next7Days": 5.121,
+        "next14Days": 10.8103,
+        "next28Days": 21.5061
+      },
+      "incomingSupply": {
+        "next7Days": 50.0,
+        "next14Days": 50.0,
+        "next28Days": 50.0
+      },
+      "projectedInventory": {
+        "next7Days": 52.879,
+        "next14Days": 47.1897,
+        "next28Days": 36.4939
+      },
+      "projectedStockoutDate": null,
+      "historyDays": 365,
+      "historySource": "M5"
+    },
+    {
+      "productId": "f0cf1a0f-8374-48c3-851e-06d7bebf537b",
+      "productCode": "DEMO-AI-06",
+      "sourceItemId": "FOODS_3_010",
+      "sourceLocationId": "CA_1",
+      "expectedRisk": "CRITICAL",
+      "observedRisk": "CRITICAL",
+      "currentInventory": 2.0,
+      "lowStockThreshold": 5.0,
+      "forecastDemand": {
+        "next7Days": 5.8364,
+        "next14Days": 11.6774,
+        "next28Days": 22.5716
+      },
+      "incomingSupply": {
+        "next7Days": 0,
+        "next14Days": 100.0,
+        "next28Days": 100.0
+      },
+      "projectedInventory": {
+        "next7Days": -3.8364,
+        "next14Days": 90.3226,
+        "next28Days": 79.4284
+      },
+      "projectedStockoutDate": "2026-10-26",
+      "historyDays": 365,
+      "historySource": "M5"
+    }
+  ]
+}

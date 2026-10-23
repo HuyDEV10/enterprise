@@ -4,22 +4,35 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.http.client.SimpleClientHttpRequestFactory;
 import org.springframework.web.client.RestClient;
+import org.springframework.web.client.RestClientException;
+import org.springframework.web.client.HttpClientErrorException;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.InputStreamReader;
+import java.net.URI;
 import java.nio.charset.StandardCharsets;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.time.format.ResolverStyle;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Set;
+import java.util.regex.Pattern;
 import java.util.zip.ZipInputStream;
 
 @Service
 @RequiredArgsConstructor
 public class GdeltIngestionService {
     private static final String SOURCE = "GDELT_2_EVENT";
+    private static final Pattern OFFICIAL_EXPORT_PATH = Pattern.compile("^/gdeltv2/(\\d{14})\\.export\\.CSV\\.zip$");
+    private static final DateTimeFormatter BATCH_TIMESTAMP = DateTimeFormatter.ofPattern("uuuuMMddHHmmss")
+            .withResolverStyle(ResolverStyle.STRICT);
     private final ExternalEventRepository events;
     private final RestClient.Builder restClientBuilder;
 
@@ -33,14 +46,13 @@ public class GdeltIngestionService {
         }
         Set<String> countries = normalized(countryCodes);
         Set<String> roots = normalized(eventRootCodes);
-        RestClient client = restClientBuilder.build();
-
-        String manifest = client.get().uri(lastUpdateUrl).retrieve().body(String.class);
-        String exportUrl = findExportUrl(manifest);
-        byte[] zipBytes = client.get().uri(exportUrl).retrieve().body(byte[].class);
-        if (zipBytes == null || zipBytes.length == 0) {
-            throw new IllegalStateException("GDELT latest export is empty");
-        }
+        SimpleClientHttpRequestFactory factory = new SimpleClientHttpRequestFactory();
+        factory.setConnectTimeout(10_000);
+        factory.setReadTimeout(30_000);
+        RestClient client = restClientBuilder.clone().requestFactory(factory).build();
+        DownloadedExport download = downloadLatest(client, lastUpdateUrl);
+        String exportUrl = download.sourceUrl();
+        byte[] zipBytes = download.bytes();
 
         int rowsRead = 0;
         int rowsMatched = 0;
@@ -48,7 +60,7 @@ public class GdeltIngestionService {
         int updated = 0;
         try (ZipInputStream zip = new ZipInputStream(new ByteArrayInputStream(zipBytes), StandardCharsets.UTF_8)) {
             if (zip.getNextEntry() == null) {
-                throw new IllegalStateException("GDELT latest export ZIP has no entries");
+                throw new GdeltUnavailableException("GDELT export ZIP has no entries");
             }
             try (BufferedReader reader = new BufferedReader(new InputStreamReader(zip, StandardCharsets.UTF_8))) {
                 String line;
@@ -82,9 +94,64 @@ public class GdeltIngestionService {
                 }
             }
         } catch (java.io.IOException ex) {
-            throw new IllegalStateException("Unable to read GDELT latest export", ex);
+            throw new GdeltUnavailableException("Unable to read GDELT event export; retry later", ex);
         }
         return new GdeltIngestionResponse(exportUrl, rowsRead, rowsMatched, created, updated);
+    }
+
+    record DownloadedExport(String sourceUrl, byte[] bytes) {}
+
+    static DownloadedExport downloadLatest(RestClient client, String manifestUrl) {
+        try {
+            String manifest = client.get().uri(manifestUrl).retrieve().body(String.class);
+            String advertised;
+            try {
+                advertised = findExportUrl(manifest);
+            } catch (IllegalArgumentException | IllegalStateException ex) {
+                throw new GdeltUnavailableException("GDELT export manifest is unavailable or invalid; retry later", ex);
+            }
+            HttpClientErrorException.NotFound lastMissing = null;
+            for (String url : exportCandidates(advertised)) {
+                try {
+                    byte[] bytes = client.get().uri(url).retrieve().body(byte[].class);
+                    if (bytes == null || bytes.length == 0) {
+                        throw new GdeltUnavailableException("GDELT event export is empty; retry later");
+                    }
+                    return new DownloadedExport(url, bytes);
+                } catch (HttpClientErrorException.NotFound ex) {
+                    // Publication can lag behind lastupdate.txt. Only bounded official
+                    // timestamp candidates are retried; all other failures stop here.
+                    lastMissing = ex;
+                }
+            }
+            throw new GdeltUnavailableException("GDELT recent event exports are not published yet; retry later", lastMissing);
+        } catch (RestClientException ex) {
+            throw new GdeltUnavailableException("GDELT feed is temporarily unavailable; retry later", ex);
+        }
+    }
+
+    static List<String> exportCandidates(String advertised) {
+        URI uri = URI.create(advertised);
+        var match = OFFICIAL_EXPORT_PATH.matcher(uri.getRawPath() == null ? "" : uri.getRawPath());
+        if (!"https".equalsIgnoreCase(uri.getScheme())
+                || !"data.gdeltproject.org".equalsIgnoreCase(uri.getHost())
+                || uri.getPort() != -1 || uri.getUserInfo() != null
+                || uri.getRawQuery() != null || uri.getRawFragment() != null || !match.matches()) {
+            return List.of(advertised);
+        }
+        LocalDateTime timestamp;
+        try {
+            timestamp = LocalDateTime.parse(match.group(1), BATCH_TIMESTAMP);
+        } catch (DateTimeParseException ex) {
+            return List.of(advertised);
+        }
+        List<String> candidates = new ArrayList<>();
+        candidates.add(advertised);
+        for (int offset = 1; offset <= 4; offset++) {
+            candidates.add("https://data.gdeltproject.org/gdeltv2/"
+                    + timestamp.minusMinutes(15L * offset).format(BATCH_TIMESTAMP) + ".export.CSV.zip");
+        }
+        return List.copyOf(candidates);
     }
 
     private static boolean matches(GdeltEventRecord record, Set<String> countries, Set<String> roots) {
@@ -108,7 +175,7 @@ public class GdeltIngestionService {
         return result;
     }
 
-    private static String findExportUrl(String manifest) {
+    static String findExportUrl(String manifest) {
         if (manifest == null) {
             throw new IllegalStateException("GDELT lastupdate manifest is empty");
         }
@@ -116,8 +183,18 @@ public class GdeltIngestionService {
                 .map(String::trim)
                 .filter(line -> line.contains(".export.CSV.zip"))
                 .map(line -> line.substring(line.lastIndexOf(' ') + 1))
+                .map(GdeltIngestionService::preferOfficialHttps)
                 .findFirst()
                 .orElseThrow(() -> new IllegalStateException("GDELT lastupdate manifest contains no event export"));
+    }
+
+    private static String preferOfficialHttps(String value) {
+        URI uri = URI.create(value);
+        if ("http".equalsIgnoreCase(uri.getScheme())
+                && "data.gdeltproject.org".equalsIgnoreCase(uri.getHost())) {
+            return "https" + value.substring(value.indexOf(':'));
+        }
+        return value;
     }
 
     private static void apply(ExternalEvent event, GdeltEventRecord record) {

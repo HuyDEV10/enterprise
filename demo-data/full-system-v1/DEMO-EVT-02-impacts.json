@@ -1,0 +1,30 @@
+[
+  {
+    "id": "71706cee-d2df-4fa7-9211-f9b7cb94ebce",
+    "externalEventId": "f3b23329-46c8-4e9b-ae89-f1e63fc93efb",
+    "externalSource": "DEMO_FIXTURE",
+    "sourceEventId": "DEMO-EVT-02",
+    "supplierId": "b0557843-2209-4cc6-adea-35287aea7a1e",
+    "supplierCode": "DEMO-NCC-01",
+    "supplierName": "[DEMO] Atlas Components",
+    "impactScore": 72.22,
+    "impactLevel": "HIGH",
+    "impactType": "NEUTRAL",
+    "explanation": "Transparent business exposure score=72.22/100; level=HIGH; signal=NEUTRAL. Exposure: activePOs=3, activeShipments=3, affectedProducts=1, inventoryCoveredProducts=1, lowStockProducts=1. Components: EVENT_SEVERITY[weight=25.0, factor=0.00, reason=CAMEO root code plus negative Goldstein/tone when available]; LOCATION_RELEVANCE[weight=20.0, factor=1.00, reason=Deterministic country/region/address text matching]; SUPPLIER_EXPOSURE[weight=15.0, factor=1.00, reason=Deterministic actor-to-supplier name/code matching; not machine learning]; ORDER_EXPOSURE[weight=15.0, factor=1.00, reason=Active purchase orders=3]; SHIPMENT_EXPOSURE[weight=10.0, factor=1.00, reason=Active shipments=3]; INVENTORY_DEPENDENCY[weight=5.0, factor=1.00, reason=Low-stock products=1/1 inventory-covered affected products]; ENTITY_SENTIMENT[weight=5.0, factor=N/A, reason=Not scored because entity sentiment is NOT_ANALYZED]; COMMODITY_PRESSURE[weight=5.0, factor=N/A, reason=Not scored in Phase 6E: no verified product-to-commodity mapping exists yet]; Missing components are excluded and available weights are renormalized. This is a business rule score, not a supervised ML prediction. No company-specific sentiment evidence: event-wide legacy sentiment is excluded.",
+    "calculatedAt": "2026-10-23T22:07:41.9199521+07:00"
+  },
+  {
+    "id": "d81963dc-7c31-4868-834a-c6c713b179af",
+    "externalEventId": "f3b23329-46c8-4e9b-ae89-f1e63fc93efb",
+    "externalSource": "DEMO_FIXTURE",
+    "sourceEventId": "DEMO-EVT-02",
+    "supplierId": "39382768-d444-41c3-8d1b-9df9d4d90bae",
+    "supplierCode": "DEMO-NCC-02",
+    "supplierName": "[DEMO] Pacific Supply",
+    "impactScore": 59.21,
+    "impactLevel": "HIGH",
+    "impactType": "OPPORTUNITY_SIGNAL",
+    "explanation": "Transparent business exposure score=59.21/100; level=HIGH; signal=OPPORTUNITY_SIGNAL. Exposure: activePOs=2, activeShipments=2, affectedProducts=2, inventoryCoveredProducts=2, lowStockProducts=1. Components: EVENT_SEVERITY[weight=25.0, factor=0.00, reason=CAMEO root code plus negative Goldstein/tone when available]; LOCATION_RELEVANCE[weight=20.0, factor=1.00, reason=Deterministic country/region/address text matching]; SUPPLIER_EXPOSURE[weight=15.0, factor=1.00, reason=Deterministic actor-to-supplier name/code matching; not machine learning]; ORDER_EXPOSURE[weight=15.0, factor=0.75, reason=Active purchase orders=2]; SHIPMENT_EXPOSURE[weight=10.0, factor=0.75, reason=Active shipments=2]; INVENTORY_DEPENDENCY[weight=5.0, factor=0.50, reason=Low-stock products=1/2 inventory-covered affected products]; ENTITY_SENTIMENT[weight=5.0, factor=0.00, reason=Accepted target-specific sentiment=POSITIVE]; COMMODITY_PRESSURE[weight=5.0, factor=N/A, reason=Not scored in Phase 6E: no verified product-to-commodity mapping exists yet]; Missing components are excluded and available weights are renormalized. This is a business rule score, not a supervised ML prediction. Target sentiment: entity=Pacific Supply; label=POSITIVE; confidence=0.625102; needsReview=false; match=EXPLICIT_SUPPLIER_SELECTION; model=bilingual-entity-v2-20261023T133850Z; accepted for this supplier only.",
+    "calculatedAt": "2026-10-23T22:07:41.9338649+07:00"
+  }
+]

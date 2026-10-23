@@ -55,6 +55,11 @@ public class ExternalEventController {
         return impacts.calculate(id);
     }
 
+    @GetMapping("/{id}/sentiments")
+    public List<ExternalEventSentimentResponse> sentiments(@PathVariable UUID id) {
+        return service.sentiments(id);
+    }
+
     @GetMapping("/{id}/impacts")
     public List<ExternalEventImpactResponse> impacts(@PathVariable UUID id) {
         return impacts.byEvent(id);

@@ -37,6 +37,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
+import java.util.Comparator;
 
 @Service
 @RequiredArgsConstructor
@@ -65,21 +66,25 @@ public class ExternalEventImpactService {
     private final InventoryItemRepository inventoryItems;
     private final RiskEventRepository riskEvents;
     private final AlertRepository alerts;
+    private final ExternalEventSentimentRepository sentiments;
 
     @Transactional
     public List<ExternalEventImpactResponse> calculate(UUID eventId) {
-        ExternalEvent event = events.findById(eventId)
+        // Serialize calculations and sentiment writes for this event.
+        ExternalEvent event = events.findByIdForUpdate(eventId)
                 .orElseThrow(() -> new ResourceNotFoundException("External event not found: " + eventId));
 
         List<PurchaseOrder> allOrders = purchaseOrders.findAll();
         List<PurchaseOrderItem> allOrderItems = purchaseOrderItems.findAll();
         List<Shipment> allShipments = shipments.findAll();
         List<ExternalEventImpactResponse> result = new ArrayList<>();
+        List<ExternalEventSentiment> analyses = sentiments.findByExternalEventIdOrderByAnalyzedAtDesc(eventId);
 
         for (Supplier supplier : suppliers.findAll()) {
             Exposure exposure = exposureFor(supplier, allOrders, allOrderItems, allShipments);
+            ExternalEventSentiment evidence = evidenceFor(supplier, analyses);
             BusinessExposureScoring.Result scoring = BusinessExposureScoring.calculate(
-                    scoringInput(event, supplier, exposure));
+                    scoringInput(event, supplier, exposure, evidence));
 
             ExternalEventImpact impact = impacts
                     .findByExternalEventIdAndSupplierId(eventId, supplier.getId())
@@ -101,7 +106,7 @@ public class ExternalEventImpactService {
             impact.setImpactScore(scoring.score());
             impact.setImpactLevel(scoring.impactLevel());
             impact.setImpactType(scoring.signal());
-            impact.setExplanation(explanation(scoring, exposure));
+            impact.setExplanation(explanation(scoring, exposure) + sentimentExplanation(evidence));
             impact.setCalculatedAt(OffsetDateTime.now());
             impact = impacts.save(impact);
             result.add(ExternalEventImpactResponse.from(impact));
@@ -180,7 +185,8 @@ public class ExternalEventImpactService {
     private static BusinessExposureScoring.Input scoringInput(
             ExternalEvent event,
             Supplier supplier,
-            Exposure exposure) {
+            Exposure exposure,
+            ExternalEventSentiment evidence) {
         return new BusinessExposureScoring.Input(
                 event.getEventRootCode(),
                 event.getGoldsteinScore(),
@@ -188,9 +194,9 @@ public class ExternalEventImpactService {
                 event.getCountryCode(),
                 event.getCountry(),
                 event.getLocation(),
-                event.getActor1Name(),
+                evidence == null ? event.getActor1Name() : supplier.getName(),
                 event.getActor2Name(),
-                event.getSentiment(),
+                acceptedSentiment(evidence),
                 supplier.getSupplierCode(),
                 supplier.getName(),
                 supplier.getCountry(),
@@ -201,6 +207,26 @@ public class ExternalEventImpactService {
                 exposure.affectedProducts(),
                 exposure.inventoryCoveredProducts(),
                 exposure.lowStockProducts());
+    }
+
+    static ExternalEventSentiment evidenceFor(Supplier supplier, List<ExternalEventSentiment> analyses) {
+        // Only persisted, unambiguous identity mappings may affect a supplier.
+        return analyses.stream().filter(value -> value.getSupplier() != null
+                && value.getSupplier().getId().equals(supplier.getId()))
+                .max(Comparator.comparing(ExternalEventSentiment::getAnalyzedAt,
+                Comparator.nullsFirst(Comparator.naturalOrder()))).orElse(null);
+    }
+
+    static EntitySentiment acceptedSentiment(ExternalEventSentiment evidence) {
+        return evidence == null || evidence.isNeedsReview() ? EntitySentiment.NOT_ANALYZED : evidence.getSentiment();
+    }
+
+    private static String sentimentExplanation(ExternalEventSentiment evidence) {
+        if (evidence == null) return " No company-specific sentiment evidence: event-wide legacy sentiment is excluded.";
+        return " Target sentiment: entity=" + evidence.getTargetEntity() + "; label=" + evidence.getSentiment()
+                + "; confidence=" + evidence.getConfidence() + "; needsReview=" + evidence.isNeedsReview()
+                + "; match=" + evidence.getMatchMethod() + "; model=" + evidence.getModelVersion()
+                + (evidence.isNeedsReview() ? "; excluded from accepted sentiment score pending review." : "; accepted for this supplier only.");
     }
 
     private static String explanation(BusinessExposureScoring.Result scoring, Exposure exposure) {

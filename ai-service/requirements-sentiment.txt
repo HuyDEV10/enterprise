@@ -1,0 +1,7 @@
+# Install the CUDA wheel separately on an NVIDIA workstation; see docs/SENTIMENT-PIPELINE.md.
+torch==2.8.0
+transformers==4.57.1
+tokenizers==0.22.1
+safetensors==0.6.2
+huggingface-hub==0.36.0
+tqdm==4.67.1

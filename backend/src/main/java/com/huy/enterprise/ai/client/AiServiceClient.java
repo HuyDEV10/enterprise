@@ -16,6 +16,7 @@ import java.io.IOException;
 import java.net.SocketTimeoutException;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 import java.util.function.Supplier;
 
 @Component
@@ -48,13 +49,31 @@ public class AiServiceClient {
     }
 
     public EntitySentimentResponse analyzeEntitySentiment(String entity, String text) {
+        return analyzeEntitySentiment(entity, text, "auto");
+    }
+
+    public EntitySentimentResponse analyzeEntitySentiment(String entity, String text, String language) {
         EntitySentimentResponse result = retrieve(() -> restClient.post().uri("/api/v1/sentiment/entity")
-                .body(new EntitySentimentRequest(entity, text)).retrieve(), EntitySentimentResponse.class);
+                .body(new EntitySentimentRequest(entity, text, language, "supply_chain_news")).retrieve(), EntitySentimentResponse.class);
         if (result.entity() == null || !result.entity().equals(entity.trim())
                 || result.sentiment() == null || !List.of("POSITIVE", "NEGATIVE", "NEUTRAL").contains(result.sentiment())
                 || !Double.isFinite(result.confidence()) || result.confidence() < 0 || result.confidence() > 1
-                || result.modelVersion() == null || result.modelVersion().isBlank()) {
+                || result.modelVersion() == null || result.modelVersion().isBlank() || result.modelVersion().length() > 100
+                || (result.language() != null && !List.of("en","vi").contains(result.language()))) {
             throw new AiServiceProtocolException("AI service returned an invalid sentiment response");
+        }
+        if (result.probabilities() != null && !result.probabilities().isEmpty()) {
+            double sum = 0;
+            if (!result.probabilities().keySet().equals(java.util.Set.of("POSITIVE","NEGATIVE","NEUTRAL")))
+                throw new AiServiceProtocolException("AI service returned invalid sentiment probabilities");
+            for (Double value : result.probabilities().values()) {
+                if (value == null || !Double.isFinite(value) || value < 0 || value > 1)
+                    throw new AiServiceProtocolException("AI service returned invalid sentiment probabilities");
+                sum += value;
+            }
+            double largest = result.probabilities().values().stream().mapToDouble(Double::doubleValue).max().orElseThrow();
+            if (Math.abs(sum-1.) > .00002 || Math.abs(result.probabilities().get(result.sentiment())-result.confidence()) > .00002 || Math.abs(largest-result.confidence()) > .00002)
+                throw new AiServiceProtocolException("AI service returned inconsistent sentiment probabilities");
         }
         return result;
     }
@@ -141,6 +160,12 @@ public class AiServiceClient {
     public record DemandForecastResponse(int historyDays, String modelVersion, List<DemandForecastPoint> forecast, DemandForecastSummary summary) {}
     public record M5DemandPoint(LocalDate date, Double quantity, Double sellPrice, String sourceDayKey) {}
     public record M5SeriesResponse(String seriesId, String itemId, String storeId, String departmentId, String categoryId, String stateId, List<M5DemandPoint> history) {}
-    public record EntitySentimentRequest(String entity, String text) {}
-    public record EntitySentimentResponse(String entity, String sentiment, double confidence, String modelVersion) {}
+    public record EntitySentimentRequest(String entity, String text, String language, String domain) {}
+    public record EntitySentimentResponse(String entity, String sentiment, double confidence, String modelVersion,
+            Map<String,Double> probabilities, String language, Boolean needsReview, String reviewReason, Boolean inputTruncated) {
+        public EntitySentimentResponse(String entity, String sentiment, double confidence, String modelVersion) {
+            this(entity,sentiment,confidence,modelVersion,Map.of(),"en",true,"LEGACY_UNCALIBRATED",false);
+        }
+        public boolean requiresReview() { return !Boolean.FALSE.equals(needsReview); }
+    }
 }

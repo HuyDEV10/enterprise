@@ -82,7 +82,7 @@ public final class BusinessExposureScoring {
                 sentiment,
                 sentiment == null
                         ? "Not scored because entity sentiment is NOT_ANALYZED"
-                        : "FinEntity entity-level sentiment=" + input.sentiment().name()));
+                        : "Accepted target-specific sentiment=" + input.sentiment().name()));
 
         components.put("COMMODITY_PRESSURE", new Component(
                 COMMODITY_PRESSURE_WEIGHT,
